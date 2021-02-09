@@ -7,12 +7,6 @@
             <div class="card">
                 <div class="card-header">
                     {{ __('Dashboard') }}
-
-                    @if(Auth::user()->assign_task_access == 1)
-                        <a class="btn btn-success float-right" href="{{ url('/add_task') }}" title="Assign Task">
-                            <i class="fa fa-plus"></i> New Task
-                        </a>
-                    @endif
                 </div>
 
                 <div class="card-body">
