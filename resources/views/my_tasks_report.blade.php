@@ -6,18 +6,55 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    {{ __('My Tasks') }}
-
-                    <div class="btn-toolbar float-right">
-                        @if(Auth::user()->assign_task_access == 1)
-                            <a class="btn btn-success" href="{{ url('/tasks') }}" title="Assigned Tasks">
-                                <i class="fa fa-list"></i> Assigned Tasks
-                            </a>
-                        @endif
-                    </div>
+                    {{ __('My Tasks Report') }}
                 </div>
 
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="mb-3">
+                                <label for="assigned_by" class="form-label">Assigned By</label>
+                                <select class="form-control" id="assigned_by" name="assigned_by">
+                                    <option value="">Select Email</option>
+
+                                    @foreach($assigned_by_emails as $e)
+
+                                    <option value="{{ $e->assigned_by }}">{{ $e->assigned_by }}</option>
+
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label for="assigned_date_from" class="form-label">Assign Date From</label>
+                                <input class="form-control" type="date" id="assigned_date_from" name="assigned_date_from" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label for="assigned_date_to" class="form-label">Assign Date To</label>
+                                <input class="form-control" type="date" id="assigned_date_to" name="assigned_date_to" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Status</label>
+                                <select class="form-control" id="status" name="status">
+                                    <option value="">Select Status</option>
+                                    <option value="2">Pending</option>
+                                    <option value="1">Completed</option>
+                                    <option value="0">Terminated</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <span class="btn btn-success mt-4" onclick="getMyTaskReport()">SEARCH</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
@@ -26,35 +63,17 @@
                                     <th class="text-center">TASK</th>
                                     <th class="text-center">ASSIGNED ON</th>
                                     <th class="text-center">DELIVERY DATE</th>
+                                    <th class="text-center">RESCHEDULE DATE</th>
                                     <th class="text-center">CHANGE COUNT</th>
-                                    <th class="text-center">REMARKS</th>
                                     <th class="text-center">STATUS</th>
+                                    <th class="text-center">TARGET LEAD TIME</th>
+                                    <th class="text-center">ACTUAL LEAD TIME</th>
+                                    <th class="text-center">COMPLETE DATE</th>
                                     <th class="text-center">ACTION</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach($tasks as $k => $t)
-                                    <tr>
-                                        <td>{{ $k+1 }}</td>
-                                        <td>{{ $t->task_name }}</td>
-                                        <td class="text-center">{{ $t->assign_date }}</td>
-                                        <td class="text-center">{{ $t->reschedule_delivery_date }}</td>
-                                        <td class="text-center">{{ $t->change_count }}</td>
-                                        <td>{{ $t->remarks }}</td>
-                                        <td class="text-center">{{ ($t->status == 2 ? 'Pending' : ($t->status == 0 ? 'Terminated' : 'Completed')) }}</td>
-                                        <td class="text-center">
-                                            <span class="btn btn-sm btn-warning" title="Reschedule Task" onclick="rescheduleDeliveryDate({{ $t->id }})">
-                                                <i class="fa fa-clock"></i>
-                                            </span>
-                                            <span class="btn btn-sm btn-primary" title="View" title="Task Detail" onclick="getAssignedTaskDetail({{ $t->id }})">
-                                                <i class="fa fa-eye"></i>
-                                            </span>
-                                            <a class="btn btn-sm btn-success" href="{{ url('/edit_task') }}" title="Meeting">
-                                                <i class="far fa-comments"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                            <tbody id="tbody_id">
+
                             </tbody>
                         </table>
                 </div>
@@ -87,9 +106,9 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="assigned_by" class="col-sm-4 col-form-label font-weight-bold">Assigned By:</label>
+                        <label for="assigned_by_2" class="col-sm-4 col-form-label font-weight-bold">Assigned By:</label>
                         <div class="col-sm-8">
-                            <p class="col-form-label" id="assigned_by"></p>
+                            <p class="col-form-label" id="assigned_by_2"></p>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -123,9 +142,15 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="status" class="col-sm-4 col-form-label font-weight-bold">Status:</label>
+                        <label for="status_1" class="col-sm-4 col-form-label font-weight-bold">Status:</label>
                         <div class="col-sm-8">
-                            <p class="col-form-label" id="status"></p>
+                            <p class="col-form-label" id="status_1"></p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="complete_date" class="col-sm-4 col-form-label font-weight-bold">Complete Date:</label>
+                        <div class="col-sm-8">
+                            <p class="col-form-label" id="complete_date"></p>
                         </div>
                     </div>
                 </div>
@@ -136,47 +161,23 @@
         </div>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Reschedule Delivery Date</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group row">
-                        <label for="reschedule_date" class="col-sm-4 col-form-label font-weight-bold">Select Date:</label>
-                        <div class="col-sm-8">
-                            <input type="date" class="form-control" name="reschedule_date" id="reschedule_date" />
-                            <input type="hidden" class="form-control" name="task_id_2" id="task_id_2" />
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <span class="btn btn-primary" onclick="rescheduleTaskDeliveryDate()">Save</span>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <script type="text/javascript">
+    $('select').select2();
 
-    function getAssignedTaskDetail(task_id){
+    function getMyTaskDetail(task_id){
 
         $("#task_id").val('');
         $("#task_name").empty();
         $("#task_description").empty();
-        $("#assigned_by").empty();
+        $("#assigned_by_2").empty();
         $("#assign_date").empty();
         $("#delivery_date").empty();
         $("#reschedule_delivery_date").empty();
         $("#change_count").empty();
         $("#remarks").empty();
-        $("#status").empty();
+        $("#status_1").empty();
 
         $.ajax({
             url: "{{ route("get_assigned_task_detail") }}",
@@ -188,13 +189,14 @@
                 $("#task_id").val(data.id);
                 $("#task_name").text(data.task_name);
                 $("#task_description").text(data.task_description);
-                $("#assigned_by").text(data.assigned_by);
+                $("#assigned_by_2").text(data.assigned_by);
                 $("#assign_date").text(data.assign_date);
                 $("#delivery_date").text(data.delivery_date);
                 $("#reschedule_delivery_date").text(data.reschedule_delivery_date);
                 $("#change_count").text(data.change_count != null ? data.change_count : 0);
                 $("#remarks").text(data.remarks);
-                $("#status").text(data.status == 0 ? 'Terminated' : (data.status == 1 ? 'Completed' : 'Pending'));
+                $("#status_1").text(data.status == 0 ? 'Terminated' : (data.status == 1 ? 'Completed' : 'Pending'));
+                $("#complete_date").text(data.actual_complete_date);
 
                 $('#exampleModalLong').modal('show');
 
@@ -203,37 +205,26 @@
 
     }
 
-    function rescheduleDeliveryDate(task_id) {
-        $("#task_id_2").val('');
-        $("#task_id_2").val(task_id);
+    function getMyTaskReport() {
+        var assigned_by = $("#assigned_by").val();
+        var assigned_date_from = $("#assigned_date_from").val();
+        var assigned_date_to = $("#assigned_date_to").val();
+        var status = $("#status").val();
 
-        $('#exampleModal').modal('show');
-    }
+        $("#tbody_id").empty();
 
-    function rescheduleTaskDeliveryDate() {
+        $.ajax({
+            url: "{{ route("get_my_task_report") }}",
+            type:'POST',
+            data: {_token:"{{csrf_token()}}", assigned_by: assigned_by, assigned_date_from: assigned_date_from, assigned_date_to: assigned_date_to, status: status},
+            dataType: "html",
+            success: function (data) {
 
-        var res = confirm('Do you want to reschedule the delivery date?');
+                $("#tbody_id").append(data);
 
-        if(res == true){
-            var task_id = $("#task_id_2").val();
-            var reschedule_date = $("#reschedule_date").val();
+            }
+        });
 
-            $.ajax({
-                url: "{{ route("reschedule_task_delivery_date") }}",
-                type:'POST',
-                data: {_token:"{{csrf_token()}}", task_id: task_id, reschedule_date: reschedule_date},
-                dataType: "html",
-                success: function (data) {
-
-                    if(data == 'done'){
-
-                        location.reload();
-
-                    }
-
-                }
-            });
-        }
     }
 
 </script>

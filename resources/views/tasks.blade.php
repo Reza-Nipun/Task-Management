@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
@@ -43,7 +43,7 @@
                                         <td>{{ $k+1 }}</td>
                                         <td>{{ $t->task_name }}</td>
                                         <td>{{ $t->assigned_to }}</td>
-                                        <td>{{ $t->assign_date }}</td>
+                                        <td class="text-center">{{ $t->assign_date }}</td>
                                         <td>{{ $t->reschedule_delivery_date }}</td>
                                         <td>{{ $t->change_count }}</td>
                                         <td>{{ $t->remarks }}</td>
@@ -167,7 +167,6 @@
             data: {_token:"{{csrf_token()}}", task_id: task_id},
             dataType: "json",
             success: function (data) {
-                console.log(data);
 
                 $("#task_id").val(data.id);
                 $("#task_name").text(data.task_name);
@@ -181,6 +180,7 @@
                 $("#status").text(data.status == 0 ? 'Terminated' : (data.status == 1 ? 'Completed' : 'Pending'));
 
                 $('#exampleModalLong').modal('show');
+
             }
         });
 
@@ -191,7 +191,23 @@
         var res = confirm('Do you want to complete the task?');
 
         if(res == true){
+            var task_id = $("#task_id").val();
 
+            $.ajax({
+                url: "{{ route("complete_assigned_task") }}",
+                type:'POST',
+                data: {_token:"{{csrf_token()}}", task_id: task_id},
+                dataType: "html",
+                success: function (data) {
+
+                    if(data == 'done'){
+
+                        location.reload();
+
+                    }
+
+                }
+            });
         }
 
     }
@@ -201,7 +217,23 @@
         var res = confirm('Do you want to terminate the task?');
 
         if(res == true){
+            var task_id = $("#task_id").val();
 
+            $.ajax({
+                url: "{{ route("terminate_assigned_task") }}",
+                type:'POST',
+                data: {_token:"{{csrf_token()}}", task_id: task_id},
+                dataType: "html",
+                success: function (data) {
+
+                    if(data == 'done'){
+
+                        location.reload();
+
+                    }
+
+                }
+            });
         }
 
     }

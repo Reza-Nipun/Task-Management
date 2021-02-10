@@ -61,7 +61,7 @@
                             <div class="col-sm-6">
                                 <div class="mb-3">
                                     <label for="delivery_date" class="form-label">Delivery Date <span style="color: red">*</span></label>
-                                    <input class="form-control" type="date" id="delivery_date" name="delivery_date" required="required" value="{{ $task_info->delivery_date }}" />
+                                    <input class="form-control" type="date" id="delivery_date" name="delivery_date" required="required" value="{{ $task_info->reschedule_delivery_date }}" />
                                 </div>
                             </div>
                         </div>

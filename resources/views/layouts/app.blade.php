@@ -19,6 +19,12 @@
     <!-- Styles -->
     <link href="{{ asset('public/css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <!--Select2 Start-->
+    <script src="{{ asset('public/select2/jquery.min.js') }}"></script>
+    <script src="{{ asset('public/select2/select2.min.js') }}"></script>
+    <link href="{{ asset('public/select2/select2.min.css') }}" rel="stylesheet"/>
+    <!--Select2 End-->
 </head>
 <body>
     <div id="app">
@@ -68,6 +74,16 @@
                                             @endif
                                             <li class="nav-item">
                                                 <a class="nav-link" href="{{ url('/my_tasks') }}">Tasks</a>
+                                            </li>
+                                            <li class="nav-item dropdown">
+                                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                                    Reports
+                                                </a>
+
+                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                                    <a class="nav-link" href="{{ url('/assigned_tasks_report') }}">Assigned Tasks</a>
+                                                    <a class="nav-link" href="{{ url('/my_tasks_report') }}">My Tasks</a>
+                                                </div>
                                             </li>
                                             <li class="nav-item dropdown">
                                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

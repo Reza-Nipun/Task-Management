@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Task;
+use DB;
 
 class TaskController extends Controller
 {
     public function getTasks(){
         $assigned_by = Auth::user()->email;
 
-        $tasks = Task::where('assigned_by', $assigned_by)->where('status', 2)->get();
+        $tasks = Task::where('assigned_by', $assigned_by)->where('status', 2)->orderBy('reschedule_delivery_date', 'asc')->get();
 
         return view('tasks')->with('tasks', $tasks);
     }
@@ -19,7 +20,7 @@ class TaskController extends Controller
     public function myTasks(){
         $assigned_by = Auth::user()->email;
 
-        $tasks = Task::where('assigned_to', $assigned_by)->where('status', 2)->get();
+        $tasks = Task::where('assigned_to', $assigned_by)->where('status', 2)->orderBy('reschedule_delivery_date', 'asc')->get();
 
         return view('my_tasks')->with('tasks', $tasks);
     }
@@ -62,6 +63,43 @@ class TaskController extends Controller
         \Session::flash('message', 'Task Update Successful!');
 
         return redirect()->back();
+    }
+
+    public function completeAssignedTask(Request $request){
+        $task_id = $request->task_id;
+
+        $task = Task::find($task_id);
+
+        $task->status = 1;
+        $task->actual_complete_date = date('Y-m-d');
+        $task->save();
+
+        echo 'done';
+    }
+
+    public function terminateAssignedTask(Request $request){
+        $task_id = $request->task_id;
+
+        $task = Task::find($task_id);
+
+        $task->status = 0;
+        $task->termination_date = date('Y-m-d');
+        $task->save();
+
+        echo 'done';
+    }
+
+    public function rescheduleTaskDeliveryDate(Request $request){
+        $task_id = $request->task_id;
+        $reschedule_date = date('Y-m-d', strtotime($request->reschedule_date));
+
+        $task = Task::find($task_id);
+
+        $task->change_count = ($task->change_count != null ? $task->change_count : 0) + 1;
+        $task->reschedule_delivery_date = "$reschedule_date";
+        $task->save();
+
+        echo 'done';
     }
 
     public function getAssignedTaskDetail(Request $request){
@@ -161,6 +199,158 @@ class TaskController extends Controller
         \Session::flash('message', 'Task Assignment Successful!');
 
         return redirect('/upload_task_file');
+
+    }
+
+    public function assignedTasksReport(){
+        $assigned_by = Auth::user()->email;
+
+        $assigned_to_emails = Task::where('assigned_by', $assigned_by)->groupBy('assigned_to')->get();
+
+        return view('assigned_tasks_report')->with('assigned_to_emails', $assigned_to_emails);
+    }
+
+    public function getAssignedTaskReport(Request $request){
+        $assigned_by = Auth::user()->email;
+
+        $assigned_to = $request->assigned_to;
+        $assigned_date_from = $request->assigned_date_from;
+        $assigned_date_to = $request->assigned_date_to;
+        $status = $request->status;
+
+        $where = "";
+
+        if($assigned_by != ''){
+            $where .= " AND assigned_by='$assigned_by'";
+        }
+
+        if($assigned_to != ''){
+            $where .= " AND assigned_to='$assigned_to'";
+        }
+
+        if($assigned_date_from != '' && $assigned_date_to != ''){
+            $where .= " AND assign_date BETWEEN '$assigned_date_from' AND '$assigned_date_to'";
+        }
+
+        if($status != ''){
+            $where .= " AND status=$status";
+        }
+
+        $tasks = DB::select( "SELECT * FROM tasks WHERE 1 $where" );
+
+        $new_row = '';
+
+        foreach ($tasks as $k => $t){
+
+            $datetime1 = \Carbon\Carbon::createFromFormat('Y-m-d', $t->delivery_date);
+            $datetime2 = \Carbon\Carbon::createFromFormat('Y-m-d', $t->assign_date);
+            $interval = $datetime1->diff($datetime2);
+            $target_lead_time = $interval->format('%a');
+
+            $datetime3 = \Carbon\Carbon::createFromFormat('Y-m-d', $t->reschedule_delivery_date);
+            $datetime4 = \Carbon\Carbon::createFromFormat('Y-m-d', $t->assign_date);
+            $interval_1 = $datetime3->diff($datetime4);
+            $actual_lead_time = $interval_1->format('%a');
+
+            $status = $t->status == 0 ? 'Terminated' : ($t->status == 1 ? 'Completed' : 'Pending');
+
+            $new_row .= '<tr>';
+            $new_row .= '<td class="text-center">'.($k+1).'</td>';
+            $new_row .= '<td>'.$t->task_name.'</td>';
+            $new_row .= '<td class="text-center">'.$t->assign_date.'</td>';
+            $new_row .= '<td class="text-center">'.$t->delivery_date.'</td>';
+            $new_row .= '<td class="text-center">'.$t->reschedule_delivery_date.'</td>';
+            $new_row .= '<td class="text-center">'.$t->change_count.'</td>';
+            $new_row .= '<td class="text-center">'.$status.'</td>';
+            $new_row .= '<td class="text-center">'.$target_lead_time.'</td>';
+            $new_row .= '<td class="text-center">'.$actual_lead_time.'</td>';
+            $new_row .= '<td class="text-center">'.$t->actual_complete_date.'</td>';
+            $new_row .= '<td class="text-center">
+                            <span class="btn btn-sm btn-primary" title="View" title="Task Detail" onclick="getAssignedTaskDetail( '.$t->id.' )">
+                                <i class="fa fa-eye"></i>
+                            </span>
+                        </td>';
+            $new_row .= '</tr>';
+
+        }
+
+        return $new_row;
+
+    }
+
+    public function myTasksReport(){
+        $assigned_to = Auth::user()->email;
+
+        $assigned_by_emails = Task::where('assigned_to', $assigned_to)->groupBy('assigned_by')->get();
+
+        return view('my_tasks_report')->with('assigned_by_emails', $assigned_by_emails);
+    }
+
+    public function getMyTaskReport(Request $request){
+        $assigned_to = Auth::user()->email;
+
+        $assigned_by = $request->assigned_by;
+        $assigned_date_from = $request->assigned_date_from;
+        $assigned_date_to = $request->assigned_date_to;
+        $status = $request->status;
+
+        $where = "";
+
+        if($assigned_by != ''){
+            $where .= " AND assigned_by='$assigned_by'";
+        }
+
+        if($assigned_to != ''){
+            $where .= " AND assigned_to='$assigned_to'";
+        }
+
+        if($assigned_date_from != '' && $assigned_date_to != ''){
+            $where .= " AND assign_date BETWEEN '$assigned_date_from' AND '$assigned_date_to'";
+        }
+
+        if($status != ''){
+            $where .= " AND status=$status";
+        }
+
+        $tasks = DB::select( "SELECT * FROM tasks WHERE 1 $where ORDER BY reschedule_delivery_date ASC" );
+
+        $new_row = '';
+
+        foreach ($tasks as $k => $t){
+
+            $datetime1 = \Carbon\Carbon::createFromFormat('Y-m-d', $t->delivery_date);
+            $datetime2 = \Carbon\Carbon::createFromFormat('Y-m-d', $t->assign_date);
+            $interval = $datetime1->diff($datetime2);
+            $target_lead_time = $interval->format('%a');
+
+            $datetime3 = \Carbon\Carbon::createFromFormat('Y-m-d', $t->reschedule_delivery_date);
+            $datetime4 = \Carbon\Carbon::createFromFormat('Y-m-d', $t->assign_date);
+            $interval_1 = $datetime3->diff($datetime4);
+            $actual_lead_time = $interval_1->format('%a');
+
+            $status = $t->status == 0 ? 'Terminated' : ($t->status == 1 ? 'Completed' : 'Pending');
+
+            $new_row .= '<tr>';
+            $new_row .= '<td class="text-center">'.($k+1).'</td>';
+            $new_row .= '<td>'.$t->task_name.'</td>';
+            $new_row .= '<td class="text-center">'.$t->assign_date.'</td>';
+            $new_row .= '<td class="text-center">'.$t->delivery_date.'</td>';
+            $new_row .= '<td class="text-center">'.$t->reschedule_delivery_date.'</td>';
+            $new_row .= '<td class="text-center">'.$t->change_count.'</td>';
+            $new_row .= '<td class="text-center">'.$status.'</td>';
+            $new_row .= '<td class="text-center">'.$target_lead_time.'</td>';
+            $new_row .= '<td class="text-center">'.$actual_lead_time.'</td>';
+            $new_row .= '<td class="text-center">'.$t->actual_complete_date.'</td>';
+            $new_row .= '<td class="text-center">
+                            <span class="btn btn-sm btn-primary" title="View" title="Task Detail" onclick="getMyTaskDetail( '.$t->id.' )">
+                                <i class="fa fa-eye"></i>
+                            </span>
+                        </td>';
+            $new_row .= '</tr>';
+
+        }
+
+        return $new_row;
 
     }
 }

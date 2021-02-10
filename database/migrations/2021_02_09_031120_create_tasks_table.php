@@ -22,9 +22,11 @@ class CreateTasksTable extends Migration
             $table->date('assign_date');
             $table->date('delivery_date');
             $table->date('reschedule_delivery_date')->nullable();
-            $table->date('change_count')->nullable();
-            $table->integer('status')->comment('0=Terminated, 1=Complete, 2=Pending');
+            $table->integer('change_count')->default('0');
+            $table->integer('status')->comment('0=Terminated, 1=Completed, 2=Pending');
             $table->text('remarks')->nullable();
+            $table->date('actual_complete_date')->nullable();
+            $table->date('termination_date')->nullable();
             $table->timestamps();
         });
     }
