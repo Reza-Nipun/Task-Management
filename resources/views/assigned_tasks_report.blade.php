@@ -106,9 +106,9 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="assigned_to" class="col-sm-4 col-form-label font-weight-bold">Assigned To:</label>
+                        <label for="assigned_to_2" class="col-sm-4 col-form-label font-weight-bold">Assigned To:</label>
                         <div class="col-sm-8">
-                            <p class="col-form-label" id="assigned_to"></p>
+                            <p class="col-form-label" id="assigned_to_2"></p>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -171,7 +171,7 @@
         $("#task_id").val('');
         $("#task_name").empty();
         $("#task_description").empty();
-        $("#assigned_to").empty();
+        $("#assigned_to_2").empty();
         $("#assign_date").empty();
         $("#delivery_date").empty();
         $("#reschedule_delivery_date").empty();
@@ -189,7 +189,7 @@
                 $("#task_id").val(data.id);
                 $("#task_name").text(data.task_name);
                 $("#task_description").text(data.task_description);
-                $("#assigned_to").text(data.assigned_to);
+                $("#assigned_to_2").text(data.assigned_to);
                 $("#assign_date").text(data.assign_date);
                 $("#delivery_date").text(data.delivery_date);
                 $("#reschedule_delivery_date").text(data.reschedule_delivery_date);
