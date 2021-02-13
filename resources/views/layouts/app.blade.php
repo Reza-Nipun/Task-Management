@@ -72,8 +72,19 @@
                                                     <a class="nav-link" href="{{ url('/users') }}">Users</a>
                                                 </li>
                                             @endif
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="{{ url('/my_tasks') }}">Tasks</a>
+                                            <li class="nav-item dropdown">
+                                                <a id="navbarDropdown1" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                                    Tasks
+                                                </a>
+
+                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown1">
+                                                    @if(Auth::user()->assign_task_access == 1)
+                                                        <a class="nav-link" href="{{ url('/tasks') }}">Assigned Tasks</a>
+                                                    @endif
+
+                                                    <a class="nav-link" href="{{ url('/my_tasks') }}">My Tasks</a>
+                                                    <a class="nav-link" href="{{ url('/meetings') }}">Meetings</a>
+                                                </div>
                                             </li>
                                             <li class="nav-item dropdown">
                                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -81,7 +92,10 @@
                                                 </a>
 
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                                    <a class="nav-link" href="{{ url('/assigned_tasks_report') }}">Assigned Tasks</a>
+                                                    @if(Auth::user()->assign_task_access == 1)
+                                                        <a class="nav-link" href="{{ url('/assigned_tasks_report') }}">Assigned Tasks</a>
+                                                    @endif
+
                                                     <a class="nav-link" href="{{ url('/my_tasks_report') }}">My Tasks</a>
                                                 </div>
                                             </li>

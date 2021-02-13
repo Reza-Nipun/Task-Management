@@ -52,3 +52,10 @@ Route::get('/assigned_tasks_report', 'TaskController@assignedTasksReport')->name
 Route::post('/get_assigned_task_report', 'TaskController@getAssignedTaskReport')->name('get_assigned_task_report');
 Route::get('/my_tasks_report', 'TaskController@myTasksReport')->name('my_tasks_report');
 Route::post('/get_my_task_report', 'TaskController@getMyTaskReport')->name('get_my_task_report');
+
+Route::get('/meetings', 'MeetingController@index')->name('meetings');
+Route::get('/check_pending_meeting/{task_id}', 'MeetingController@checkPendingMeeting')->name('check_pending_meeting');
+Route::post('/fix_meeting_date_time', 'MeetingController@store')->name('fix_meeting_date_time');
+Route::get('/edit_meeting/{id}', 'MeetingController@editMeeting')->name('edit_meeting');
+Route::post('/update_meeting/{id}', 'MeetingController@updateMeeting')->name('update_meeting');
+Route::post('/meeting_complete', 'MeetingController@meetingComplete')->name('meeting_complete');

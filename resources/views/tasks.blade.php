@@ -55,9 +55,9 @@
                                             <span class="btn btn-sm btn-primary" title="View" title="Task Detail" onclick="getAssignedTaskDetail({{ $t->id }})">
                                                 <i class="fa fa-eye"></i>
                                             </span>
-                                            <a class="btn btn-sm btn-success" href="{{ url('/edit_task') }}" title="Meeting">
+                                            <span class="btn btn-sm btn-success" title="Meeting" onclick="fixMeeting('{{ $t->id }}' , '{{ $t->assigned_by }}');">
                                                 <i class="far fa-comments"></i>
-                                            </a>
+                                            </span>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -138,6 +138,45 @@
             <div class="modal-footer">
                 <span class="btn btn-success" onclick="completeAssignedTask();">Complete Task</span>
                 <span class="btn btn-danger" onclick="terminateAssignedTask();">Terminate Task</span>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Fix Meeting Time</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="meeting_date" class="col-sm-4 col-form-label font-weight-bold">Select Date:</label>
+                    <div class="col-sm-8">
+                        <input type="date" class="form-control" name="meeting_date" id="meeting_date" />
+                        <input type="hidden" class="form-control" name="task_id_3" id="task_id_3" />
+                        <input type="hidden" class="form-control" name="invite_to" id="invite_to" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="meeting_time" class="col-sm-4 col-form-label font-weight-bold">Select Time:</label>
+                    <div class="col-sm-8">
+                        <input type="time" class="form-control" name="meeting_time" id="meeting_time" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="meeting_link" class="col-sm-4 col-form-label font-weight-bold">Meeting Link:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="meeting_link" id="meeting_link" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span class="btn btn-primary" onclick="fixMeetingDateTime()">Save</span>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -236,6 +275,71 @@
             });
         }
 
+    }
+
+    function fixMeeting(task_id, assigned_by) {
+
+        $("#task_id_3").val('');
+        $("#invite_to").val('');
+
+        var url = '{{ route("check_pending_meeting", ":id") }}';
+        url = url.replace(':id', task_id );
+
+        $.ajax({
+            url: url,
+            type:'GET',
+            data: {_token:"{{csrf_token()}}"},
+            dataType: "json",
+            success: function (data) {
+
+                if(data.length > 0){
+
+                    var meeting_id = data[0].id;
+
+                    alert("Already a meeting is set, please complete it.");
+
+                    window.location.href="{{ route('meetings') }}";
+                }else{
+                    $("#task_id_3").val(task_id);
+
+                    $("#invite_to").val(assigned_by);
+
+                    $('#exampleModal2').modal('show');
+                }
+
+            }
+        });
+
+    }
+
+    function fixMeetingDateTime() {
+        var res = confirm('Confirm to fix the meeting?');
+
+        if(res == true){
+
+            var task_id_3 = $("#task_id_3").val();
+            var meeting_date = $("#meeting_date").val();
+            var meeting_time = $("#meeting_time").val();
+            var invite_to = $("#invite_to").val();
+
+            if(meeting_date != '' && meeting_time != ''){
+                $.ajax({
+                    url: "{{ route("fix_meeting_date_time") }}",
+                    type:'POST',
+                    data: {_token:"{{csrf_token()}}", task_id: task_id_3, meeting_date: meeting_date, meeting_time: meeting_time, invite_to: invite_to},
+                    dataType: "html",
+                    success: function (data) {
+
+                        if(data == 'done'){
+
+                            location.reload();
+
+                        }
+
+                    }
+                });
+            }
+        }
     }
 
 </script>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Task;
 use DB;
 
@@ -99,6 +100,34 @@ class TaskController extends Controller
         $task->reschedule_delivery_date = "$reschedule_date";
         $task->save();
 
+        $task_name = $task->task_name;
+        $task_description = $task->task_description;
+        $assigned_to = $task->assigned_to;
+        $assigned_by = $task->assigned_by;
+        $delivery_date = $task->delivery_date;
+        $reschedule_delivery_date = $task->reschedule_delivery_date;
+        $change_count = $task->change_count;
+        $remarks = $task->remarks;
+
+        $data = array(
+            'task_name' => $task_name,
+            'task_description' => $task_description,
+            'assigned_by' => $assigned_by,
+            'delivery_date' => $delivery_date,
+            'reschedule_delivery_date' => $reschedule_delivery_date,
+            'change_count' => $change_count,
+            'remarks' => $remarks,
+        );
+
+        $emails = array($assigned_by, $assigned_to);
+
+        Mail::send('emails.task_reschedule_notification', $data, function($message) use($emails)
+        {
+            $message
+                ->to($emails)
+                ->subject('Task Reschedule Delivery Date');
+        });
+
         echo 'done';
     }
 
@@ -142,6 +171,21 @@ class TaskController extends Controller
         $task->status = $status;
         $task->remarks = $remarks;
         $task->save();
+
+        $data = array(
+            'task_name' => $task_name,
+            'task_description' => $task_description,
+            'assigned_by' => $assigned_by,
+            'delivery_date' => $delivery_date,
+            'remarks' => $remarks,
+        );
+
+        Mail::send('emails.task_assignment_notification', $data, function($message) use($assigned_to)
+        {
+            $message
+                ->to($assigned_to)
+                ->subject('New Task Assignment');
+        });
 
         \Session::flash('message', 'Task Assignment Successful!');
 
@@ -189,6 +233,21 @@ class TaskController extends Controller
                     $task->status = $status;
                     $task->remarks = $remarks;
                     $task->save();
+
+                    $data = array(
+                        'task_name' => $task_name,
+                        'task_description' => $task_description,
+                        'assigned_by' => $assigned_by,
+                        'delivery_date' => $delivery_date,
+                        'remarks' => $remarks,
+                    );
+
+                    Mail::send('emails.task_assignment_notification', $data, function($message) use($assigned_to)
+                    {
+                        $message
+                            ->to($assigned_to)
+                            ->subject('New Task Assignment');
+                    });
 
                 }
 
@@ -351,6 +410,10 @@ class TaskController extends Controller
         }
 
         return $new_row;
+
+    }
+
+    public function fixMeetingDateTime(Request $request){
 
     }
 }
