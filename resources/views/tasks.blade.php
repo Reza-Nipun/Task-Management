@@ -32,7 +32,6 @@
                                     <th class="text-center">ASSIGNED ON</th>
                                     <th class="text-center">DELIVERY DATE</th>
                                     <th class="text-center">CHANGE COUNT</th>
-                                    <th class="text-center">REMARKS</th>
                                     <th class="text-center">STATUS</th>
                                     <th class="text-center">ACTION</th>
                                 </tr>
@@ -46,7 +45,6 @@
                                         <td class="text-center">{{ $t->assign_date }}</td>
                                         <td>{{ $t->reschedule_delivery_date }}</td>
                                         <td>{{ $t->change_count }}</td>
-                                        <td>{{ $t->remarks }}</td>
                                         <td>{{ ($t->status == 2 ? 'Pending' : ($t->status == 0 ? 'Terminated' : 'Completed')) }}</td>
                                         <td>
                                             <a class="btn btn-sm btn-warning" href="{{ url('/edit_task/'.$t->id) }}" title="Edit Task">

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 use App\Meeting;
 
@@ -34,7 +36,7 @@ class MeetingController extends Controller
     }
 
     public function editMeeting($id){
-         $meeting_info = Meeting::find($id)->leftJoin('tasks', 'tasks.id', '=', 'meetings.task_id')
+         $meeting_info = Meeting::where('meetings.id', $id)->leftJoin('tasks', 'tasks.id', '=', 'meetings.task_id')
             ->select('meetings.*','tasks.task_name', 'tasks.task_description', 'tasks.assigned_by', 'tasks.reschedule_delivery_date', 'tasks.change_count')
             ->get();
 
@@ -74,7 +76,32 @@ class MeetingController extends Controller
 
         $meeting->save();
 
-        \Session::flash('message', 'Task Update Successful!');
+        $task_id = $request->task_id_3;
+        $task_info = Task::find($task_id);
+
+        $data = array(
+            'task_name' => $task_info->task_name,
+            'task_description' => $task_info->task_description,
+            'assigned_by' => $task_info->assigned_by,
+            'delivery_date' => $task_info->reschedule_delivery_date,
+            'meeting_link' => $request->meeting_link,
+            'meeting_date' => $request->meeting_date,
+            'meeting_time' => $request->meeting_time,
+        );
+
+        $invited_by = $meeting->invited_by;
+        $invited_to = $meeting->invited_to;
+
+        $emails = array($invited_by, $invited_to);
+
+        Mail::send('emails.task_meeting_notification', $data, function($message) use($emails)
+        {
+            $message
+                ->to($emails)
+                ->subject('Meeting Schedule Notification');
+        });
+
+        \Session::flash('message', 'Meeting Update Successful!');
 
         return redirect('meetings');
 
@@ -95,21 +122,48 @@ class MeetingController extends Controller
 
     public function store(Request $request)
     {
+        $invited_by = Auth::user()->email;
+        $invited_to = $request->invite_to;
+        $task_id = $request->task_id;
+        $meeting_date = $request->meeting_date;
+        $meeting_time = $request->meeting_time;
+        $meeting_link = $request->meeting_link;
+
         $meeting = new Meeting();
 
-        $meeting->task_id = $request->task_id;
-        $meeting->meeting_date = $request->meeting_date;
-        $meeting->meeting_time = $request->meeting_time;
-        $meeting->invited_by = Auth::user()->email;
-        $meeting->invited_to = $request->invite_to;
-        $meeting->meeting_link = $request->meeting_link;
+        $meeting->task_id = $task_id;
+        $meeting->meeting_date = $meeting_date;
+        $meeting->meeting_time = $meeting_time;
+        $meeting->invited_by = $invited_by;
+        $meeting->invited_to = $invited_to;
+        $meeting->meeting_link = $meeting_link;
         $meeting->status = 1;
 
         $meeting->save();
 
+        $task_info = Task::find($task_id);
+
+        $data = array(
+            'task_name' => $task_info->task_name,
+            'task_description' => $task_info->task_description,
+            'assigned_by' => $task_info->assigned_by,
+            'delivery_date' => $task_info->reschedule_delivery_date,
+            'meeting_link' => $meeting_link,
+            'meeting_date' => $meeting_date,
+            'meeting_time' => $meeting_time,
+        );
+
+        $emails = array($invited_by, $invited_to);
+
+        Mail::send('emails.task_meeting_notification', $data, function($message) use($emails)
+        {
+            $message
+                ->to($emails)
+                ->subject('Meeting Schedule Notification');
+        });
+
         return 'done';
     }
-
 
     public function destroy(Meeting $meeting)
     {

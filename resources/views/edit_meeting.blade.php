@@ -34,6 +34,7 @@
                                 <div class="mb-3">
                                     <label for="task_name" class="form-label">Task Name</label>
                                     <input class="form-control" type="text" id="task_name" name="task_name" readonly="readonly" value="{{ $meeting_info[0]->task_name }}" />
+                                    <input class="form-control" type="hidden" id="task_id_3" name="task_id_3" readonly="readonly" value="{{ $meeting_info[0]->task_id }}" />
                                 </div>
                             </div>
                             <div class="col-sm-6">

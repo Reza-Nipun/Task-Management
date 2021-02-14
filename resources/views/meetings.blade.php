@@ -9,6 +9,10 @@
                     {{ __('Meetings') }}
                 </div>
 
+                @if(Session::has('message'))
+                    <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('message') }}</p>
+                @endif
+
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered">

@@ -16,10 +16,10 @@
                                 <tr>
                                     <th class="text-center">#</th>
                                     <th class="text-center">TASK</th>
+                                    <th class="text-center">ASSIGNED BY</th>
                                     <th class="text-center">ASSIGNED ON</th>
                                     <th class="text-center">DELIVERY DATE</th>
                                     <th class="text-center">CHANGE COUNT</th>
-                                    <th class="text-center">REMARKS</th>
                                     <th class="text-center">STATUS</th>
                                     <th class="text-center">ACTION</th>
                                 </tr>
@@ -29,10 +29,10 @@
                                     <tr>
                                         <td>{{ $k+1 }}</td>
                                         <td>{{ $t->task_name }}</td>
+                                        <td class="text-center">{{ $t->assigned_by }}</td>
                                         <td class="text-center">{{ $t->assign_date }}</td>
                                         <td class="text-center">{{ $t->reschedule_delivery_date }}</td>
                                         <td class="text-center">{{ $t->change_count }}</td>
-                                        <td>{{ $t->remarks }}</td>
                                         <td class="text-center">{{ ($t->status == 2 ? 'Pending' : ($t->status == 0 ? 'Terminated' : 'Completed')) }}</td>
                                         <td class="text-center">
                                             <span class="btn btn-sm btn-warning" title="Reschedule Task" onclick="rescheduleDeliveryDate({{ $t->id }})">
@@ -168,8 +168,8 @@
                         <label for="meeting_date" class="col-sm-4 col-form-label font-weight-bold">Select Date:</label>
                         <div class="col-sm-8">
                             <input type="date" class="form-control" name="meeting_date" id="meeting_date" />
-                            <input type="text" class="form-control" name="task_id_3" id="task_id_3" />
-                            <input type="text" class="form-control" name="invite_to" id="invite_to" />
+                            <input type="hidden" class="form-control" name="task_id_3" id="task_id_3" />
+                            <input type="hidden" class="form-control" name="invite_to" id="invite_to" />
                         </div>
                     </div>
                     <div class="form-group row">
@@ -311,12 +311,13 @@
             var meeting_date = $("#meeting_date").val();
             var meeting_time = $("#meeting_time").val();
             var invite_to = $("#invite_to").val();
+            var meeting_link = $("#meeting_link").val();
 
             if(meeting_date != '' && meeting_time != ''){
                 $.ajax({
                     url: "{{ route("fix_meeting_date_time") }}",
                     type:'POST',
-                    data: {_token:"{{csrf_token()}}", task_id: task_id_3, meeting_date: meeting_date, meeting_time: meeting_time, invite_to: invite_to},
+                    data: {_token:"{{csrf_token()}}", task_id: task_id_3, meeting_date: meeting_date, meeting_time: meeting_time, invite_to: invite_to, meeting_link: meeting_link},
                     dataType: "html",
                     success: function (data) {
 
