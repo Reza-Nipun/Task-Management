@@ -5,11 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+
+use Importer;
+
 use App\Task;
 use DB;
 
 class TaskController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function getTasks(){
         $assigned_by = Auth::user()->email;
 
@@ -199,65 +207,80 @@ class TaskController extends Controller
 
     public function uploadingTaskFile(Request $request){
         $this->validate(request(), [
-            'upload_file'   => 'required|mimes:csv,txt',
+            'upload_file'   => 'required|mimes:xls,xlsx',
         ]);
 
         $path = $request->file('upload_file')->getRealPath();
-        $data = array_map('str_getcsv', file($path));
 
-        foreach ($data as $k => $v){
-            if($k > 0){
+        $excel = Importer::make('Excel');
+        $collection = $excel->load($path)->getCollection();
 
+        if(sizeof($collection[1]) == 5)
+        {
+            $task = new Task();
+            $assigned_by = Auth::user()->email;
+            $assign_date = date('Y-m-d');
 
-                $task_name = $v[0];
-                $task_description = $v[1];
-                $assigned_to = $v[2];
-                $delivery_date = $v[3];
-                $remarks = $v[4];
+            $arr = json_decode($collection,true);
+            foreach ($arr as $k => $row) {
 
-                $assigned_by = Auth::user()->email;
-                $assign_date = date('Y-m-d');
-                $status = 2;
+                if($k > 0) {
+                    $task_name = $row[0];
+                    $task_description = $row[1];
+                    $assigned_to = $row[2];
+                    $delivery_date = date('Y-m-d', strtotime($row[3]['date']));
+                    $remarks = $row[4];
 
-                if($task_name != '' && $assigned_to != '' && $delivery_date != ''){
+                    if (filter_var($assigned_to, FILTER_VALIDATE_EMAIL)) {
+                        echo("$assigned_to is a valid email address");
+                    } else {
+                        echo("$assigned_to is not a valid email address");
+                    }
 
-                    $task = new Task();
+                    if(($task_name != '') && ($assigned_to != '') && (filter_var($assigned_to, FILTER_VALIDATE_EMAIL) == true) && ($delivery_date != '')){
 
-                    $task->task_name = $task_name;
-                    $task->task_description = $task_description;
-                    $task->assigned_by = $assigned_by;
-                    $task->assigned_to = $assigned_to;
-                    $task->assign_date = $assign_date;
-                    $task->delivery_date = $delivery_date;
-                    $task->reschedule_delivery_date = $delivery_date;
-                    $task->status = $status;
-                    $task->remarks = $remarks;
-                    $task->save();
+                        $task->task_name = $task_name;
+                        $task->task_description = $task_description;
+                        $task->assigned_by = $assigned_by;
+                        $task->assigned_to = $assigned_to;
+                        $task->assign_date = $assign_date;
+                        $task->delivery_date = $delivery_date;
+                        $task->reschedule_delivery_date = $delivery_date;
+                        $task->remarks = $remarks;
+                        $task->status = 2;
+                        $task->save();
 
-                    $data = array(
-                        'task_name' => $task_name,
-                        'task_description' => $task_description,
-                        'assigned_by' => $assigned_by,
-                        'delivery_date' => $delivery_date,
-                        'remarks' => $remarks,
-                    );
+                        $task_id = $task->id;
 
-                    Mail::send('emails.task_assignment_notification', $data, function($message) use($assigned_to)
-                    {
-                        $message
-                            ->to($assigned_to)
-                            ->subject('New Task Assignment');
-                    });
+                        $data = array(
+                            'task_id' => $task_id,
+                            'task_name' => $task_name,
+                            'task_description' => $task_description,
+                            'assigned_by' => $assigned_by,
+                            'delivery_date' => $delivery_date,
+                            'remarks' => $remarks,
+                        );
 
+                        Mail::send('emails.task_assignment_notification', $data, function($message) use($assigned_to)
+                        {
+                            $message
+                                ->to($assigned_to)
+                                ->subject('New Task Assignment');
+                        });
+                    }
                 }
 
-
             }
+
+
+            \Session::flash('message', 'Tasks assignment successful!');
+
+            return redirect('/upload_task_file');
+        }else{
+            \Session::flash('error_message', 'Please use the correct excel format!');
+
+            return redirect('/upload_task_file');
         }
-
-        \Session::flash('message', 'Task Assignment Successful!');
-
-        return redirect('/upload_task_file');
 
     }
 
@@ -316,6 +339,7 @@ class TaskController extends Controller
             $new_row .= '<tr>';
             $new_row .= '<td class="text-center">'.($k+1).'</td>';
             $new_row .= '<td>'.$t->task_name.'</td>';
+            $new_row .= '<td>'.$t->assigned_to.'</td>';
             $new_row .= '<td class="text-center">'.$t->assign_date.'</td>';
             $new_row .= '<td class="text-center">'.$t->delivery_date.'</td>';
             $new_row .= '<td class="text-center">'.$t->reschedule_delivery_date.'</td>';
@@ -382,16 +406,19 @@ class TaskController extends Controller
             $interval = $datetime1->diff($datetime2);
             $target_lead_time = $interval->format('%a');
 
-            $datetime3 = \Carbon\Carbon::createFromFormat('Y-m-d', $t->reschedule_delivery_date);
-            $datetime4 = \Carbon\Carbon::createFromFormat('Y-m-d', $t->assign_date);
-            $interval_1 = $datetime3->diff($datetime4);
-            $actual_lead_time = $interval_1->format('%a');
+            if($t->actual_complete_date != ''){
+                $datetime3 = \Carbon\Carbon::createFromFormat('Y-m-d', $t->actual_complete_date);
+                $datetime4 = \Carbon\Carbon::createFromFormat('Y-m-d', $t->assign_date);
+                $interval_1 = $datetime3->diff($datetime4);
+                $actual_lead_time = $interval_1->format('%a');
+            }
 
             $status = $t->status == 0 ? 'Terminated' : ($t->status == 1 ? 'Completed' : 'Pending');
 
             $new_row .= '<tr>';
             $new_row .= '<td class="text-center">'.($k+1).'</td>';
             $new_row .= '<td>'.$t->task_name.'</td>';
+            $new_row .= '<td>'.$t->assigned_by.'</td>';
             $new_row .= '<td class="text-center">'.$t->assign_date.'</td>';
             $new_row .= '<td class="text-center">'.$t->delivery_date.'</td>';
             $new_row .= '<td class="text-center">'.$t->reschedule_delivery_date.'</td>';

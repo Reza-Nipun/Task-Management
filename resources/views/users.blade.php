@@ -33,7 +33,7 @@
                                         <td>{{ ($u->assign_task_access == 0 ? 'NO' : 'YES') }}</td>
                                         <td>{{ ($u->status == 0 ? 'INACTIVE' : 'ACTIVE') }}</td>
                                         <td>
-                                            <a class="btn btn-sm btn-warning" href="{{ url('/editUser') }}" title="Edit">
+                                            <a class="btn btn-sm btn-warning" href="{!! route('edit_user', $u->id) !!}" title="Edit">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         </td>

@@ -6,13 +6,10 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        {{ __('New Task') }}
-                        <a class="btn btn-primary float-right" href="{{ url('/upload_task_file') }}" title="Upload Excel">
-                            <i class="fa fa-upload"></i> Upload Excel
-                        </a>
+                        {{ __('Reschedule Task') }}
                     </div>
 
-                    <form action="{{ url('/save_task') }}" method="post">
+                    <form action="{{ url('/rescheduling_task/'.$task_info->id) }}" method="post">
                         {{ csrf_field() }}
 
                     @if(Session::has('message'))
@@ -36,13 +33,13 @@
                             <div class="col-sm-6">
                                 <div class="mb-3">
                                     <label for="task_name" class="form-label">Task Name <span style="color: red">*</span></label>
-                                    <input class="form-control" type="text" id="task_name" name="task_name" required="required" />
+                                    <input class="form-control" type="text" id="task_name" name="task_name" value="{{ $task_info->task_name }}" readonly="readonly" />
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="mb-3">
                                     <label for="task_description" class="form-label">Task Description</label>
-                                    <input class="form-control" type="text" id="task_description" name="task_description" />
+                                    <input class="form-control" type="text" id="task_description" name="task_description" value="{{ $task_info->task_description }}" readonly="readonly" />
                                 </div>
                             </div>
                         </div>
@@ -50,13 +47,13 @@
                             <div class="col-sm-6">
                                 <div class="mb-3">
                                     <label for="assign_to" class="form-label">Assign To <span style="color: red">*</span></label>
-                                    <input class="form-control" type="email" id="assign_to" name="assign_to" required="required" />
+                                    <input class="form-control" type="email" id="assign_to" name="assign_to" value="{{ $task_info->assigned_to }}" readonly="readonly" />
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="mb-3">
                                     <label for="delivery_date" class="form-label">Delivery Date <span style="color: red">*</span></label>
-                                    <input class="form-control" type="date" id="delivery_date" name="delivery_date" required="required" />
+                                    <input class="form-control" type="date" id="reschedule_date" name="reschedule_date" value="{{ $task_info->reschedule_delivery_date }}" />
                                 </div>
                             </div>
                         </div>
@@ -64,7 +61,7 @@
                             <div class="col-sm-6">
                                 <div class="mb-3">
                                     <label for="task_assign_to" class="form-label">Remarks</label>
-                                    <input class="form-control" type="text" id="remarks" name="remarks" />
+                                    <input class="form-control" type="text" id="remarks" name="remarks" value="{{ $task_info->remarks }}" readonly="readonly" />
                                 </div>
                             </div>
                             <div class="col-sm-6">

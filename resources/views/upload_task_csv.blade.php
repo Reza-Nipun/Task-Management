@@ -7,8 +7,8 @@
                 <div class="card">
                     <div class="card-header">
                         {{ __('Upload Task') }}
-                        <a class="btn btn-primary float-right" href="{{ asset('storage/uploads/upload_tasks.csv') }}" title="CSV Format File">
-                            <i class="fa fa-download"></i> CSV Format File
+                        <a class="btn btn-primary float-right" href="{{ asset('storage/uploads/upload_tasks.xlsx') }}" title="CSV Format File">
+                            <i class="fa fa-download"></i> Excel Format
                         </a>
                     </div>
 
@@ -17,6 +17,10 @@
 
                     @if(Session::has('message'))
                         <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('message') }}</p>
+                    @endif
+
+                    @if(Session::has('error_message'))
+                        <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('error_message') }}</p>
                     @endif
 
                     @if(count($errors))

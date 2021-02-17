@@ -61,6 +61,7 @@
                                 <tr>
                                     <th class="text-center">#</th>
                                     <th class="text-center">TASK</th>
+                                    <th class="text-center">ASSIGNED BY</th>
                                     <th class="text-center">ASSIGNED ON</th>
                                     <th class="text-center">DELIVERY DATE</th>
                                     <th class="text-center">RESCHEDULE DATE</th>

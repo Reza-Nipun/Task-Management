@@ -35,6 +35,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/users', 'UserController@users')->name('users');
 Route::get('/edit_user/{id}', 'UserController@editUser')->name('edit_user');
+Route::post('/update_user/{id}', 'UserController@updateUser')->name('update_user');
 
 Route::get('/tasks', 'TaskController@getTasks')->name('tasks');
 Route::get('/get_assigned_task_detail', 'TaskController@getAssignedTaskDetail')->name('get_assigned_task_detail');
@@ -59,3 +60,6 @@ Route::post('/fix_meeting_date_time', 'MeetingController@store')->name('fix_meet
 Route::get('/edit_meeting/{id}', 'MeetingController@editMeeting')->name('edit_meeting');
 Route::post('/update_meeting/{id}', 'MeetingController@updateMeeting')->name('update_meeting');
 Route::post('/meeting_complete', 'MeetingController@meetingComplete')->name('meeting_complete');
+
+Route::get('/reschedule_task_from_email/{task_id}', 'AccessFromEmail@rescheduleTaskFromEmail')->name('reschedule_task_from_email');
+Route::post('/rescheduling_task/{task_id}', 'AccessFromEmail@rescheduleTaskDeliveryDate')->name('rescheduling_task');

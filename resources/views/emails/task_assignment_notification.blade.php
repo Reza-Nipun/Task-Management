@@ -44,6 +44,10 @@
             <th>Remarks</th>
             <td>{{ $remarks }}</td>
         </tr>
+        <tr>
+            <td><a href="{{ url('/reschedule_task_from_email/'.$task_id) }}" class="btn btn-warning">Reschedule Task Here</a></td>
+            <td></td>
+        </tr>
     </thead>
 </table>
 <br />
