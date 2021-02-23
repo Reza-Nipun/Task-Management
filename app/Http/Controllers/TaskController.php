@@ -180,7 +180,10 @@ class TaskController extends Controller
         $task->remarks = $remarks;
         $task->save();
 
+        $task_id = $task->id;
+
         $data = array(
+            'task_id' => $task_id,
             'task_name' => $task_name,
             'task_description' => $task_description,
             'assigned_by' => $assigned_by,

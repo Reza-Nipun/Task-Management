@@ -58,4 +58,26 @@ class AccessFromEmail extends Controller
 
         return redirect()->back();
     }
+
+    public function testCronEmail(){
+        $data = array(
+            'task_id' => 5,
+            'task_name' => 'Task Name',
+            'task_description' => 'Task Description',
+            'assigned_by' => 'nipun.sarker@interfabshirt.com',
+            'delivery_date' => '2021-02-25',
+            'reschedule_delivery_date' => '2021-02-25',
+            'change_count' => 2,
+            'remarks' => 'Test Remarks',
+        );
+
+        $assigned_to = array('nipun.sarker@interfabshirt.com');
+
+        Mail::send('emails.task_assignment_notification', $data, function($message) use($assigned_to)
+        {
+            $message
+                ->to($assigned_to)
+                ->subject('Reminder Task Assignment');
+        });
+    }
 }
