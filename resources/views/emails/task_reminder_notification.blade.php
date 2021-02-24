@@ -21,21 +21,9 @@
 </head>
 <body>
 <p>Dear Concern ,</p>
-<p>You are invited to the following meeting.</p>
+<p>This is an auto reminder mail for below mentioned task to deliver.</p>
 <table>
     <thead>
-        <tr>
-            <th>Meeting Date</th>
-            <td>{{ $meeting_date }}</td>
-        </tr>
-        <tr>
-            <th>Meeting Time</th>
-            <td>{{ $meeting_time }}</td>
-        </tr>
-        <tr>
-            <th>Meeting Link</th>
-            <td>{{ $meeting_link }}</td>
-        </tr>
         <tr>
             <th>Task Name</th>
             <td>{{ $task_name }}</td>
@@ -50,10 +38,14 @@
         </tr>
         <tr>
             <th>Delivery Date</th>
-            <td>{{ $delivery_date }}</td>
+            <td>{{ $reschedule_delivery_date }}</td>
         </tr>
         <tr>
-            <td><a href="{{ url('/') }}" class="btn btn-warning">System Link</a></td>
+            <th>Remarks</th>
+            <td>{{ $remarks }}</td>
+        </tr>
+        <tr>
+            <td><a href="{{ url('/reschedule_task_from_email/'.$task_id) }}" class="btn btn-warning">Reschedule Task Here</a></td>
             <td></td>
         </tr>
     </thead>

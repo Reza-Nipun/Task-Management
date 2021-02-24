@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Task;
+use App\Meeting;
 
 use Illuminate\Support\Facades\Mail;
 
@@ -13,7 +14,13 @@ class AccessFromEmail extends Controller
 
         $task_info = Task::find($task_id);
 
-        return view('reschedule_task')->with('task_info', $task_info);
+        if($task_info->status == 2){
+            return view('reschedule_task')->with('task_info', $task_info);
+        } elseif ($task_info->status == 1){
+            echo '<h1 style="color: green;">Task is already completed!</h1>';
+        } elseif ($task_info->status == 0){
+            echo '<h1 style="color: red;">Task is already terminated!</h1>';
+        }
 
     }
 
@@ -59,25 +66,72 @@ class AccessFromEmail extends Controller
         return redirect()->back();
     }
 
-    public function testCronEmail(){
-        $data = array(
-            'task_id' => 5,
-            'task_name' => 'Task Name',
-            'task_description' => 'Task Description',
-            'assigned_by' => 'nipun.sarker@interfabshirt.com',
-            'delivery_date' => '2021-02-25',
-            'reschedule_delivery_date' => '2021-02-25',
-            'change_count' => 2,
-            'remarks' => 'Test Remarks',
-        );
+    public function autoMailDeliveryDateTasksNotification(){
+        $date = date('Y-m-d');
+        $tomorrow_date = date('Y-m-d', strtotime($date . "+1 days"));
 
-        $assigned_to = array('nipun.sarker@interfabshirt.com');
+        $task_info = Task::where('status', '=', 2)->where('reschedule_delivery_date', '<=', $tomorrow_date)->get();
 
-        Mail::send('emails.task_assignment_notification', $data, function($message) use($assigned_to)
-        {
-            $message
-                ->to($assigned_to)
-                ->subject('Reminder Task Assignment');
-        });
+        foreach ($task_info AS $t){
+
+            $assigned_to = $t->assigned_to;
+            $assigned_by = $t->assigned_by;
+
+            $data = array(
+                'task_id' => $t->id,
+                'task_name' => $t->task_name,
+                'task_description' => $t->task_description,
+                'assigned_by' => $t->assigned_by,
+                'delivery_date' => $t->delivery_date,
+                'reschedule_delivery_date' => $t->reschedule_delivery_date,
+                'change_count' => $t->change_count,
+                'remarks' => $t->remarks,
+            );
+
+            Mail::send('emails.task_reminder_notification', $data, function($message) use($assigned_to, $assigned_by)
+            {
+                $message
+                    ->to($assigned_to)
+                    ->cc($assigned_by)
+                    ->subject('Reminder to Delivery Task');
+            });
+
+        }
+
+    }
+
+    public function autoMailMeetingNotification()
+    {
+        $date = date('Y-m-d');
+
+        $meeting = Meeting::where('status', 1)->where('meeting_date', '<=', $date)->get();
+
+        foreach ($meeting AS $m) {
+
+                $task_id = $m->task_id;
+                $task_info = Task::find($task_id);
+
+                $data = array(
+                    'task_name' => $task_info->task_name,
+                    'task_description' => $task_info->task_description,
+                    'assigned_by' => $task_info->assigned_by,
+                    'delivery_date' => $task_info->reschedule_delivery_date,
+                    'meeting_link' => $m->meeting_link,
+                    'meeting_date' => $m->meeting_date,
+                    'meeting_time' => $m->meeting_time,
+                );
+
+                $invited_by = $m->invited_by;
+                $invited_to = $m->invited_to;
+
+                $emails = array($invited_by, $invited_to);
+
+                Mail::send('emails.meeting_reminder_notification', $data, function ($message) use ($emails) {
+                    $message
+                        ->to($emails)
+                        ->subject('Meeting Schedule Notification');
+                });
+
+        }
     }
 }

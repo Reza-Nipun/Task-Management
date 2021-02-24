@@ -21,7 +21,7 @@
 </head>
 <body>
 <p>Dear Concern ,</p>
-<p>You are invited to the following meeting.</p>
+<p>This is an auto reminder mail for below mentioned incomplete meeting. Please attend and set the status as complete.</p>
 <table>
     <thead>
         <tr>

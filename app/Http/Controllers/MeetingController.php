@@ -81,30 +81,33 @@ class MeetingController extends Controller
 
         $meeting->save();
 
-        $task_id = $request->task_id_3;
-        $task_info = Task::find($task_id);
+        if($meeting->status == 1){
+            $task_id = $request->task_id_3;
+            $task_info = Task::find($task_id);
 
-        $data = array(
-            'task_name' => $task_info->task_name,
-            'task_description' => $task_info->task_description,
-            'assigned_by' => $task_info->assigned_by,
-            'delivery_date' => $task_info->reschedule_delivery_date,
-            'meeting_link' => $request->meeting_link,
-            'meeting_date' => $request->meeting_date,
-            'meeting_time' => $request->meeting_time,
-        );
+            $data = array(
+                'task_name' => $task_info->task_name,
+                'task_description' => $task_info->task_description,
+                'assigned_by' => $task_info->assigned_by,
+                'delivery_date' => $task_info->reschedule_delivery_date,
+                'meeting_link' => $request->meeting_link,
+                'meeting_date' => $request->meeting_date,
+                'meeting_time' => $request->meeting_time,
+            );
 
-        $invited_by = $meeting->invited_by;
-        $invited_to = $meeting->invited_to;
+            $invited_by = $meeting->invited_by;
+            $invited_to = $meeting->invited_to;
 
-        $emails = array($invited_by, $invited_to);
+            $emails = array($invited_by, $invited_to);
 
-        Mail::send('emails.task_meeting_notification', $data, function($message) use($emails)
-        {
-            $message
-                ->to($emails)
-                ->subject('Meeting Schedule Notification');
-        });
+            Mail::send('emails.task_meeting_notification', $data, function($message) use($emails)
+            {
+                $message
+                    ->to($emails)
+                    ->subject('Meeting Schedule Notification');
+            });
+
+        }
 
         \Session::flash('message', 'Meeting Update Successful!');
 
