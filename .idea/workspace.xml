@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b30451c9-5eaa-42f0-b09f-784fe69d93f7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/home.blade.php" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/upload_task_csv.blade.php" afterPath="$PROJECT_DIR$/resources/views/upload_task_csv.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -53,8 +52,8 @@
       <file leaf-file-name="upload_task_csv.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/upload_task_csv.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="28" lean-forward="true" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+            <state relative-caret-position="153">
+              <caret line="9" column="130" lean-forward="false" selection-start-line="9" selection-start-column="130" selection-end-line="9" selection-end-column="130" />
               <folding />
             </state>
           </provider>
@@ -466,12 +465,12 @@
       <workItem from="1614061571954" duration="4822000" />
       <workItem from="1614081821886" duration="710000" />
       <workItem from="1614134508819" duration="19509000" />
-      <workItem from="1614240907782" duration="6531000" />
+      <workItem from="1614240907782" duration="6814000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="157228000" />
+    <option name="totallyTimeSpent" value="157511000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -880,8 +879,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/upload_task_csv.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="28" lean-forward="true" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+        <state relative-caret-position="153">
+          <caret line="9" column="130" lean-forward="false" selection-start-line="9" selection-start-column="130" selection-end-line="9" selection-end-column="130" />
           <folding />
         </state>
       </provider>
