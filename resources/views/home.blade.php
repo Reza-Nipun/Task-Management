@@ -20,7 +20,7 @@
 
                     <div class="row text-center justify-content-center">
                         <div class="col-md-3 bg-danger mr-5">
-                            <h1 class="card-title text-white">PENDING</h1>
+                            <h1 class="card-title text-white">MY TASKS</h1>
                             <h2 class="card-title text-white">
                                 <a href="{{ url('/my_tasks') }}" class="badge badge-light">{{ $my_pending_task_count }}</a>
                             </h2>

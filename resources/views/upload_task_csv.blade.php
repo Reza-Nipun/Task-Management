@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">
                         {{ __('Upload Task') }}
-                        <a class="btn btn-primary float-right" href="{{ asset('storage/uploads/upload_tasks.xlsx') }}" title="CSV Format File">
+                        <a class="btn btn-warning float-right" href="{{ asset('storage/uploads/upload_tasks.xlsx') }}" title="CSV Format File">
                             <i class="fa fa-download"></i> Excel Format
                         </a>
                     </div>
