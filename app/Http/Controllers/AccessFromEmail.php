@@ -112,6 +112,7 @@ class AccessFromEmail extends Controller
                 $task_info = Task::find($task_id);
 
                 $data = array(
+                    'meeting_id' => $m->id,
                     'task_name' => $task_info->task_name,
                     'task_description' => $task_info->task_description,
                     'assigned_by' => $task_info->assigned_by,
@@ -133,5 +134,62 @@ class AccessFromEmail extends Controller
                 });
 
         }
+    }
+
+    public function reschedulingMeetingFromEmail($meeting_id){
+
+        $meeting_info = Meeting::find($meeting_id);
+
+        if($meeting_info->status == 1){
+            return view('reschedule_meeting')->with('meeting_info', $meeting_info);
+        } elseif ($meeting_info->status == 2){
+            echo '<h1 style="color: green;">Meeting is already completed!</h1>';
+        } elseif ($meeting_info->status == 0){
+            echo '<h1 style="color: red;">Meeting is already terminated!</h1>';
+        }
+
+    }
+
+    public function reschedulingMeeting(Request $request, $meeting_id){
+        $this->validate(request(), [
+            'meeting_date' => 'required|date',
+            'meeting_time' => 'required|regex:/(\d+\:\d+)/',
+        ]);
+
+        $meeting = Meeting::find($meeting_id);
+        $meeting->meeting_date = $request->meeting_date;
+        $meeting->meeting_time = $request->meeting_time;
+        $meeting->meeting_link = $request->meeting_link;
+        $meeting->save();
+
+        $task_info = Task::find($meeting->task_id);
+
+        $data = array(
+            'meeting_id' => $meeting_id,
+            'task_name' => $task_info->task_name,
+            'task_description' => $task_info->task_description,
+            'assigned_by' => $task_info->assigned_by,
+            'delivery_date' => $task_info->reschedule_delivery_date,
+            'meeting_link' => $request->meeting_link,
+            'meeting_date' => $request->meeting_date,
+            'meeting_time' => $request->meeting_time,
+        );
+
+        $invited_by = $meeting->invited_by;
+        $invited_to = $meeting->invited_to;
+
+        $emails = array($invited_by, $invited_to);
+
+        Mail::send('emails.meeting_reschedule_notification', $data, function($message) use($emails)
+        {
+            $message
+                ->to($emails)
+                ->subject('Meeting Reschedule Notification');
+        });
+
+        \Session::flash('message', 'Meeting Reschedule Successful!');
+
+        return redirect()->back();
+
     }
 }

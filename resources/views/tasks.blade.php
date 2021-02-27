@@ -319,12 +319,13 @@
             var meeting_date = $("#meeting_date").val();
             var meeting_time = $("#meeting_time").val();
             var invite_to = $("#invite_to").val();
+            var meeting_link = $("#meeting_link").val();
 
             if(meeting_date != '' && meeting_time != ''){
                 $.ajax({
                     url: "{{ route("fix_meeting_date_time") }}",
                     type:'POST',
-                    data: {_token:"{{csrf_token()}}", task_id: task_id_3, meeting_date: meeting_date, meeting_time: meeting_time, invite_to: invite_to},
+                    data: {_token:"{{csrf_token()}}", task_id: task_id_3, meeting_date: meeting_date, meeting_time: meeting_time, invite_to: invite_to, meeting_link: meeting_link},
                     dataType: "html",
                     success: function (data) {
 

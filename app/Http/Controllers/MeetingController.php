@@ -86,6 +86,7 @@ class MeetingController extends Controller
             $task_info = Task::find($task_id);
 
             $data = array(
+                'meeting_id' => $meeting_id,
                 'task_name' => $task_info->task_name,
                 'task_description' => $task_info->task_description,
                 'assigned_by' => $task_info->assigned_by,
@@ -149,9 +150,12 @@ class MeetingController extends Controller
 
         $meeting->save();
 
+        $meeting_id = $meeting->id;
+
         $task_info = Task::find($task_id);
 
         $data = array(
+            'meeting_id' => $meeting_id,
             'task_name' => $task_info->task_name,
             'task_description' => $task_info->task_description,
             'assigned_by' => $task_info->assigned_by,

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use Importer;
 
 use App\Task;
+use App\Meeting;
 use DB;
 
 class TaskController extends Controller
@@ -83,6 +84,11 @@ class TaskController extends Controller
         $task->actual_complete_date = date('Y-m-d');
         $task->save();
 
+        $meeting = DB::table('meetings')
+                    ->where('task_id', $task_id)
+                    ->where('status', 1)
+                    ->update(['status' => 2]);
+
         echo 'done';
     }
 
@@ -94,6 +100,11 @@ class TaskController extends Controller
         $task->status = 0;
         $task->termination_date = date('Y-m-d');
         $task->save();
+
+        $meeting = DB::table('meetings')
+                ->where('task_id', $task_id)
+                ->where('status', 1)
+                ->update(['status' => 2]);
 
         echo 'done';
     }
@@ -332,10 +343,13 @@ class TaskController extends Controller
             $interval = $datetime1->diff($datetime2);
             $target_lead_time = $interval->format('%a');
 
-            $datetime3 = \Carbon\Carbon::createFromFormat('Y-m-d', $t->reschedule_delivery_date);
-            $datetime4 = \Carbon\Carbon::createFromFormat('Y-m-d', $t->assign_date);
-            $interval_1 = $datetime3->diff($datetime4);
-            $actual_lead_time = $interval_1->format('%a');
+            $actual_lead_time=0;
+            if($t->actual_complete_date != '') {
+                $datetime3 = \Carbon\Carbon::createFromFormat('Y-m-d', $t->actual_complete_date);
+                $datetime4 = \Carbon\Carbon::createFromFormat('Y-m-d', $t->assign_date);
+                $interval_1 = $datetime3->diff($datetime4);
+                $actual_lead_time = $interval_1->format('%a');
+            }
 
             $status = $t->status == 0 ? 'Terminated' : ($t->status == 1 ? 'Completed' : 'Pending');
 
@@ -409,6 +423,7 @@ class TaskController extends Controller
             $interval = $datetime1->diff($datetime2);
             $target_lead_time = $interval->format('%a');
 
+            $actual_lead_time=0;
             if($t->actual_complete_date != ''){
                 $datetime3 = \Carbon\Carbon::createFromFormat('Y-m-d', $t->actual_complete_date);
                 $datetime4 = \Carbon\Carbon::createFromFormat('Y-m-d', $t->assign_date);

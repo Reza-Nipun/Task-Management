@@ -53,7 +53,7 @@
             <td>{{ $delivery_date }}</td>
         </tr>
         <tr>
-            <td><a href="{{ url('/') }}" class="btn btn-warning">System Link</a></td>
+            <td><a href="{{ url('/rescheduling_meeting_from_email/'.$meeting_id) }}" class="btn btn-warning">Meeting Reschedule Here</a></td>
             <td></td>
         </tr>
     </thead>

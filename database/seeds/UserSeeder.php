@@ -13,10 +13,10 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert(
             [
-                'name' => 'Nipun-2',
+                'name' => 'Nipun',
                 'email' => 'nipun.sarker@interfabshirt.com',
                 'password' => Hash::make('12345678'),
-                'access_level' => 1,
+                'access_level' => 0,
                 'assign_task_access' => 1,
                 'status' => 1,
             ]

@@ -6,10 +6,10 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        {{ __('Reschedule Task') }}
+                        {{ __('Reschedule Meeting') }}
                     </div>
 
-                    <form action="{{ url('/rescheduling_task/'.$task_info->id) }}" method="post">
+                    <form action="{{ url('/rescheduling_meeting/'.$meeting_info->id) }}" method="post">
                         {{ csrf_field() }}
 
                     @if(Session::has('message'))
@@ -32,36 +32,22 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="mb-3">
-                                    <label for="task_name" class="form-label">Task Name <span style="color: red">*</span></label>
-                                    <input class="form-control" type="text" id="task_name" name="task_name" value="{{ $task_info->task_name }}" readonly="readonly" />
+                                    <label for="task_name" class="form-label">Meeting Date <span style="color: red">*</span></label>
+                                    <input class="form-control" type="date" id="meeting_date" name="meeting_date" value="{{ $meeting_info->meeting_date }}" required="required" />
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="mb-3">
-                                    <label for="task_description" class="form-label">Task Description</label>
-                                    <input class="form-control" type="text" id="task_description" name="task_description" value="{{ $task_info->task_description }}" readonly="readonly" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="mb-3">
-                                    <label for="assign_to" class="form-label">Assign To <span style="color: red">*</span></label>
-                                    <input class="form-control" type="email" id="assign_to" name="assign_to" value="{{ $task_info->assigned_to }}" readonly="readonly" />
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="mb-3">
-                                    <label for="delivery_date" class="form-label">Delivery Date <span style="color: red">*</span></label>
-                                    <input class="form-control" type="date" id="reschedule_date" name="reschedule_date" value="{{ $task_info->reschedule_delivery_date }}" />
+                                    <label for="task_description" class="form-label">Meeting Time <span style="color: red">*</span></label>
+                                    <input class="form-control" type="time" id="meeting_time" name="meeting_time" value="{{ $meeting_info->meeting_time }}" required="required" />
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="mb-3">
-                                    <label for="task_assign_to" class="form-label">Remarks</label>
-                                    <input class="form-control" type="text" id="remarks" name="remarks" value="{{ $task_info->remarks }}" readonly="readonly" />
+                                    <label for="assign_to" class="form-label">Meeting Link</label>
+                                    <input class="form-control" type="text" id="meeting_link" name="meeting_link" value="{{ $meeting_info->meeting_link }}" />
                                 </div>
                             </div>
                             <div class="col-sm-6">
