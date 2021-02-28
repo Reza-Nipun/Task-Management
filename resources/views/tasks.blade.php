@@ -53,7 +53,7 @@
                                             <span class="btn btn-sm btn-primary" title="View" title="Task Detail" onclick="getAssignedTaskDetail({{ $t->id }})">
                                                 <i class="fa fa-eye"></i>
                                             </span>
-                                            <span class="btn btn-sm btn-success" title="Meeting" onclick="fixMeeting('{{ $t->id }}' , '{{ $t->assigned_by }}');">
+                                            <span class="btn btn-sm btn-success" title="Meeting" onclick="fixMeeting('{{ $t->id }}' , '{{ $t->assigned_to }}');">
                                                 <i class="far fa-comments"></i>
                                             </span>
                                         </td>
@@ -275,7 +275,7 @@
 
     }
 
-    function fixMeeting(task_id, assigned_by) {
+    function fixMeeting(task_id, assigned_to) {
 
         $("#task_id_3").val('');
         $("#invite_to").val('');
@@ -300,7 +300,7 @@
                 }else{
                     $("#task_id_3").val(task_id);
 
-                    $("#invite_to").val(assigned_by);
+                    $("#invite_to").val(assigned_to);
 
                     $('#exampleModal2').modal('show');
                 }

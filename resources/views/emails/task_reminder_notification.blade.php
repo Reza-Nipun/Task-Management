@@ -27,6 +27,16 @@
             font-size: 20px;
             font-weight: 700;
         }
+
+        .button_2 {
+            background-color: green; /* Green */
+            color: #ffffff;
+            padding: 5px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 20px;
+            font-weight: 700;
+        }
     </style>
 </head>
 <body>
@@ -56,7 +66,7 @@
         </tr>
         <tr>
             <td><a href="{{ url('/reschedule_task_from_email/'.$task_id) }}" class="button">Reschedule Task Here</a></td>
-            <td></td>
+            <td><a href="{{ url('/tasks') }}" class="button_2">Confirmation Link</a></td>
         </tr>
     </thead>
 </table>

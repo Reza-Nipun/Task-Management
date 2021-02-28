@@ -17,6 +17,16 @@
         tr:nth-child(even) {
             background-color: #dddddd;
         }
+
+        .button_2 {
+            background-color: green; /* Green */
+            color: #ffffff;
+            padding: 5px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 20px;
+            font-weight: 700;
+        }
     </style>
 </head>
 <body>
@@ -51,6 +61,10 @@
         <tr>
             <th>Remarks</th>
             <td>{{ $remarks }}</td>
+        </tr>
+        <tr>
+            <th></th>
+            <td><a href="{{ url('/tasks') }}" class="button_2">Confirmation Link</a></td>
         </tr>
     </thead>
 </table>
