@@ -48,7 +48,7 @@
                             <div class="col-sm-6">
                                 <div class="mb-3">
                                     <label for="meeting_date" class="form-label">Meeting Date <span style="color: red">*</span></label>
-                                    <input class="form-control" type="date" id="meeting_date" name="meeting_date" required="required" value="{{ $meeting_info[0]->meeting_date }}" />
+                                    <input class="form-control" type="date" id="meeting_date" name="meeting_date" required="required" value="{{ $meeting_info[0]->meeting_date }}" placeholder="YYYY-mm-dd" />
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -141,7 +141,7 @@
                     <div class="form-group row">
                         <label for="reschedule_date" class="col-sm-4 col-form-label font-weight-bold">Select Date:</label>
                         <div class="col-sm-8">
-                            <input type="date" class="form-control" name="reschedule_date" id="reschedule_date" />
+                            <input type="date" class="form-control" name="reschedule_date" id="reschedule_date" placeholder="YYYY-mm-dd" />
                             <input type="hidden" class="form-control" name="task_id_2" id="task_id_2" />
                         </div>
                     </div>

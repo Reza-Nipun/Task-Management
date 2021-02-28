@@ -28,13 +28,13 @@
                         <div class="col-sm-2">
                             <div class="mb-3">
                                 <label for="assigned_date_from" class="form-label">Assign Date From</label>
-                                <input class="form-control" type="date" id="assigned_date_from" name="assigned_date_from" autocomplete="off" />
+                                <input class="form-control" type="date" id="assigned_date_from" name="assigned_date_from" autocomplete="off" placeholder="YYYY-mm-dd" />
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="mb-3">
                                 <label for="assigned_date_to" class="form-label">Assign Date To</label>
-                                <input class="form-control" type="date" id="assigned_date_to" name="assigned_date_to" autocomplete="off" />
+                                <input class="form-control" type="date" id="assigned_date_to" name="assigned_date_to" autocomplete="off" placeholder="YYYY-mm-dd" />
                             </div>
                         </div>
                         <div class="col-sm-2">

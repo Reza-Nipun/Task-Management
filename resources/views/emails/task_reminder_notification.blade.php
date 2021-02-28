@@ -17,6 +17,16 @@
         tr:nth-child(even) {
             background-color: #dddddd;
         }
+
+        .button {
+            background-color: yellow; /* Green */
+            color: #000000;
+            padding: 5px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 20px;
+            font-weight: 700;
+        }
     </style>
 </head>
 <body>
@@ -45,7 +55,7 @@
             <td>{{ $remarks }}</td>
         </tr>
         <tr>
-            <td><a href="{{ url('/reschedule_task_from_email/'.$task_id) }}" class="btn btn-warning">Reschedule Task Here</a></td>
+            <td><a href="{{ url('/reschedule_task_from_email/'.$task_id) }}" class="button">Reschedule Task Here</a></td>
             <td></td>
         </tr>
     </thead>

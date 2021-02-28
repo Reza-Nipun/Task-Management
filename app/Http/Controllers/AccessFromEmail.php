@@ -192,4 +192,16 @@ class AccessFromEmail extends Controller
         return redirect()->back();
 
     }
+
+    public function testMail(){
+
+        $emails = array('nipun.sarker@interfabshirt.com', 'nipunsarker56@gmail.com');
+
+        Mail::send('welcome', [], function($message) use($emails)
+        {
+            $message
+                ->to($emails)
+                ->subject('Task Manager - Test Mail');
+        });
+    }
 }

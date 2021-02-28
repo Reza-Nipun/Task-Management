@@ -141,7 +141,7 @@
                     <div class="form-group row">
                         <label for="reschedule_date" class="col-sm-4 col-form-label font-weight-bold">Select Date:</label>
                         <div class="col-sm-8">
-                            <input type="date" class="form-control" name="reschedule_date" id="reschedule_date" />
+                            <input type="date" class="form-control" name="reschedule_date" id="reschedule_date" placeholder="YYYY-mm-dd" />
                             <input type="hidden" class="form-control" name="task_id_2" id="task_id_2" />
                         </div>
                     </div>
@@ -167,7 +167,7 @@
                     <div class="form-group row">
                         <label for="meeting_date" class="col-sm-4 col-form-label font-weight-bold">Select Date:</label>
                         <div class="col-sm-8">
-                            <input type="date" class="form-control" name="meeting_date" id="meeting_date" />
+                            <input type="date" class="form-control" name="meeting_date" id="meeting_date" placeholder="YYYY-mm-dd" />
                             <input type="hidden" class="form-control" name="task_id_3" id="task_id_3" />
                             <input type="hidden" class="form-control" name="invite_to" id="invite_to" />
                         </div>
