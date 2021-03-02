@@ -19,8 +19,8 @@
         }
 
         .button {
-            background-color: yellow; /* Green */
-            color: #000000;
+            background-color: orangered; /* Green */
+            color: #ffffff;
             padding: 5px;
             text-decoration: none;
             text-transform: uppercase;
@@ -42,6 +42,7 @@
 <body>
 <p>Dear Concern ,</p>
 <p>You have received new task, which is mentioned below.</p>
+<p style="background-color: yellow;">N.B.-If you do not take any action on the specified delivery date, system will automatically reschedule your delivery date to the next day.</p>
 <table>
     <thead>
         <tr>

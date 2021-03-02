@@ -19,6 +19,7 @@
                                     <th class="text-center">ASSIGNED BY</th>
                                     <th class="text-center">ASSIGNED ON</th>
                                     <th class="text-center">DELIVERY DATE</th>
+                                    <th class="text-center">RESCHEDULE DATE</th>
                                     <th class="text-center">CHANGE COUNT</th>
                                     <th class="text-center">STATUS</th>
                                     <th class="text-center">ACTION</th>
@@ -31,6 +32,7 @@
                                         <td>{{ $t->task_name }}</td>
                                         <td class="text-center">{{ $t->assigned_by }}</td>
                                         <td class="text-center">{{ $t->assign_date }}</td>
+                                        <td class="text-center">{{ $t->delivery_date }}</td>
                                         <td class="text-center">{{ $t->reschedule_delivery_date }}</td>
                                         <td class="text-center">{{ $t->change_count }}</td>
                                         <td class="text-center">{{ ($t->status == 2 ? 'Pending' : ($t->status == 0 ? 'Terminated' : 'Completed')) }}</td>

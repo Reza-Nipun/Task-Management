@@ -88,16 +88,52 @@ class AccessFromEmail extends Controller
                 'remarks' => $t->remarks,
             );
 
-            Mail::send('emails.task_reminder_notification', $data, function($message) use($assigned_to, $assigned_by)
+            Mail::send('emails.task_reminder_notification', $data, function($message) use($assigned_to)
             {
                 $message
                     ->to($assigned_to)
-                    ->cc($assigned_by)
                     ->subject('Reminder to Delivery Task');
             });
 
         }
 
+    }
+
+    public function autoRescheduleDeliveryDateTasks(){
+        $date = date('Y-m-d');
+
+        $task_info = Task::where('status', '=', 2)->where('reschedule_delivery_date', '<', $date)->get();
+
+        foreach ($task_info AS $t){
+
+            $task = Task::find($t->id);
+            $task->change_count = ($task->change_count != null ? $task->change_count : 0) + 1;
+            $task->reschedule_delivery_date = "$date";
+            $task->save();
+
+//            $assigned_to = $t->assigned_to;
+//            $assigned_by = $t->assigned_by;
+//
+//            $data = array(
+//                'task_id' => $t->id,
+//                'task_name' => $t->task_name,
+//                'task_description' => $t->task_description,
+//                'assigned_by' => $t->assigned_by,
+//                'delivery_date' => $t->delivery_date,
+//                'reschedule_delivery_date' => $task->reschedule_delivery_date,
+//                'change_count' => $task->change_count,
+//                'remarks' => $t->remarks,
+//                'system_message' => 'N.B. - As the task was not completed or rescheduled on the target date, so system has rescheduled the task automatically.',
+//            );
+//
+//            Mail::send('emails.task_reschedule_notification', $data, function($message) use($assigned_to, $assigned_by)
+//            {
+//                $message
+//                    ->to($assigned_to)
+//                    ->cc($assigned_by)
+//                    ->subject('Task Auto-Reschedule Delivery Date');
+//            });
+        }
     }
 
     public function autoMailMeetingNotification()

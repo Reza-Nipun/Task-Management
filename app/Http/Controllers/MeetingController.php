@@ -28,7 +28,7 @@ class MeetingController extends Controller
                     return $query->where('meetings.status', '=', 1);
                 })
             ->leftJoin('tasks', 'tasks.id', '=', 'meetings.task_id')
-            ->select('meetings.*','tasks.task_name', 'tasks.task_description', 'tasks.reschedule_delivery_date', 'tasks.change_count')
+            ->select('meetings.*','tasks.task_name', 'tasks.task_description', 'tasks.delivery_date', 'tasks.reschedule_delivery_date', 'tasks.change_count')
             ->get();
 
         return view('meetings')->with('meetings', $meetings);

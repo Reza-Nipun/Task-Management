@@ -32,6 +32,11 @@
 <body>
 <p>Dear Concern ,</p>
 <p>Following task has been rescheduled.</p>
+
+{{--@if(isset($system_message))--}}
+    {{--<p style="background-color: yellow;">{{ $system_message }}</p>--}}
+{{--@endif--}}
+
 <table>
     <thead>
         <tr>
