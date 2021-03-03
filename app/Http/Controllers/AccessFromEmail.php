@@ -43,6 +43,7 @@ class AccessFromEmail extends Controller
         $remarks = $task->remarks;
 
         $data = array(
+            'task_id' => $task_id,
             'task_name' => $task_name,
             'task_description' => $task_description,
             'assigned_by' => $assigned_by,
@@ -149,6 +150,7 @@ class AccessFromEmail extends Controller
 
                 $data = array(
                     'meeting_id' => $m->id,
+                    'task_id' => $task_id,
                     'task_name' => $task_info->task_name,
                     'task_description' => $task_info->task_description,
                     'assigned_by' => $task_info->assigned_by,
@@ -202,6 +204,7 @@ class AccessFromEmail extends Controller
 
         $data = array(
             'meeting_id' => $meeting_id,
+            'task_id' => $meeting->task_id,
             'task_name' => $task_info->task_name,
             'task_description' => $task_info->task_description,
             'assigned_by' => $task_info->assigned_by,

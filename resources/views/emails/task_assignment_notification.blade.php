@@ -19,8 +19,8 @@
         }
 
         .button {
-            background-color: orangered; /* Green */
-            color: #ffffff;
+            background-color: yellow; /* Green */
+            color: #000000;
             padding: 5px;
             text-decoration: none;
             text-transform: uppercase;
@@ -42,7 +42,7 @@
 <body>
 <p>Dear Concern ,</p>
 <p>You have received new task, which is mentioned below.</p>
-<p style="background-color: yellow;">N.B.-If you do not take any action on the specified delivery date, system will automatically reschedule your delivery date to the next day.</p>
+<p style="background-color: orangered; color: white;">N.B.-If you do not take any action on the specified delivery date, system will automatically reschedule your delivery date to the next day.</p>
 <table>
     <thead>
         <tr>
@@ -66,8 +66,8 @@
             <td>{{ $remarks }}</td>
         </tr>
         <tr>
-            <td><a href="{{ url('/reschedule_task_from_email/'.$task_id) }}" class="button">Reschedule Task Here</a></td>
-            <td><a href="{{ url('/tasks') }}" class="button_2">Confirmation Link</a></td>
+            <td><a href="{{ url('/reschedule_task_from_email/'.$task_id) }}" class="button">Reschedule Task Delivery Date</a></td>
+            <td><a href="{{ url('/schedule_task_completion_meeting/'.$task_id) }}" class="button_2">Schedule Task Completion Meeting</a></td>
         </tr>
     </thead>
 </table>

@@ -10,6 +10,40 @@
                 </div>
 
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="mb-3">
+                                <label for="assigned_by" class="form-label">Assigned By</label>
+                                <select class="form-control" id="task_assigned_by" name="task_assigned_by">
+                                    <option value="">Select Email</option>
+
+                                    @foreach($assigned_by_emails as $e)
+
+                                        <option value="{{ $e->assigned_by }}">{{ $e->assigned_by }}</option>
+
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label for="delivery_date_from" class="form-label">Delivery Date From</label>
+                                <input class="form-control" type="date" id="delivery_date_from" name="delivery_date_from" placeholder="YYYY-mm-dd" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label for="delivery_date_to" class="form-label">Delivery Date To</label>
+                                <input class="form-control" type="date" id="delivery_date_to" name="delivery_date_to" placeholder="YYYY-mm-dd" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <span class="btn btn-success mt-4" onclick="getMyPendingTasksReport()">SEARCH</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
@@ -25,7 +59,7 @@
                                     <th class="text-center">ACTION</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tbody_id">
                                 @foreach($tasks as $k => $t)
                                     <tr>
                                         <td>{{ $k+1 }}</td>
@@ -197,6 +231,7 @@
 </div>
 
 <script type="text/javascript">
+    $('select').select2();
 
     function getAssignedTaskDetail(task_id){
 
@@ -333,6 +368,28 @@
                 });
             }
         }
+    }
+
+    function getMyPendingTasksReport() {
+        var assigned_by = $("#task_assigned_by").val();
+        var delivery_date_from = $("#delivery_date_from").val();
+        var delivery_date_to = $("#delivery_date_to").val();
+        var status = 2;
+
+        $("#tbody_id").empty();
+
+        $.ajax({
+            url: "{{ route("get_pending_task_filter") }}",
+            type:'POST',
+            data: {_token:"{{csrf_token()}}", assigned_by: assigned_by, delivery_date_from: delivery_date_from, delivery_date_to: delivery_date_to, status: status},
+            dataType: "html",
+            success: function (data) {
+
+                $("#tbody_id").append(data);
+
+            }
+        });
+
     }
 
 </script>

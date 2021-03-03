@@ -51,8 +51,11 @@ Route::post('/terminate_assigned_task', 'TaskController@terminateAssignedTask')-
 Route::post('/reschedule_task_delivery_date', 'TaskController@rescheduleTaskDeliveryDate')->name('reschedule_task_delivery_date');
 Route::get('/assigned_tasks_report', 'TaskController@assignedTasksReport')->name('assigned_tasks_report');
 Route::post('/get_assigned_task_report', 'TaskController@getAssignedTaskReport')->name('get_assigned_task_report');
+Route::post('/get_assigned_pending_task_filter', 'TaskController@getAssignedPendingTaskFilter')->name('get_assigned_pending_task_filter');
+Route::post('/get_pending_task_filter', 'TaskController@getPendingTaskFilter')->name('get_pending_task_filter');
 Route::get('/my_tasks_report', 'TaskController@myTasksReport')->name('my_tasks_report');
 Route::post('/get_my_task_report', 'TaskController@getMyTaskReport')->name('get_my_task_report');
+Route::get('/task_confirmation/{task_id}', 'TaskController@taskConfirmation')->name('task_confirmation');
 
 Route::get('/meetings', 'MeetingController@index')->name('meetings');
 Route::get('/check_pending_meeting/{task_id}', 'MeetingController@checkPendingMeeting')->name('check_pending_meeting');
@@ -60,6 +63,8 @@ Route::post('/fix_meeting_date_time', 'MeetingController@store')->name('fix_meet
 Route::get('/edit_meeting/{id}', 'MeetingController@editMeeting')->name('edit_meeting');
 Route::post('/update_meeting/{id}', 'MeetingController@updateMeeting')->name('update_meeting');
 Route::post('/meeting_complete', 'MeetingController@meetingComplete')->name('meeting_complete');
+Route::get('/schedule_task_completion_meeting/{task_id}', 'MeetingController@scheduleTaskCompletionMeeting')->name('schedule_task_completion_meeting');
+Route::post('/fix_schedule_task_completion_meeting', 'MeetingController@fixScheduleTaskCompletionMeeting')->name('fix_schedule_task_completion_meeting');
 
 Route::get('/reschedule_task_from_email/{task_id}', 'AccessFromEmail@rescheduleTaskFromEmail')->name('reschedule_task_from_email');
 Route::post('/rescheduling_task/{task_id}', 'AccessFromEmail@rescheduleTaskDeliveryDate')->name('rescheduling_task');

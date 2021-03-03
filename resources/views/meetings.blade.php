@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    {{ __('Meetings') }}
+                    {{ __('Scheduled Meetings') }}
                 </div>
 
                 @if(Session::has('message'))
@@ -42,7 +42,7 @@
                                         <td class="text-center">{{ ($m->status == 2 ? 'Completed' : ($m->status == 1 ? 'Active' : 'Cancelled')) }}</td>
                                         <td class="text-center">
                                             @if($m->status == 1)
-                                                <a class="btn btn-sm btn-warning" title="Edit Meeting" href="edit_meeting/{{ $m->id }}">
+                                                <a class="btn btn-sm btn-warning" title="Edit Meeting" href="{{ url('edit_meeting/'.$m->id) }}">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                             @endif

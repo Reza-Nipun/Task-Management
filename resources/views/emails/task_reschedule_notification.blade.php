@@ -17,6 +17,15 @@
         tr:nth-child(even) {
             background-color: #dddddd;
         }
+        .button {
+            background-color: yellow; /* Green */
+            color: #000000;
+            padding: 5px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 20px;
+            font-weight: 700;
+        }
 
         .button_2 {
             background-color: green; /* Green */
@@ -68,8 +77,8 @@
             <td>{{ $remarks }}</td>
         </tr>
         <tr>
-            <th></th>
-            <td><a href="{{ url('/tasks') }}" class="button_2">Confirmation Link</a></td>
+            <th><a href="{{ url('/schedule_task_completion_meeting/'.$task_id) }}" class="button">Schedule Task Completion Meeting</a></th>
+            <td><a href="{{ url('/task_confirmation/'.$task_id) }}" class="button_2">Task Confirmation</a></td>
         </tr>
     </thead>
 </table>

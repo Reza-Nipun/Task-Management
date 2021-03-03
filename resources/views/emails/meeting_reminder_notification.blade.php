@@ -73,8 +73,8 @@
             <td>{{ $delivery_date }}</td>
         </tr>
         <tr>
-            <td><a href="{{ url('/rescheduling_meeting_from_email/'.$meeting_id) }}" class="button">Meeting Reschedule Here</a></td>
-            <td><a href="{{ url('/tasks') }}" class="button_2">Confirmation Link </a></td>
+            <td><a href="{{ url('/rescheduling_meeting_from_email/'.$meeting_id) }}" class="button">Reschedule Meeting</a></td>
+            <td><a href="{{ url('/task_confirmation/'.$task_id) }}" class="button_2">Task Confirmation</a></td>
         </tr>
     </thead>
 </table>
