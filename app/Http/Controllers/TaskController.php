@@ -335,7 +335,7 @@ class TaskController extends Controller
             $where .= " AND status=$status";
         }
 
-        $tasks = DB::select( "SELECT * FROM tasks WHERE 1 $where" );
+        $tasks = DB::select( "SELECT * FROM tasks WHERE 1 $where ORDER BY reschedule_delivery_date ASC" );
 
         $new_row = '';
 
@@ -407,7 +407,7 @@ class TaskController extends Controller
             $where .= " AND status=$status";
         }
 
-        $tasks = DB::select( "SELECT * FROM tasks WHERE 1 $where" );
+        $tasks = DB::select( "SELECT * FROM tasks WHERE 1 $where ORDER BY reschedule_delivery_date ASC" );
 
         $new_row = '';
 
