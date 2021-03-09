@@ -56,6 +56,8 @@ Route::post('/get_pending_task_filter', 'TaskController@getPendingTaskFilter')->
 Route::get('/my_tasks_report', 'TaskController@myTasksReport')->name('my_tasks_report');
 Route::post('/get_my_task_report', 'TaskController@getMyTaskReport')->name('get_my_task_report');
 Route::get('/task_confirmation/{task_id}', 'TaskController@taskConfirmation')->name('task_confirmation');
+Route::get('/performance_report', 'TaskController@performanceReport')->name('performance_report');
+Route::post('/get_performance_report', 'TaskController@getPerformanceReport')->name('get_performance_report');
 
 Route::get('/meetings', 'MeetingController@index')->name('meetings');
 Route::get('/check_pending_meeting/{task_id}', 'MeetingController@checkPendingMeeting')->name('check_pending_meeting');

@@ -625,7 +625,74 @@ class TaskController extends Controller
 
     }
 
-    public function fixMeetingDateTime(Request $request){
+    public function performanceReport(){
+        $assigned_to_emails = Task::groupBy('assigned_to')->select('assigned_to')->get();
 
+        return view('performance_report')->with('assigned_to_emails', $assigned_to_emails);
+    }
+
+    public function getPerformanceReport(Request $request){
+        $assigned_to = $request->assigned_to;
+        $assigned_date_from = $request->assigned_date_from;
+        $assigned_date_to = $request->assigned_date_to;
+
+        $where = "";
+
+        if($assigned_to != ''){
+            $where .= " AND assigned_to='$assigned_to'";
+        }
+
+        if($assigned_date_from != '' && $assigned_date_to != ''){
+            $where .= " AND assign_date BETWEEN '$assigned_date_from' AND '$assigned_date_to'";
+        }
+
+        $tasks = DB::select(
+                 DB::raw("SELECT t1.*, t2.first_time_delivery_tasks, t3.not_first_time_delivery_tasks, t4.more_than_three_rescheduled_delivery_tasks
+                        FROM 
+                        (SELECT assigned_to, COUNT(id) AS total_tasks 
+                         FROM `tasks` 
+                         WHERE 1 $where 
+                         GROUP BY assigned_to) AS t1
+                        
+                        LEFT JOIN
+                        (SELECT assigned_to, COUNT(id) AS first_time_delivery_tasks 
+                         FROM `tasks` 
+                         WHERE 1 $where
+                         AND change_count=0 
+                         GROUP BY assigned_to) AS t2
+                        ON t1.assigned_to=t2.assigned_to
+                        
+                        LEFT JOIN
+                        (SELECT assigned_to, COUNT(id) AS not_first_time_delivery_tasks 
+                         FROM `tasks` 
+                         WHERE 1 $where
+                         AND change_count> 0 
+                         GROUP BY assigned_to) AS t3
+                        ON t1.assigned_to=t3.assigned_to
+                        
+                        LEFT JOIN
+                        (SELECT assigned_to, COUNT(id) AS more_than_three_rescheduled_delivery_tasks 
+                         FROM `tasks` 
+                         WHERE 1 $where
+                         AND change_count>3 
+                         GROUP BY assigned_to) AS t4
+                        ON t1.assigned_to=t4.assigned_to") );
+
+        $new_row = '';
+
+        foreach ($tasks as $k => $t){
+
+            $new_row .= '<tr>';
+            $new_row .= '<td class="text-center">'.($k+1).'</td>';
+            $new_row .= '<td class="text-center">'.$t->assigned_to.'</td>';
+            $new_row .= '<td class="text-center">'.($t->total_tasks <> '' ? $t->total_tasks : 0).'</td>';
+            $new_row .= '<td class="text-center">'.($t->first_time_delivery_tasks <> '' ? $t->first_time_delivery_tasks : 0).'</td>';
+            $new_row .= '<td class="text-center">'.($t->not_first_time_delivery_tasks <> '' ? $t->not_first_time_delivery_tasks : 0).'</td>';
+            $new_row .= '<td class="text-center">'.($t->more_than_three_rescheduled_delivery_tasks <> '' ? $t->more_than_three_rescheduled_delivery_tasks : 0).'</td>';
+            $new_row .= '</tr>';
+
+        }
+
+        return $new_row;
     }
 }

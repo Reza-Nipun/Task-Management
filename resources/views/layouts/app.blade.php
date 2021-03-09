@@ -97,6 +97,7 @@
                                                     @endif
 
                                                     <a class="nav-link" href="{{ url('/my_tasks_report') }}">My Tasks</a>
+                                                    <a class="nav-link" href="{{ url('/performance_report') }}">Performance</a>
                                                 </div>
                                             </li>
                                             <li class="nav-item dropdown">
