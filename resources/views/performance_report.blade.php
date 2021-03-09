@@ -51,8 +51,10 @@
                                     <th class="text-center">#</th>
                                     <th class="text-center">Email</th>
                                     <th class="text-center">Total Tasks</th>
+                                    <th class="text-center">Pending Tasks</th>
+                                    <th class="text-center">Terminated Tasks</th>
                                     <th class="text-center">First Time Delivery</th>
-                                    <th class="text-center">Not First Time</th>
+                                    <th class="text-center">Not First Time Delivery</th>
                                     <th class="text-center">Delivery after 3 or more reschedule</th>
                                 </tr>
                             </thead>

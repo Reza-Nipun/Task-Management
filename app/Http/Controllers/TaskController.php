@@ -647,7 +647,8 @@ class TaskController extends Controller
         }
 
         $tasks = DB::select(
-                 DB::raw("SELECT t1.*, t2.first_time_delivery_tasks, t3.not_first_time_delivery_tasks, t4.more_than_three_rescheduled_delivery_tasks
+                 DB::raw("SELECT t1.*, t2.first_time_delivery_tasks, t3.not_first_time_delivery_tasks, 
+                        t4.more_than_three_rescheduled_delivery_tasks, t5.pending_task, t6.terminated_task
                         FROM 
                         (SELECT assigned_to, COUNT(id) AS total_tasks 
                          FROM `tasks` 
@@ -658,7 +659,7 @@ class TaskController extends Controller
                         (SELECT assigned_to, COUNT(id) AS first_time_delivery_tasks 
                          FROM `tasks` 
                          WHERE 1 $where
-                         AND change_count=0 
+                         AND change_count=0 AND status=1
                          GROUP BY assigned_to) AS t2
                         ON t1.assigned_to=t2.assigned_to
                         
@@ -666,7 +667,7 @@ class TaskController extends Controller
                         (SELECT assigned_to, COUNT(id) AS not_first_time_delivery_tasks 
                          FROM `tasks` 
                          WHERE 1 $where
-                         AND change_count> 0 
+                         AND change_count> 0 AND status=1 
                          GROUP BY assigned_to) AS t3
                         ON t1.assigned_to=t3.assigned_to
                         
@@ -674,9 +675,25 @@ class TaskController extends Controller
                         (SELECT assigned_to, COUNT(id) AS more_than_three_rescheduled_delivery_tasks 
                          FROM `tasks` 
                          WHERE 1 $where
-                         AND change_count>3 
+                         AND change_count>3 AND status=1
                          GROUP BY assigned_to) AS t4
-                        ON t1.assigned_to=t4.assigned_to") );
+                        ON t1.assigned_to=t4.assigned_to
+                                                
+                        LEFT JOIN
+                        (SELECT assigned_to, COUNT(id) AS pending_task
+                         FROM `tasks` 
+                         WHERE 1 $where
+                         AND status=2
+                         GROUP BY assigned_to) AS t5
+                         ON t1.assigned_to=t5.assigned_to
+                                                 
+                        LEFT JOIN
+                        (SELECT assigned_to, COUNT(id) AS terminated_task
+                         FROM `tasks` 
+                         WHERE 1 $where
+                         AND status=0
+                         GROUP BY assigned_to) AS t6
+                         ON t1.assigned_to=t6.assigned_to") );
 
         $new_row = '';
 
@@ -686,6 +703,8 @@ class TaskController extends Controller
             $new_row .= '<td class="text-center">'.($k+1).'</td>';
             $new_row .= '<td class="text-center">'.$t->assigned_to.'</td>';
             $new_row .= '<td class="text-center">'.($t->total_tasks <> '' ? $t->total_tasks : 0).'</td>';
+            $new_row .= '<td class="text-center">'.($t->pending_task <> '' ? $t->pending_task : 0).'</td>';
+            $new_row .= '<td class="text-center">'.($t->terminated_task <> '' ? $t->terminated_task : 0).'</td>';
             $new_row .= '<td class="text-center">'.($t->first_time_delivery_tasks <> '' ? $t->first_time_delivery_tasks : 0).'</td>';
             $new_row .= '<td class="text-center">'.($t->not_first_time_delivery_tasks <> '' ? $t->not_first_time_delivery_tasks : 0).'</td>';
             $new_row .= '<td class="text-center">'.($t->more_than_three_rescheduled_delivery_tasks <> '' ? $t->more_than_three_rescheduled_delivery_tasks : 0).'</td>';

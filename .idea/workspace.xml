@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b30451c9-5eaa-42f0-b09f-784fe69d93f7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/performance_report.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/performance_report.blade.php" afterPath="$PROJECT_DIR$/resources/views/performance_report.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,77 +17,71 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="59" column="75" lean-forward="false" selection-start-line="59" selection-start-column="55" selection-end-line="59" selection-end-column="75" />
+            <state relative-caret-position="155">
+              <caret line="59" column="60" lean-forward="true" selection-start-line="59" selection-start-column="60" selection-end-line="59" selection-end-column="60" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TaskController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TaskController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="690" column="0" lean-forward="false" selection-start-line="690" selection-start-column="0" selection-end-line="690" selection-end-column="0" />
+            <state relative-caret-position="503">
+              <caret line="706" column="113" lean-forward="true" selection-start-line="706" selection-start-column="113" selection-end-line="706" selection-end-column="113" />
               <folding>
-                <marker date="1615263641187" expanded="true" signature="11048:11076" ph="SELECT * FRO... tasks" />
-                <marker date="1615263641187" expanded="true" signature="11048:11120" ph="SELECT * FRO... tasks" />
-                <marker date="1615263641187" expanded="true" signature="12867:12998" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="12867:13136" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="13012:13106" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="14051:14079" ph="SELECT * FRO... tasks" />
-                <marker date="1615263641187" expanded="true" signature="14051:14123" ph="SELECT * FRO... tasks" />
-                <marker date="1615263641187" expanded="true" signature="15629:15698" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="15629:16080" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="15629:16181" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="15629:16202" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="15629:16362" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="15747:15839" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="15984:16078" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="16232:16332" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="16234:16332" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="17962:17990" ph="SELECT * FRO... tasks" />
-                <marker date="1615263641187" expanded="true" signature="17962:18034" ph="SELECT * FRO... tasks" />
-                <marker date="1615263641187" expanded="true" signature="18922:18960" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="19780:20043" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="19919:20013" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="20950:21022" ph="SELECT * FRO... tasks" />
-                <marker date="1615263641187" expanded="true" signature="22527:22650" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="22527:23099" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="22527:23280" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="22662:22758" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="22902:22996" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="23150:23250" ph="..." />
-                <marker date="1615263641187" expanded="true" signature="24166:24173" ph="SELECT * FRO... tasks" />
-                <marker date="1615263641187" expanded="true" signature="24166:25678" ph="SELECT t1.*,... assigned_to" />
-                <marker date="1615263641187" expanded="true" signature="24344:24515" ph="SELECT assig... tasks" />
-                <marker date="1615263641187" expanded="true" signature="24607:24836" ph="SELECT assig... tasks" />
-                <marker date="1615263641187" expanded="true" signature="24985:25219" ph="SELECT assig... tasks" />
-                <marker date="1615263641187" expanded="true" signature="25368:25614" ph="SELECT assig... tasks" />
+                <marker date="1615287683854" expanded="true" signature="11048:11076" ph="SELECT * FRO... tasks" />
+                <marker date="1615287683854" expanded="true" signature="11048:11120" ph="SELECT * FRO... tasks" />
+                <marker date="1615287683854" expanded="true" signature="12867:12998" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="12867:13136" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="13012:13106" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="14051:14079" ph="SELECT * FRO... tasks" />
+                <marker date="1615287683854" expanded="true" signature="14051:14123" ph="SELECT * FRO... tasks" />
+                <marker date="1615287683854" expanded="true" signature="15629:15698" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="15629:16080" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="15629:16181" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="15629:16202" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="15629:16362" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="15747:15839" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="15984:16078" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="16232:16332" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="16234:16332" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="17962:17990" ph="SELECT * FRO... tasks" />
+                <marker date="1615287683854" expanded="true" signature="17962:18034" ph="SELECT * FRO... tasks" />
+                <marker date="1615287683854" expanded="true" signature="18922:18960" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="19780:20043" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="19919:20013" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="20950:21022" ph="SELECT * FRO... tasks" />
+                <marker date="1615287683854" expanded="true" signature="22527:22650" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="22527:23099" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="22527:23280" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="22662:22758" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="22902:22996" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="23150:23250" ph="..." />
+                <marker date="1615287683854" expanded="true" signature="24166:24173" ph="SELECT * FRO... tasks" />
+                <marker date="1615287683854" expanded="true" signature="24166:25777" ph="SELECT t1.*,... assigned_to" />
+                <marker date="1615287683854" expanded="true" signature="24166:26159" ph="SELECT t1.*,... assigned_to" />
+                <marker date="1615287683854" expanded="true" signature="24166:26545" ph="SELECT t1.*,... assigned_to" />
+                <marker date="1615287683854" expanded="true" signature="24406:24577" ph="SELECT assig... tasks" />
+                <marker date="1615287683854" expanded="true" signature="24669:24910" ph="SELECT assig... tasks" />
+                <marker date="1615287683854" expanded="true" signature="25059:25306" ph="SELECT assig... tasks" />
+                <marker date="1615287683854" expanded="true" signature="25455:25713" ph="SELECT assig... tasks" />
+                <marker date="1615287683854" expanded="true" signature="25886:26094" ph="SELECT assig... tasks" />
+                <marker date="1615287683854" expanded="true" signature="26269:26480" ph="SELECT assig... tasks" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MeetingController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MeetingController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="44" column="25" lean-forward="true" selection-start-line="44" selection-start-column="25" selection-end-line="44" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="performance_report.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="performance_report.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/performance_report.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="78" column="45" lean-forward="false" selection-start-line="78" selection-start-column="45" selection-end-line="78" selection-end-column="45" />
+            <state relative-caret-position="323">
+              <caret line="85" column="57" lean-forward="true" selection-start-line="85" selection-start-column="57" selection-end-line="85" selection-end-column="57" />
               <folding />
             </state>
           </provider>
@@ -100,7 +91,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>task_res</find>
       <find>task_confirmation</find>
       <find>taskConfirmation</find>
       <find>rescheduleTaskDeliveryDate</find>
@@ -130,6 +120,7 @@
       <find>$e</find>
       <find>performance_report</find>
       <find>select</find>
+      <find>getPerformanceReport</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -225,7 +216,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -471,11 +461,12 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../pts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
@@ -587,11 +578,12 @@
       <workItem from="1615005898543" duration="6501000" />
       <workItem from="1615198592942" duration="1551000" />
       <workItem from="1615259516666" duration="6592000" />
+      <workItem from="1615286015817" duration="2112000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="246092000" />
+    <option name="totallyTimeSpent" value="248204000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -909,7 +901,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="22" column="68" lean-forward="false" selection-start-line="22" selection-start-column="68" selection-end-line="22" selection-end-column="68" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -917,7 +908,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="25" column="82" lean-forward="true" selection-start-line="25" selection-start-column="82" selection-end-line="25" selection-end-column="82" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -925,7 +915,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="87">
           <caret line="18" column="28" lean-forward="false" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -968,14 +957,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="99" column="127" lean-forward="true" selection-start-line="99" selection-start-column="127" selection-end-line="99" selection-end-column="127" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="59" column="75" lean-forward="false" selection-start-line="59" selection-start-column="55" selection-end-line="59" selection-end-column="75" />
+        <state relative-caret-position="155">
+          <caret line="59" column="60" lean-forward="true" selection-start-line="59" selection-start-column="60" selection-end-line="59" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/performance_report.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="85" column="57" lean-forward="true" selection-start-line="85" selection-start-column="57" selection-end-line="85" selection-end-column="57" />
           <folding />
         </state>
       </provider>
@@ -983,59 +979,55 @@
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MeetingController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
-          <caret line="44" column="25" lean-forward="true" selection-start-line="44" selection-start-column="25" selection-end-line="44" selection-end-column="25" />
+          <caret line="44" column="25" lean-forward="false" selection-start-line="44" selection-start-column="25" selection-end-line="44" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="690" column="0" lean-forward="false" selection-start-line="690" selection-start-column="0" selection-end-line="690" selection-end-column="0" />
+        <state relative-caret-position="503">
+          <caret line="706" column="113" lean-forward="true" selection-start-line="706" selection-start-column="113" selection-end-line="706" selection-end-column="113" />
           <folding>
-            <marker date="1615263641187" expanded="true" signature="11048:11076" ph="SELECT * FRO... tasks" />
-            <marker date="1615263641187" expanded="true" signature="11048:11120" ph="SELECT * FRO... tasks" />
-            <marker date="1615263641187" expanded="true" signature="12867:12998" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="12867:13136" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="13012:13106" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="14051:14079" ph="SELECT * FRO... tasks" />
-            <marker date="1615263641187" expanded="true" signature="14051:14123" ph="SELECT * FRO... tasks" />
-            <marker date="1615263641187" expanded="true" signature="15629:15698" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="15629:16080" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="15629:16181" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="15629:16202" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="15629:16362" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="15747:15839" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="15984:16078" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="16232:16332" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="16234:16332" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="17962:17990" ph="SELECT * FRO... tasks" />
-            <marker date="1615263641187" expanded="true" signature="17962:18034" ph="SELECT * FRO... tasks" />
-            <marker date="1615263641187" expanded="true" signature="18922:18960" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="19780:20043" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="19919:20013" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="20950:21022" ph="SELECT * FRO... tasks" />
-            <marker date="1615263641187" expanded="true" signature="22527:22650" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="22527:23099" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="22527:23280" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="22662:22758" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="22902:22996" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="23150:23250" ph="..." />
-            <marker date="1615263641187" expanded="true" signature="24166:24173" ph="SELECT * FRO... tasks" />
-            <marker date="1615263641187" expanded="true" signature="24166:25678" ph="SELECT t1.*,... assigned_to" />
-            <marker date="1615263641187" expanded="true" signature="24344:24515" ph="SELECT assig... tasks" />
-            <marker date="1615263641187" expanded="true" signature="24607:24836" ph="SELECT assig... tasks" />
-            <marker date="1615263641187" expanded="true" signature="24985:25219" ph="SELECT assig... tasks" />
-            <marker date="1615263641187" expanded="true" signature="25368:25614" ph="SELECT assig... tasks" />
+            <marker date="1615287683854" expanded="true" signature="11048:11076" ph="SELECT * FRO... tasks" />
+            <marker date="1615287683854" expanded="true" signature="11048:11120" ph="SELECT * FRO... tasks" />
+            <marker date="1615287683854" expanded="true" signature="12867:12998" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="12867:13136" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="13012:13106" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="14051:14079" ph="SELECT * FRO... tasks" />
+            <marker date="1615287683854" expanded="true" signature="14051:14123" ph="SELECT * FRO... tasks" />
+            <marker date="1615287683854" expanded="true" signature="15629:15698" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="15629:16080" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="15629:16181" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="15629:16202" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="15629:16362" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="15747:15839" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="15984:16078" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="16232:16332" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="16234:16332" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="17962:17990" ph="SELECT * FRO... tasks" />
+            <marker date="1615287683854" expanded="true" signature="17962:18034" ph="SELECT * FRO... tasks" />
+            <marker date="1615287683854" expanded="true" signature="18922:18960" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="19780:20043" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="19919:20013" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="20950:21022" ph="SELECT * FRO... tasks" />
+            <marker date="1615287683854" expanded="true" signature="22527:22650" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="22527:23099" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="22527:23280" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="22662:22758" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="22902:22996" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="23150:23250" ph="..." />
+            <marker date="1615287683854" expanded="true" signature="24166:24173" ph="SELECT * FRO... tasks" />
+            <marker date="1615287683854" expanded="true" signature="24166:25777" ph="SELECT t1.*,... assigned_to" />
+            <marker date="1615287683854" expanded="true" signature="24166:26159" ph="SELECT t1.*,... assigned_to" />
+            <marker date="1615287683854" expanded="true" signature="24166:26545" ph="SELECT t1.*,... assigned_to" />
+            <marker date="1615287683854" expanded="true" signature="24406:24577" ph="SELECT assig... tasks" />
+            <marker date="1615287683854" expanded="true" signature="24669:24910" ph="SELECT assig... tasks" />
+            <marker date="1615287683854" expanded="true" signature="25059:25306" ph="SELECT assig... tasks" />
+            <marker date="1615287683854" expanded="true" signature="25455:25713" ph="SELECT assig... tasks" />
+            <marker date="1615287683854" expanded="true" signature="25886:26094" ph="SELECT assig... tasks" />
+            <marker date="1615287683854" expanded="true" signature="26269:26480" ph="SELECT assig... tasks" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/performance_report.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="78" column="45" lean-forward="false" selection-start-line="78" selection-start-column="45" selection-end-line="78" selection-end-column="45" />
-          <folding />
         </state>
       </provider>
     </entry>
