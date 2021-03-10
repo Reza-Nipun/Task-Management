@@ -54,6 +54,11 @@
                                 <span class="btn btn-success mt-4" onclick="getAssignedPendingTaskReport()">SEARCH</span>
                             </div>
                         </div>
+                        <div class="col-sm-1">
+                            <div class="mt-3">
+                                <div class="loader" style="display: none;"></div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="table-responsive">
@@ -389,6 +394,7 @@
         var status = 2;
 
         $("#tbody_id").empty();
+        $(".loader").css("display", "block");
 
         $.ajax({
             url: "{{ route("get_assigned_pending_task_filter") }}",
@@ -398,6 +404,7 @@
             success: function (data) {
 
                 $("#tbody_id").append(data);
+                $(".loader").css("display", "none");
 
             }
         });
