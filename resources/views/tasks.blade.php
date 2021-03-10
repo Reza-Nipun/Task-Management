@@ -170,6 +170,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <div class="loader" style="display: none;"></div>
                 <span class="btn btn-success" onclick="completeAssignedTask();">Complete Task</span>
                 <span class="btn btn-danger" onclick="terminateAssignedTask();">Terminate Task</span>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -210,6 +211,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <div class="loader" style="display: none;"></div>
                 <span class="btn btn-primary" onclick="fixMeetingDateTime()">Save</span>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
@@ -265,6 +267,7 @@
         var res = confirm('Do you want to complete the task?');
 
         if(res == true){
+            $(".loader").css("display", "block");
             var task_id = $("#task_id").val();
 
             $.ajax({
@@ -291,6 +294,7 @@
         var res = confirm('Do you want to terminate the task?');
 
         if(res == true){
+            $(".loader").css("display", "block");
             var task_id = $("#task_id").val();
 
             $.ajax({
@@ -351,7 +355,7 @@
         var res = confirm('Confirm to fix the meeting?');
 
         if(res == true){
-
+            $(".loader").css("display", "block");
             var task_id_3 = $("#task_id_3").val();
             var meeting_date = $("#meeting_date").val();
             var meeting_time = $("#meeting_time").val();
