@@ -175,5 +175,8 @@
             @yield('content')
         </main>
     </div>
+    <footer style="width: 100%; text-align: center; font-weight: 500; left: 0; bottom: 0;">
+        <p>Copyright © 2021 All Rights Reserved by <a href="http://www.viyellatexgroup.com/" target="_blank">VIYELLATEX GROUP</a></p>
+    </footer>
 </body>
 </html>
