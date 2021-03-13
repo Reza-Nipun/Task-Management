@@ -89,10 +89,16 @@ class AccessFromEmail extends Controller
                 'remarks' => $t->remarks,
             );
 
-            Mail::send('emails.task_reminder_notification', $data, function($message) use($assigned_to)
+            $emails = array($assigned_to);
+
+            if($t->change_count > 3){
+                array_push($emails, $assigned_by);
+            }
+
+            Mail::send('emails.task_reminder_notification', $data, function($message) use($emails)
             {
                 $message
-                    ->to($assigned_to)
+                    ->to($emails)
                     ->subject('Reminder to Delivery Task');
             });
 
@@ -234,6 +240,8 @@ class AccessFromEmail extends Controller
 
     public function testMail(){
 
+        for ($i=1; $i<=10; $i++){
+
         $emails = array('nipun.sarker@interfabshirt.com', 'nipunsarker56@gmail.com');
 
         Mail::send('welcome', [], function($message) use($emails)
@@ -242,5 +250,7 @@ class AccessFromEmail extends Controller
                 ->to($emails)
                 ->subject('Task Manager - Test Mail');
         });
+
+        }
     }
 }

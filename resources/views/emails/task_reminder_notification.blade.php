@@ -60,7 +60,15 @@
         </tr>
         <tr>
             <th>Delivery Date</th>
+            <td>{{ $delivery_date }}</td>
+        </tr>
+        <tr>
+            <th>Reschedule Date</th>
             <td>{{ $reschedule_delivery_date }}</td>
+        </tr>
+        <tr>
+            <th>Change Count</th>
+            <td>{{ $change_count }}</td>
         </tr>
         <tr>
             <th>Remarks</th>
