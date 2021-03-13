@@ -39,7 +39,7 @@
                         </div>
                         <div class="col-sm-2">
                             <div class="mb-3">
-                                <span class="btn btn-success mt-4" onclick="getMyPendingTasksReport()">SEARCH</span>
+                                <span class="btn btn-success mt-4" id="search_btn" onclick="getMyPendingTasksReport()">SEARCH</span>
                             </div>
                         </div>
                         <div class="col-sm-1">
@@ -333,7 +333,7 @@
 
                     alert("Already a meeting is set, please complete it.");
 
-                    window.location.href="{{ route('meetings') }}";
+                    {{--window.location.href="{{ route('meetings') }}";--}}
                 }else{
                     $("#task_id_3").val(task_id);
 
@@ -368,7 +368,8 @@
 
                         if(data == 'done'){
 
-                            location.reload();
+                            $("#search_btn").click();
+                            $('#exampleModal2').modal('hide');
 
                         }
 

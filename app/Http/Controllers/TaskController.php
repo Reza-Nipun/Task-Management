@@ -699,15 +699,25 @@ class TaskController extends Controller
 
         foreach ($tasks as $k => $t){
 
+            $total_tasks = ($t->total_tasks <> '' ? $t->total_tasks : 0);
+            $pending_task = ($t->pending_task <> '' ? $t->pending_task : 0);
+            $terminated_task = ($t->terminated_task <> '' ? $t->terminated_task : 0);
+            $first_time_delivery_tasks = ($t->first_time_delivery_tasks <> '' ? $t->first_time_delivery_tasks : 0);
+            $not_first_time_delivery_tasks = ($t->not_first_time_delivery_tasks <> '' ? $t->not_first_time_delivery_tasks : 0);
+            $more_than_three_rescheduled_delivery_tasks = ($t->more_than_three_rescheduled_delivery_tasks <> '' ? $t->more_than_three_rescheduled_delivery_tasks : 0);
+
+            $first_time_delivery_tasks_percentage = round(($first_time_delivery_tasks/$total_tasks) * 100, 2);
+            $not_first_time_delivery_tasks_percentage = round(($not_first_time_delivery_tasks/$total_tasks) * 100, 2);
+
             $new_row .= '<tr>';
             $new_row .= '<td class="text-center">'.($k+1).'</td>';
             $new_row .= '<td class="text-center">'.$t->assigned_to.'</td>';
-            $new_row .= '<td class="text-center">'.($t->total_tasks <> '' ? $t->total_tasks : 0).'</td>';
-            $new_row .= '<td class="text-center">'.($t->pending_task <> '' ? $t->pending_task : 0).'</td>';
-            $new_row .= '<td class="text-center">'.($t->terminated_task <> '' ? $t->terminated_task : 0).'</td>';
-            $new_row .= '<td class="text-center">'.($t->first_time_delivery_tasks <> '' ? $t->first_time_delivery_tasks : 0).'</td>';
-            $new_row .= '<td class="text-center">'.($t->not_first_time_delivery_tasks <> '' ? $t->not_first_time_delivery_tasks : 0).'</td>';
-            $new_row .= '<td class="text-center">'.($t->more_than_three_rescheduled_delivery_tasks <> '' ? $t->more_than_three_rescheduled_delivery_tasks : 0).'</td>';
+            $new_row .= '<td class="text-center">'.$total_tasks.'</td>';
+            $new_row .= '<td class="text-center">'.$pending_task.'</td>';
+            $new_row .= '<td class="text-center">'.$terminated_task.'</td>';
+            $new_row .= '<td class="text-center">'.$first_time_delivery_tasks.' ~ '.$first_time_delivery_tasks_percentage.'%'.'</td>';
+            $new_row .= '<td class="text-center">'.$not_first_time_delivery_tasks.' ~ '.$not_first_time_delivery_tasks_percentage.'%'.'</td>';
+            $new_row .= '<td class="text-center">'.$more_than_three_rescheduled_delivery_tasks.'</td>';
             $new_row .= '</tr>';
 
         }

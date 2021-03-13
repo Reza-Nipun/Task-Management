@@ -42,7 +42,7 @@
                             <div class="col-sm-6">
                                 <div class="mb-3">
                                     <label for="task_description" class="form-label">Task Description</label>
-                                    <input class="form-control" type="text" id="task_description" name="task_description" />
+                                    <textarea class="form-control" id="task_description" name="task_description"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                             <div class="col-sm-6">
                                 <div class="mb-3">
                                     <label for="task_assign_to" class="form-label">Remarks</label>
-                                    <input class="form-control" type="text" id="remarks" name="remarks" />
+                                    <textarea class="form-control" id="remarks" name="remarks"></textarea>
                                 </div>
                             </div>
                             <div class="col-sm-6">
