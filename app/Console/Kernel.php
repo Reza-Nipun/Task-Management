@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->call('App\Http\Controllers\AccessFromEmail@autoRescheduleDeliveryDateTasks')->dailyAt('01:00');
         $schedule->call('App\Http\Controllers\AccessFromEmail@autoMailDeliveryDateTasksNotification')->dailyAt('09:00');
+        $schedule->call('App\Http\Controllers\AccessFromEmail@autoMailHalfwayDeliveryDateTasksNotification')->dailyAt('09:00');
         $schedule->call('App\Http\Controllers\AccessFromEmail@autoMailMeetingNotification')->dailyAt('09:00');
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Task;
 use App\Meeting;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Mail;
 
@@ -104,6 +105,51 @@ class AccessFromEmail extends Controller
 
         }
 
+    }
+
+    public function autoMailHalfwayDeliveryDateTasksNotification(){
+        $date = date('Y-m-d');
+
+        $task_info = DB::select("SELECT A.*, round(A.date_difference/2) AS half_of_date_difference, 
+                    DATE_ADD(A.reschedule_delivery_date, INTERVAL -round(A.date_difference/2) DAY) AS middle_date 
+                    FROM 
+                    (SELECT *, DATEDIFF(reschedule_delivery_date, assign_date) AS date_difference FROM `tasks` WHERE status=2) AS A
+                    WHERE A.date_difference > 4");
+
+
+        foreach ($task_info AS $t){
+
+            $assigned_to = $t->assigned_to;
+            $assigned_by = $t->assigned_by;
+
+            if($date == $t->middle_date){
+                $data = array(
+                    'task_id' => $t->id,
+                    'task_name' => $t->task_name,
+                    'task_description' => $t->task_description,
+                    'assigned_by' => $t->assigned_by,
+                    'delivery_date' => $t->delivery_date,
+                    'reschedule_delivery_date' => $t->reschedule_delivery_date,
+                    'change_count' => $t->change_count,
+                    'remarks' => $t->remarks,
+                );
+
+
+                $emails = array($assigned_to);
+
+                if($t->change_count > 3){
+                    array_push($emails, $assigned_by);
+                }
+
+                Mail::send('emails.task_reminder_notification', $data, function($message) use($emails)
+                {
+                    $message
+                        ->to($emails)
+                        ->subject('Reminder to Delivery Task');
+                });
+            }
+
+        }
     }
 
     public function autoRescheduleDeliveryDateTasks(){

@@ -75,5 +75,6 @@ Route::post('/rescheduling_meeting/{meeting_id}', 'AccessFromEmail@reschedulingM
 
 // Auto-Mail Notifications
 Route::get('/auto_mail_delivery_date_tasks_notification', 'AccessFromEmail@autoMailDeliveryDateTasksNotification')->name('auto_mail_delivery_date_tasks_notification');
+Route::get('/auto_mail_halfway_delivery_date_tasks_notification', 'AccessFromEmail@autoMailHalfwayDeliveryDateTasksNotification')->name('auto_mail_halfway_delivery_date_tasks_notification');
 Route::get('/auto_mail_meeting_notification', 'AccessFromEmail@autoMailMeetingNotification')->name('auto_mail_meeting_notification');
 Route::get('/test_mail', 'AccessFromEmail@testMail')->name('test_mail');
