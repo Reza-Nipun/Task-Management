@@ -26,9 +26,14 @@
                             </h2>
                         </div>
                         <div class="col-md-3 bg-warning mr-5">
-                            <h1 class="card-title">ASSIGNED</h1>
+                            <h1 class="card-title">ASSIGNED
+                                </h1>
                             <h2 class="card-title">
                                 <a href="{{ url('/tasks') }}" class="badge badge-light">{{ $assigned_pending_task_count }}</a>
+
+                                <a class="btn btn-sm btn-success" href="{{ url('/add_task') }}" title="Assign Task">
+                                    <i class="fa fa-plus"></i>
+                                </a>
                             </h2>
                         </div>
                         <div class="col-md-3 bg-info">
