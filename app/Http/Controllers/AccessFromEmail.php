@@ -215,13 +215,17 @@ class AccessFromEmail extends Controller
                 $invited_by = $m->invited_by;
                 $invited_to = $m->invited_to;
 
-                $emails = array($invited_by, $invited_to);
+                if($invited_by <> $invited_to){
 
-                Mail::send('emails.meeting_reminder_notification', $data, function ($message) use ($emails) {
-                    $message
-                        ->to($emails)
-                        ->subject('Meeting Schedule Notification');
-                });
+                    $emails = array($invited_by, $invited_to);
+
+                    Mail::send('emails.meeting_reminder_notification', $data, function ($message) use ($emails) {
+                        $message
+                            ->to($emails)
+                            ->subject('Meeting Schedule Notification');
+                    });
+
+                }
 
         }
     }
