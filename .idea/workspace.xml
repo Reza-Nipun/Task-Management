@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b30451c9-5eaa-42f0-b09f-784fe69d93f7" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/email_wise_task_list_report.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/AccessFromEmail.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/AccessFromEmail.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/tasks.blade.php" afterPath="$PROJECT_DIR$/resources/views/tasks.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/web.php" afterPath="$PROJECT_DIR$/routes/web.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,106 +25,101 @@
       <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1343">
-              <caret line="79" column="18" lean-forward="false" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="72" />
+            <state relative-caret-position="200">
+              <caret line="63" column="47" lean-forward="false" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="47" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AccessFromEmail.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AccessFromEmail.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="300" column="54" lean-forward="true" selection-start-line="300" selection-start-column="54" selection-end-line="300" selection-end-column="54" />
-              <folding>
-                <element signature="e#40#68#0#PHP" expanded="true" />
-                <marker date="1616210042400" expanded="true" signature="502:515" ph="..." />
-                <marker date="1616210042400" expanded="true" signature="624:635" ph="..." />
-                <marker date="1616210042400" expanded="true" signature="3648:4036" ph="SELECT A.*, *" />
-                <marker date="1616210042400" expanded="true" signature="3878:3982" ph="SELECT *, DA... tasks" />
-                <marker date="1616210042400" expanded="true" signature="8455:8468" ph="..." />
-                <marker date="1616210042400" expanded="true" signature="8583:8594" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Kernel.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Console/Kernel.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="31" column="78" lean-forward="false" selection-start-line="31" selection-start-column="78" selection-end-line="31" selection-end-column="78" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TaskController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TaskController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7480">
-              <caret line="440" column="28" lean-forward="false" selection-start-line="440" selection-start-column="28" selection-end-line="440" selection-end-column="28" />
+            <state relative-caret-position="418">
+              <caret line="794" column="0" lean-forward="true" selection-start-line="794" selection-start-column="0" selection-end-line="794" selection-end-column="0" />
               <folding>
-                <element signature="e#40#68#0#PHP" expanded="true" />
-                <marker date="1615623171143" expanded="true" signature="11048:11076" ph="SELECT * FRO... tasks" />
-                <marker date="1615623171143" expanded="true" signature="11048:11120" ph="SELECT * FRO... tasks" />
-                <marker date="1615623171143" expanded="true" signature="12867:12998" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="12867:13136" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="13012:13106" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="14051:14079" ph="SELECT * FRO... tasks" />
-                <marker date="1615623171143" expanded="true" signature="14051:14123" ph="SELECT * FRO... tasks" />
-                <marker date="1615623171143" expanded="true" signature="15629:15698" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="15629:16080" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="15629:16181" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="15629:16202" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="15629:16362" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="15747:15839" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="15984:16078" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="16232:16332" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="16234:16332" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="17962:17990" ph="SELECT * FRO... tasks" />
-                <marker date="1615623171143" expanded="true" signature="17962:18034" ph="SELECT * FRO... tasks" />
-                <marker date="1615623171143" expanded="true" signature="18922:18960" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="19780:20043" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="19919:20013" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="20950:21022" ph="SELECT * FRO... tasks" />
-                <marker date="1615623171143" expanded="true" signature="22527:22650" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="22527:23099" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="22527:23280" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="22662:22758" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="22902:22996" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="23150:23250" ph="..." />
-                <marker date="1615623171143" expanded="true" signature="24166:24173" ph="SELECT * FRO... tasks" />
-                <marker date="1615623171143" expanded="true" signature="24166:25777" ph="SELECT t1.*,... assigned_to" />
-                <marker date="1615623171143" expanded="true" signature="24166:26159" ph="SELECT t1.*,... assigned_to" />
-                <marker date="1615623171143" expanded="true" signature="24166:26545" ph="SELECT t1.*,... assigned_to" />
-                <marker date="1615623171143" expanded="true" signature="24406:24577" ph="SELECT assig... tasks" />
-                <marker date="1615623171143" expanded="true" signature="24669:24910" ph="SELECT assig... tasks" />
-                <marker date="1615623171143" expanded="true" signature="25059:25306" ph="SELECT assig... tasks" />
-                <marker date="1615623171143" expanded="true" signature="25455:25713" ph="SELECT assig... tasks" />
-                <marker date="1615623171143" expanded="true" signature="25886:26094" ph="SELECT assig... tasks" />
-                <marker date="1615623171143" expanded="true" signature="26269:26480" ph="SELECT assig... tasks" />
+                <marker date="1616819287429" expanded="true" signature="12319:12347" ph="SELECT * FRO... tasks" />
+                <marker date="1616819287429" expanded="true" signature="12319:12391" ph="SELECT * FRO... tasks" />
+                <marker date="1616819287429" expanded="true" signature="14138:14269" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="14138:14407" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="14283:14377" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="15322:15350" ph="SELECT * FRO... tasks" />
+                <marker date="1616819287429" expanded="true" signature="15322:15394" ph="SELECT * FRO... tasks" />
+                <marker date="1616819287429" expanded="true" signature="16880:16952" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="16880:17378" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="16880:17479" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="16880:17500" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="16880:17660" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="17042:17137" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="17282:17376" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="17530:17630" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="17532:17630" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="19260:19288" ph="SELECT * FRO... tasks" />
+                <marker date="1616819287429" expanded="true" signature="19260:19332" ph="SELECT * FRO... tasks" />
+                <marker date="1616819287429" expanded="true" signature="20220:20258" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="21078:21341" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="21217:21311" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="22248:22320" ph="SELECT * FRO... tasks" />
+                <marker date="1616819287429" expanded="true" signature="23825:23948" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="23825:24397" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="23825:24578" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="23960:24056" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="24200:24294" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="24448:24548" ph="..." />
+                <marker date="1616819287429" expanded="true" signature="25464:25471" ph="SELECT * FRO... tasks" />
+                <marker date="1616819287429" expanded="true" signature="25464:27075" ph="SELECT t1.*,... assigned_to" />
+                <marker date="1616819287429" expanded="true" signature="25464:27457" ph="SELECT t1.*,... assigned_to" />
+                <marker date="1616819287429" expanded="true" signature="25464:27843" ph="SELECT t1.*,... assigned_to" />
+                <marker date="1616819287429" expanded="true" signature="25704:25875" ph="SELECT assig... tasks" />
+                <marker date="1616819287429" expanded="true" signature="25967:26208" ph="SELECT assig... tasks" />
+                <marker date="1616819287429" expanded="true" signature="26357:26604" ph="SELECT assig... tasks" />
+                <marker date="1616819287429" expanded="true" signature="26753:27011" ph="SELECT assig... tasks" />
+                <marker date="1616819287429" expanded="true" signature="27184:27392" ph="SELECT assig... tasks" />
+                <marker date="1616819287429" expanded="true" signature="27567:27778" ph="SELECT assig... tasks" />
+                <marker date="1616819287429" expanded="true" signature="30597:30666" ph="SELECT * FRO... tasks" />
+                <marker date="1616819287429" expanded="true" signature="30597:30670" ph="SELECT * FRO... tasks" />
+                <marker date="1616819287429" expanded="true" signature="31187:31260" ph="SELECT * FRO... tasks" />
+                <marker date="1616819287429" expanded="true" signature="31780:31853" ph="SELECT * FRO... tasks" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="my_tasks.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/my_tasks.blade.php">
+      <file leaf-file-name="email_wise_task_list_report.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/email_wise_task_list_report.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4046">
-              <caret line="238" column="0" lean-forward="false" selection-start-line="238" selection-start-column="0" selection-end-line="238" selection-end-column="0" />
+            <state relative-caret-position="357">
+              <caret line="39" column="123" lean-forward="false" selection-start-line="39" selection-start-column="123" selection-end-line="39" selection-end-column="123" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
+      <file leaf-file-name=".env" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.env">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="52" lean-forward="false" selection-start-line="17" selection-start-column="52" selection-end-line="17" selection-end-column="52" />
+            <state relative-caret-position="368">
+              <caret line="32" column="28" lean-forward="true" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="performance_report.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/performance_report.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="91" column="39" lean-forward="true" selection-start-line="91" selection-start-column="39" selection-end-line="91" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tasks.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/tasks.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1530">
+              <caret line="90" column="114" lean-forward="false" selection-start-line="90" selection-start-column="114" selection-end-line="90" selection-end-column="114" />
               <folding />
             </state>
           </provider>
@@ -130,28 +129,10 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>assignedTasksReport</find>
-      <find>get_assigned_task_report</find>
-      <find>getAssignedTaskReport</find>
-      <find>my_tasks_report</find>
-      <find>myTasksReport</find>
-      <find>get_my_task_report</find>
-      <find>valida</find>
-      <find>$e</find>
-      <find>select</find>
-      <find>tasks</find>
-      <find>getTasks</find>
-      <find>my_tasks</find>
       <find>myTasks</find>
-      <find>performance_report</find>
-      <find>performanceReport</find>
       <find>search_btn</find>
-      <find>get_performance_report</find>
-      <find>getPerformanceReport</find>
       <find>edit_task</find>
-      <find>updateTask</find>
       <find>fixMeetingDateTime</find>
-      <find>update_task</find>
       <find>task_reminder_notification</find>
       <find>testMai</find>
       <find>autoMailDeliveryDateTasksNotification</find>
@@ -159,7 +140,25 @@
       <find>new_ro</find>
       <find>autoMailMeetingNotification</find>
       <find>autoMailHalfwayDeliveryDateTasksNotification</find>
+      <find>exampleModalLong</find>
+      <find>update_task</find>
+      <find>updateTask</find>
+      <find>getAssignedPendingTaskFilter</find>
+      <find>get_assigned_pending_task_filter</find>
+      <find>edit_task_id</find>
+      <find>editmo</find>
+      <find>editModalLong</find>
+      <find>updateTaskInfo</find>
+      <find>performance_report</find>
+      <find>performanceReport</find>
       <find>testMail</find>
+      <find>get_email_wise_task_list</find>
+      <find>getEmailWiseTaskList</find>
+      <find>get_pending_task_list</find>
+      <find>status</find>
+      <find>get_performance_report</find>
+      <find>getPerformanceReport</find>
+      <find>get_email_wise_pending_task_list</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -168,7 +167,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" />
         <option value="$PROJECT_DIR$/app/User.php" />
         <option value="$PROJECT_DIR$/resources/views/users.php" />
         <option value="$PROJECT_DIR$/database/migrations/2021_02_09_032251_add_remarks_to_tasks_table.php" />
@@ -207,18 +205,19 @@
         <option value="$PROJECT_DIR$/resources/views/my_tasks_report.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/welcome.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/tasks.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" />
         <option value="$PROJECT_DIR$/resources/views/performance_report.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/edit_task.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/add_task.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/my_tasks.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/emails/task_reminder_notification.blade.php" />
-        <option value="$PROJECT_DIR$/.env" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/app/Console/Kernel.php" />
         <option value="$PROJECT_DIR$/resources/views/home.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/tasks.blade.php" />
+        <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/AccessFromEmail.php" />
+        <option value="$PROJECT_DIR$/resources/views/email_wise_task_list_report.blade.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" />
       </list>
     </option>
   </component>
@@ -255,7 +254,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -297,28 +295,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="task" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="task" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layouts" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -396,7 +372,11 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Exceptions" />
+              <option name="myItemId" value="Http" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Controllers" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -415,33 +395,12 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Console" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="task" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="task" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Console" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Commands" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -572,18 +531,21 @@
       <workItem from="1616209584110" duration="6144000" />
       <workItem from="1616295826519" duration="69000" />
       <workItem from="1616313808412" duration="1082000" />
-      <workItem from="1616323223430" duration="2078000" />
+      <workItem from="1616323223430" duration="2122000" />
+      <workItem from="1616382715036" duration="1326000" />
+      <workItem from="1616468857150" duration="15641000" />
+      <workItem from="1616814477070" duration="6867000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="293415000" />
+    <option name="totallyTimeSpent" value="317293000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21669106" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19253294" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -616,14 +578,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/config/database.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="58" column="30" lean-forward="true" selection-start-line="58" selection-start-column="30" selection-end-line="58" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/excel.php" />
     <entry file="file://$PROJECT_DIR$/composer.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -823,24 +777,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/performance_report.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="55" column="66" lean-forward="true" selection-start-line="55" selection-start-column="66" selection-end-line="55" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/my_tasks_report.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" column="72" lean-forward="false" selection-start-line="16" selection-start-column="72" selection-end-line="16" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/edit_task.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="19" column="50" lean-forward="true" selection-start-line="19" selection-start-column="50" selection-end-line="19" selection-end-column="50" />
         </state>
       </provider>
     </entry>
@@ -900,18 +840,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/tasks.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="61" column="26" lean-forward="true" selection-start-line="61" selection-start-column="26" selection-end-line="61" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Console/Commands/cronEmail.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
           <caret line="14" column="16" lean-forward="false" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -923,82 +855,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7480">
-          <caret line="440" column="28" lean-forward="false" selection-start-line="440" selection-start-column="28" selection-end-line="440" selection-end-column="28" />
-          <folding>
-            <element signature="e#40#68#0#PHP" expanded="true" />
-            <marker date="1615623171143" expanded="true" signature="11048:11076" ph="SELECT * FRO... tasks" />
-            <marker date="1615623171143" expanded="true" signature="11048:11120" ph="SELECT * FRO... tasks" />
-            <marker date="1615623171143" expanded="true" signature="12867:12998" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="12867:13136" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="13012:13106" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="14051:14079" ph="SELECT * FRO... tasks" />
-            <marker date="1615623171143" expanded="true" signature="14051:14123" ph="SELECT * FRO... tasks" />
-            <marker date="1615623171143" expanded="true" signature="15629:15698" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="15629:16080" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="15629:16181" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="15629:16202" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="15629:16362" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="15747:15839" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="15984:16078" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="16232:16332" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="16234:16332" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="17962:17990" ph="SELECT * FRO... tasks" />
-            <marker date="1615623171143" expanded="true" signature="17962:18034" ph="SELECT * FRO... tasks" />
-            <marker date="1615623171143" expanded="true" signature="18922:18960" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="19780:20043" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="19919:20013" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="20950:21022" ph="SELECT * FRO... tasks" />
-            <marker date="1615623171143" expanded="true" signature="22527:22650" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="22527:23099" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="22527:23280" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="22662:22758" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="22902:22996" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="23150:23250" ph="..." />
-            <marker date="1615623171143" expanded="true" signature="24166:24173" ph="SELECT * FRO... tasks" />
-            <marker date="1615623171143" expanded="true" signature="24166:25777" ph="SELECT t1.*,... assigned_to" />
-            <marker date="1615623171143" expanded="true" signature="24166:26159" ph="SELECT t1.*,... assigned_to" />
-            <marker date="1615623171143" expanded="true" signature="24166:26545" ph="SELECT t1.*,... assigned_to" />
-            <marker date="1615623171143" expanded="true" signature="24406:24577" ph="SELECT assig... tasks" />
-            <marker date="1615623171143" expanded="true" signature="24669:24910" ph="SELECT assig... tasks" />
-            <marker date="1615623171143" expanded="true" signature="25059:25306" ph="SELECT assig... tasks" />
-            <marker date="1615623171143" expanded="true" signature="25455:25713" ph="SELECT assig... tasks" />
-            <marker date="1615623171143" expanded="true" signature="25886:26094" ph="SELECT assig... tasks" />
-            <marker date="1615623171143" expanded="true" signature="26269:26480" ph="SELECT assig... tasks" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/my_tasks.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4046">
           <caret line="238" column="0" lean-forward="false" selection-start-line="238" selection-start-column="0" selection-end-line="238" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="15" lean-forward="false" selection-start-line="23" selection-start-column="15" selection-end-line="23" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1343">
-          <caret line="79" column="18" lean-forward="false" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="72" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/welcome.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="28" lean-forward="true" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1006,22 +866,148 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="17" column="52" lean-forward="false" selection-start-line="17" selection-start-column="52" selection-end-line="17" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/welcome.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="97" column="28" lean-forward="true" selection-start-line="97" selection-start-column="28" selection-end-line="97" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/phpunit/php-code-coverage/src/Report/Html/Renderer/Template/css/bootstrap.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="5" column="97045" lean-forward="false" selection-start-line="5" selection-start-column="97045" selection-end-line="5" selection-end-column="97045" />
+          <folding>
+            <element signature="e#25768#26002#2" expanded="false" />
+            <element signature="e#26806#26959#1" expanded="false" />
+            <element signature="e#26999#27233#1" expanded="false" />
+            <element signature="e#30239#30515#2" expanded="false" />
+            <element signature="e#31347#31500#1" expanded="false" />
+            <element signature="e#31540#31816#1" expanded="false" />
+            <element signature="e#61072#61259#2" expanded="false" />
+            <element signature="e#61488#61624#2" expanded="false" />
+            <element signature="e#62027#62160#2" expanded="false" />
+            <element signature="e#63642#63795#1" expanded="false" />
+            <element signature="e#75788#76018#2" expanded="false" />
+            <element signature="e#76885#77121#2" expanded="false" />
+            <element signature="e#106714#106891#2" expanded="false" />
+            <element signature="e#106937#107114#2" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/edit_task.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="35" lean-forward="false" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/tasks.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1530">
+          <caret line="90" column="114" lean-forward="false" selection-start-line="90" selection-start-column="114" selection-end-line="90" selection-end-column="114" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AccessFromEmail.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="300" column="54" lean-forward="true" selection-start-line="300" selection-start-column="54" selection-end-line="300" selection-end-column="54" />
+        <state relative-caret-position="240">
+          <caret line="292" column="33" lean-forward="true" selection-start-line="292" selection-start-column="33" selection-end-line="292" selection-end-column="33" />
           <folding>
-            <element signature="e#40#68#0#PHP" expanded="true" />
-            <marker date="1616210042400" expanded="true" signature="502:515" ph="..." />
-            <marker date="1616210042400" expanded="true" signature="624:635" ph="..." />
-            <marker date="1616210042400" expanded="true" signature="3648:4036" ph="SELECT A.*, *" />
-            <marker date="1616210042400" expanded="true" signature="3878:3982" ph="SELECT *, DA... tasks" />
-            <marker date="1616210042400" expanded="true" signature="8455:8468" ph="..." />
-            <marker date="1616210042400" expanded="true" signature="8583:8594" ph="..." />
+            <marker date="1616814702064" expanded="true" signature="502:515" ph="..." />
+            <marker date="1616814702064" expanded="true" signature="624:635" ph="..." />
+            <marker date="1616814702064" expanded="true" signature="3648:4036" ph="SELECT A.*, *" />
+            <marker date="1616814702064" expanded="true" signature="3878:3982" ph="SELECT *, DA... tasks" />
+            <marker date="1616814702064" expanded="true" signature="8455:8468" ph="..." />
+            <marker date="1616814702064" expanded="true" signature="8583:8594" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="32" column="28" lean-forward="true" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/performance_report.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="91" column="39" lean-forward="true" selection-start-line="91" selection-start-column="39" selection-end-line="91" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/email_wise_task_list_report.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="39" column="123" lean-forward="false" selection-start-line="39" selection-start-column="123" selection-end-line="39" selection-end-column="123" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="63" column="47" lean-forward="false" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TaskController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="794" column="0" lean-forward="true" selection-start-line="794" selection-start-column="0" selection-end-line="794" selection-end-column="0" />
+          <folding>
+            <marker date="1616819287429" expanded="true" signature="12319:12347" ph="SELECT * FRO... tasks" />
+            <marker date="1616819287429" expanded="true" signature="12319:12391" ph="SELECT * FRO... tasks" />
+            <marker date="1616819287429" expanded="true" signature="14138:14269" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="14138:14407" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="14283:14377" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="15322:15350" ph="SELECT * FRO... tasks" />
+            <marker date="1616819287429" expanded="true" signature="15322:15394" ph="SELECT * FRO... tasks" />
+            <marker date="1616819287429" expanded="true" signature="16880:16952" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="16880:17378" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="16880:17479" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="16880:17500" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="16880:17660" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="17042:17137" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="17282:17376" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="17530:17630" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="17532:17630" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="19260:19288" ph="SELECT * FRO... tasks" />
+            <marker date="1616819287429" expanded="true" signature="19260:19332" ph="SELECT * FRO... tasks" />
+            <marker date="1616819287429" expanded="true" signature="20220:20258" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="21078:21341" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="21217:21311" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="22248:22320" ph="SELECT * FRO... tasks" />
+            <marker date="1616819287429" expanded="true" signature="23825:23948" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="23825:24397" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="23825:24578" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="23960:24056" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="24200:24294" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="24448:24548" ph="..." />
+            <marker date="1616819287429" expanded="true" signature="25464:25471" ph="SELECT * FRO... tasks" />
+            <marker date="1616819287429" expanded="true" signature="25464:27075" ph="SELECT t1.*,... assigned_to" />
+            <marker date="1616819287429" expanded="true" signature="25464:27457" ph="SELECT t1.*,... assigned_to" />
+            <marker date="1616819287429" expanded="true" signature="25464:27843" ph="SELECT t1.*,... assigned_to" />
+            <marker date="1616819287429" expanded="true" signature="25704:25875" ph="SELECT assig... tasks" />
+            <marker date="1616819287429" expanded="true" signature="25967:26208" ph="SELECT assig... tasks" />
+            <marker date="1616819287429" expanded="true" signature="26357:26604" ph="SELECT assig... tasks" />
+            <marker date="1616819287429" expanded="true" signature="26753:27011" ph="SELECT assig... tasks" />
+            <marker date="1616819287429" expanded="true" signature="27184:27392" ph="SELECT assig... tasks" />
+            <marker date="1616819287429" expanded="true" signature="27567:27778" ph="SELECT assig... tasks" />
+            <marker date="1616819287429" expanded="true" signature="30597:30666" ph="SELECT * FRO... tasks" />
+            <marker date="1616819287429" expanded="true" signature="30597:30670" ph="SELECT * FRO... tasks" />
+            <marker date="1616819287429" expanded="true" signature="31187:31260" ph="SELECT * FRO... tasks" />
+            <marker date="1616819287429" expanded="true" signature="31780:31853" ph="SELECT * FRO... tasks" />
           </folding>
         </state>
       </provider>

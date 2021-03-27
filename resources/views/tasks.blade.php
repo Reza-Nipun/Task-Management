@@ -88,9 +88,9 @@
                                         <td class="text-center">{{ $t->change_count }}</td>
                                         <td class="text-center">{{ ($t->status == 2 ? 'Pending' : ($t->status == 0 ? 'Terminated' : 'Completed')) }}</td>
                                         <td>
-                                            <a class="btn btn-sm btn-warning" href="{{ url('/edit_task/'.$t->id) }}" title="Edit Task">
+                                            <span class="btn btn-sm btn-warning" href="{{ url('/edit_task/'.$t->id) }}" title="Edit Task" onclick="editAssignedTask({{ $t->id }})">
                                                 <i class="fa fa-edit"></i>
-                                            </a>
+                                            </span>
                                             <span class="btn btn-sm btn-primary" title="View" title="Task Detail" onclick="getAssignedTaskDetail({{ $t->id }})">
                                                 <i class="fa fa-eye"></i>
                                             </span>
@@ -103,6 +103,63 @@
                             </tbody>
                         </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editModalLong" tabindex="-1" role="dialog" aria-labelledby="editModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLongTitle">Edit Task</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="edit_task_name" class="col-sm-4 col-form-label font-weight-bold">Task: <span style="color: red">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="edit_task_name" />
+                        <input type="hidden" name="edit_task_id" id="edit_task_id" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="edit_task_description" class="col-sm-4 col-form-label font-weight-bold">Description:</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" id="edit_task_description"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="edit_assigned_to" class="col-sm-4 col-form-label font-weight-bold">Assigned To: <span style="color: red">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="email" class="form-control" id="edit_assigned_to" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="edit_delivery_date" class="col-sm-4 col-form-label font-weight-bold">Delivery Date: <span style="color: red">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="date" class="form-control" id="edit_delivery_date" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="edit_reschedule_delivery_date" class="col-sm-4 col-form-label font-weight-bold">Reschedule Date: <span style="color: red">*</span></label>
+                    <div class="col-sm-8">
+                        <input type="date" class="form-control" id="edit_reschedule_delivery_date" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="edit_remarks" class="col-sm-4 col-form-label font-weight-bold">Remarks:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="edit_remarks" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="loader" style="display: none;"></div>
+                <span class="btn btn-success" onclick="updateAssignedTask();">Update</span>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -265,6 +322,64 @@
             }
         });
 
+    }
+
+    function editAssignedTask(task_id) {
+        $("#edit_task_id").val('');
+        $("#edit_task_name").empty();
+        $("#edit_task_description").empty();
+        $("#edit_assigned_to").empty();
+        $("#edit_delivery_date").empty();
+        $("#edit_remarks").empty();
+
+        $.ajax({
+            url: "{{ route("get_assigned_task_detail") }}",
+            type:'GET',
+            data: {_token:"{{csrf_token()}}", task_id: task_id},
+            dataType: "json",
+            success: function (data) {
+
+                $("#edit_task_id").val(data.id);
+                $("#edit_task_name").val(data.task_name);
+                $("#edit_task_description").val(data.task_description);
+                $("#edit_assigned_to").val(data.assigned_to);
+                $("#edit_delivery_date").val(data.delivery_date);
+                $("#edit_reschedule_delivery_date").val(data.reschedule_delivery_date);
+                $("#edit_remarks").val(data.remarks);
+
+                $('#editModalLong').modal('show');
+
+            }
+        });
+    }
+    
+    function updateAssignedTask() {
+        var task_id = $("#edit_task_id").val();
+        var task_name = $("#edit_task_name").val();
+        var task_description = $("#edit_task_description").val();
+        var assigned_to = $("#edit_assigned_to").val();
+        var delivery_date = $("#edit_delivery_date").val();
+        var reschedule_delivery_date = $("#edit_reschedule_delivery_date").val();
+        var remarks = $("#edit_remarks").val();
+
+        if(task_id != '' && task_name != '' && assigned_to != '' && delivery_date != '' && reschedule_delivery_date != ''){
+            $.ajax({
+                url: "{{ route("update_task_info") }}",
+                type:'POST',
+                data: {_token:"{{csrf_token()}}", task_id: task_id, task_name: task_name, task_description: task_description, assign_to: assigned_to, delivery_date: delivery_date, reschedule_delivery_date: reschedule_delivery_date, remarks: remarks},
+                dataType: "html",
+                success: function (data) {
+
+                    if(data == 'done'){
+                        $("#search_btn").click();
+                        $('#editModalLong').modal('hide');
+                    }
+
+                }
+            });
+        }else{
+            alert("Please select the required fields!");
+        }
     }
 
     function completeAssignedTask() {

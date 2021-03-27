@@ -65,7 +65,7 @@ class TaskController extends Controller
         $task->task_description = $task_description;
         $task->assigned_by = $assigned_by;
         $task->assigned_to = $assigned_to;
-        $task->assign_date = $assign_date;
+//        $task->assign_date = $assign_date;
         $task->delivery_date = $delivery_date;
         $task->reschedule_delivery_date = $delivery_date;
         $task->status = $status;
@@ -75,6 +75,41 @@ class TaskController extends Controller
         \Session::flash('message', 'Task Update Successful!');
 
         return redirect()->back();
+    }
+
+    public function updateTaskInfo(Request $request){
+        $this->validate(request(), [
+            'task_name' => 'required',
+            'assign_to' => 'required|email',
+            'delivery_date' => 'required',
+            'reschedule_delivery_date' => 'required',
+        ]);
+
+        $id = $request->task_id;
+        $task_name = $request->task_name;
+        $task_description = $request->task_description;
+        $assigned_by = Auth::user()->email;
+        $assigned_to = $request->assign_to;
+        $assign_date = date('Y-m-d');
+        $delivery_date = date('Y-m-d', strtotime($request->delivery_date));
+        $reschedule_delivery_date = date('Y-m-d', strtotime($request->reschedule_delivery_date));
+        $remarks = $request->remarks;
+        $status = 2;
+
+        $task = Task::find($id);
+
+        $task->task_name = $task_name;
+        $task->task_description = $task_description;
+        $task->assigned_by = $assigned_by;
+        $task->assigned_to = $assigned_to;
+//        $task->assign_date = $assign_date;
+        $task->delivery_date = $delivery_date;
+        $task->reschedule_delivery_date = $reschedule_delivery_date;
+        $task->status = $status;
+        $task->remarks = $remarks;
+        $task->save();
+
+        echo 'done';
     }
 
     public function completeAssignedTask(Request $request){
@@ -437,10 +472,10 @@ class TaskController extends Controller
             $new_row .= '<td class="text-center">'.$t->reschedule_delivery_date.'</td>';
             $new_row .= '<td class="text-center">'.$t->change_count.'</td>';
             $new_row .= '<td class="text-center">'.$status.'</td>';
-            $new_row .= '<td class="text-center">
-                            <a class="btn btn-sm btn-warning" href="'.url('/edit_task/'.$t->id).'" title="Edit Task">
+            $new_row .= '<td>
+                            <span class="btn btn-sm btn-warning" href="'.url('/edit_task/'.$t->id).'" title="Edit Task" onclick="editAssignedTask( '.$t->id.' )">
                                 <i class="fa fa-edit"></i>
-                            </a>
+                            </span>
                             <span class="btn btn-sm btn-primary" title="View" title="Task Detail" onclick="getAssignedTaskDetail( '.$t->id.' )">
                                 <i class="fa fa-eye"></i>
                             </span>
@@ -712,9 +747,9 @@ class TaskController extends Controller
             $new_row .= '<tr>';
             $new_row .= '<td class="text-center">'.($k+1).'</td>';
             $new_row .= '<td class="text-center">'.$t->assigned_to.'</td>';
-            $new_row .= '<td class="text-center">'.$total_tasks.'</td>';
-            $new_row .= '<td class="text-center">'.$pending_task.'</td>';
-            $new_row .= '<td class="text-center">'.$terminated_task.'</td>';
+            $new_row .= '<td class="text-center"><a href="'.route('get_email_wise_task_list', ['email'=>$t->assigned_to, 'from_assign_date'=>$assigned_date_from, 'to_assign_date'=>$assigned_date_to]).'" target="_blank">'.$total_tasks.'</a></td>';
+            $new_row .= '<td class="text-center"><a href="'.route('get_email_wise_pending_task_list', ['email'=>$t->assigned_to, 'from_assign_date'=>$assigned_date_from, 'to_assign_date'=>$assigned_date_to]).'" target="_blank">'.$pending_task.'</a></td>';
+            $new_row .= '<td class="text-center"><a href="'.route('get_email_wise_terminate_task_list', ['email'=>$t->assigned_to, 'from_assign_date'=>$assigned_date_from, 'to_assign_date'=>$assigned_date_to]).'" target="_blank">'.$terminated_task.'</a></td>';
             $new_row .= '<td class="text-center">'.$first_time_delivery_tasks.' ~ '.$first_time_delivery_tasks_percentage.'%'.'</td>';
             $new_row .= '<td class="text-center">'.$not_first_time_delivery_tasks.' ~ '.$not_first_time_delivery_tasks_percentage.'%'.'</td>';
             $new_row .= '<td class="text-center">'.$more_than_three_rescheduled_delivery_tasks.'</td>';
@@ -723,5 +758,54 @@ class TaskController extends Controller
         }
 
         return $new_row;
+    }
+
+    public function getEmailWiseTaskList($email=null, $from_assign_date=null, $to_assign_date=null){
+
+        $where = "";
+
+        if($email != ''){
+            $where .= " AND assigned_to='$email'";
+        }
+
+        if($from_assign_date != '' && $to_assign_date != ''){
+            $where .= " AND assign_date BETWEEN '$from_assign_date' AND '$to_assign_date'";
+        }
+
+        $tasks = DB::select("SELECT * FROM tasks WHERE 1 $where ORDER BY reschedule_delivery_date DESC ");
+
+        return view('email_wise_task_list_report', compact('tasks', 'email'));
+    }
+
+    public function getEmailWisePendingTaskList($email=null, $from_assign_date=null, $to_assign_date=null){
+        $where = "";
+
+        if($email != ''){
+            $where .= " AND assigned_to='$email' AND status=2";
+        }
+
+        if($from_assign_date != '' && $to_assign_date != ''){
+            $where .= " AND assign_date BETWEEN '$from_assign_date' AND '$to_assign_date'";
+        }
+
+        $tasks = DB::select("SELECT * FROM tasks WHERE 1 $where ORDER BY reschedule_delivery_date DESC ");
+
+        return view('email_wise_task_list_report', compact('tasks', 'email'));
+    }
+
+    public function getEmailWiseTerminatedTaskList($email=null, $from_assign_date=null, $to_assign_date=null){
+        $where = "";
+
+        if($email != ''){
+            $where .= " AND assigned_to='$email' AND status=0";
+        }
+
+        if($from_assign_date != '' && $to_assign_date != ''){
+            $where .= " AND assign_date BETWEEN '$from_assign_date' AND '$to_assign_date'";
+        }
+
+        $tasks = DB::select("SELECT * FROM tasks WHERE 1 $where ORDER BY reschedule_delivery_date DESC ");
+
+        return view('email_wise_task_list_report', compact('tasks', 'email'));
     }
 }

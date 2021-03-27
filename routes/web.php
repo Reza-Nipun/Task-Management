@@ -41,6 +41,7 @@ Route::get('/tasks', 'TaskController@getTasks')->name('tasks');
 Route::get('/get_assigned_task_detail', 'TaskController@getAssignedTaskDetail')->name('get_assigned_task_detail');
 Route::get('/edit_task/{id}', 'TaskController@editTask')->name('edit_task');
 Route::post('/update_task/{id}', 'TaskController@updateTask')->name('update_task');
+Route::post('/update_task_info', 'TaskController@updateTaskInfo')->name('update_task_info');
 Route::get('/my_tasks', 'TaskController@myTasks')->name('my_tasks');
 Route::get('/add_task', 'TaskController@addTask')->name('add_task');
 Route::post('/save_task', 'TaskController@saveTask')->name('save_task');
@@ -58,6 +59,9 @@ Route::post('/get_my_task_report', 'TaskController@getMyTaskReport')->name('get_
 Route::get('/task_confirmation/{task_id}', 'TaskController@taskConfirmation')->name('task_confirmation');
 Route::get('/performance_report', 'TaskController@performanceReport')->name('performance_report');
 Route::post('/get_performance_report', 'TaskController@getPerformanceReport')->name('get_performance_report');
+Route::get('/get_email_wise_task_list/{email?}/{from_assign_date?}/{to_assign_date?}', 'TaskController@getEmailWiseTaskList')->name('get_email_wise_task_list');
+Route::get('/get_email_wise_pending_task_list/{email?}/{from_assign_date?}/{to_assign_date?}', 'TaskController@getEmailWisePendingTaskList')->name('get_email_wise_pending_task_list');
+Route::get('/get_email_wise_terminate_task_list/{email?}/{from_assign_date?}/{to_assign_date?}', 'TaskController@getEmailWiseTerminatedTaskList')->name('get_email_wise_terminate_task_list');
 
 Route::get('/meetings', 'MeetingController@index')->name('meetings');
 Route::get('/check_pending_meeting/{task_id}', 'MeetingController@checkPendingMeeting')->name('check_pending_meeting');
