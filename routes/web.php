@@ -39,9 +39,12 @@ Route::post('/update_user/{id}', 'UserController@updateUser')->name('update_user
 
 Route::get('/tasks', 'TaskController@getTasks')->name('tasks');
 Route::get('/get_assigned_task_detail', 'TaskController@getAssignedTaskDetail')->name('get_assigned_task_detail');
+Route::get('/get_sub_task_detail', 'TaskController@getSubTaskDetail')->name('get_sub_task_detail');
+Route::post('/sub_task_status_change', 'TaskController@subTaskStatusChange')->name('sub_task_status_change');
 Route::get('/edit_task/{id}', 'TaskController@editTask')->name('edit_task');
 Route::post('/update_task/{id}', 'TaskController@updateTask')->name('update_task');
 Route::post('/update_task_info', 'TaskController@updateTaskInfo')->name('update_task_info');
+Route::post('/save_sub_task', 'TaskController@saveSubTask')->name('save_sub_task');
 Route::get('/my_tasks', 'TaskController@myTasks')->name('my_tasks');
 Route::get('/add_task', 'TaskController@addTask')->name('add_task');
 Route::post('/save_task', 'TaskController@saveTask')->name('save_task');

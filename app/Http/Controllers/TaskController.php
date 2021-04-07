@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use Importer;
 
 use App\Task;
+use App\SubTask;
 use App\Meeting;
 use DB;
 
@@ -109,6 +110,94 @@ class TaskController extends Controller
         $task->remarks = $remarks;
         $task->save();
 
+
+//        OLD SUB TASK DATA START
+        $sub_task_ids = $request->sub_task_ids;
+        $sub_task_name_olds = $request->sub_task_name_olds;
+        $responsible_person_olds = $request->responsible_person_olds;
+        $sub_task_delivery_date_olds = $request->sub_task_delivery_date_olds;
+        if(isset($sub_task_ids)) {
+            foreach ($sub_task_ids as $k => $sub_task_id) {
+                $sub_task = SubTask::find($sub_task_id);
+
+                $sub_task->sub_task_name = $sub_task_name_olds[$k];
+                $sub_task->responsible_person = $responsible_person_olds[$k];
+                $sub_task->delivery_date = $sub_task_delivery_date_olds[$k];
+                $sub_task->save();
+            }
+        }
+//        OLD SUB TASK DATA END
+
+
+//        NEW SUB TASK DATA START
+        $sub_task_names = $request->sub_task_names;
+        $responsible_persons = $request->responsible_persons;
+        $sub_task_delivery_dates = $request->sub_task_delivery_dates;
+
+        if(isset($sub_task_names)){
+            foreach($sub_task_names as $k => $new_sub_task){
+                if(!empty($new_sub_task)){
+                    $sub_task_new = new SubTask();
+
+                    $sub_task_new->parent_task_id = $id;
+                    $sub_task_new->sub_task_name = $new_sub_task;
+                    $sub_task_new->responsible_person = $responsible_persons[$k];
+                    $sub_task_new->assign_date = date('Y-m-d');
+                    $sub_task_new->delivery_date = $sub_task_delivery_dates[$k];
+                    $sub_task_new->status = 2;
+                    $sub_task_new->save();
+                }
+            }
+        }
+//        NEW SUB TASK DATA END
+
+        echo 'done';
+    }
+
+    public function saveSubTask(Request $request){
+        $task_id = $request->task_id;
+
+//        OLD SUB TASK DATA START
+        $sub_task_ids = $request->sub_task_ids;
+        $sub_task_name_olds = $request->sub_task_name_olds;
+        $responsible_person_olds = $request->responsible_person_olds;
+        $sub_task_delivery_date_olds = $request->sub_task_delivery_date_olds;
+
+        if(isset($sub_task_ids)){
+            foreach($sub_task_ids as $k => $sub_task_id){
+                $sub_task = SubTask::find($sub_task_id);
+
+                $sub_task->sub_task_name = $sub_task_name_olds[$k];
+                $sub_task->responsible_person = $responsible_person_olds[$k];
+                $sub_task->delivery_date = $sub_task_delivery_date_olds[$k];
+                $sub_task->save();
+            }
+        }
+//        OLD SUB TASK DATA END
+
+
+//        NEW SUB TASK DATA START
+        $sub_task_names = $request->sub_task_names;
+        $responsible_persons = $request->responsible_persons;
+        $sub_task_delivery_dates = $request->sub_task_delivery_dates;
+
+        if(isset($sub_task_names)){
+            foreach($sub_task_names as $k => $new_sub_task){
+                if(!empty($new_sub_task)){
+                    $sub_task_new = new SubTask();
+
+                    $sub_task_new->parent_task_id = $task_id;
+                    $sub_task_new->sub_task_name = $new_sub_task;
+                    $sub_task_new->responsible_person = $responsible_persons[$k];
+                    $sub_task_new->assign_date = date('Y-m-d');
+                    $sub_task_new->delivery_date = $sub_task_delivery_dates[$k];
+                    $sub_task_new->status = 2;
+                    $sub_task_new->save();
+                }
+            }
+        }
+//        NEW SUB TASK DATA END
+
         echo 'done';
     }
 
@@ -121,10 +210,16 @@ class TaskController extends Controller
         $task->actual_complete_date = date('Y-m-d');
         $task->save();
 
+        $sub_tasks = DB::table('sub_tasks')
+                    ->where('parent_task_id', $task_id)
+                    ->where('status', 2)
+                    ->update(['status' => 1, 'actual_complete_date' => date('Y-m-d')]);
+
+
         $meeting = DB::table('meetings')
-                    ->where('task_id', $task_id)
-                    ->where('status', 1)
-                    ->update(['status' => 2]);
+            ->where('task_id', $task_id)
+            ->where('status', 1)
+            ->update(['status' => 2]);
 
         echo 'done';
     }
@@ -137,6 +232,11 @@ class TaskController extends Controller
         $task->status = 0;
         $task->termination_date = date('Y-m-d');
         $task->save();
+
+        $sub_tasks = DB::table('sub_tasks')
+            ->where('parent_task_id', $task_id)
+            ->where('status', 2)
+            ->update(['status' => 0, 'termination_date' => date('Y-m-d')]);
 
         $meeting = DB::table('meetings')
                 ->where('task_id', $task_id)
@@ -196,6 +296,36 @@ class TaskController extends Controller
         return response()->json($task_info);
     }
 
+    public function getSubTaskDetail(Request $request){
+        $task_id = $request->task_id;
+
+        $sub_task_info = SubTask::where('parent_task_id', $task_id)->get();
+
+        return response()->json($sub_task_info);
+    }
+
+    public function subTaskStatusChange(Request $request){
+        $date = date('Y-m-d');
+
+        $sub_task_id = $request->sub_task_id;
+        $status = $request->status;
+
+        $sub_task = SubTask::find($sub_task_id);
+        $sub_task->status = $status;
+
+        if($status == 1){
+            $sub_task->actual_complete_date = $date;
+        }
+
+        if($status == 0){
+            $sub_task->termination_date = $date;
+        }
+
+        $sub_task->save();
+
+        echo 'done';
+    }
+
     public function addTask(){
         return view('add_task');
     }
@@ -230,6 +360,26 @@ class TaskController extends Controller
         $task->save();
 
         $task_id = $task->id;
+
+
+        $sub_tasks = $request->sub_task_name;
+        $responsible_persons = $request->responsible_person;
+        $delivery_dates = $request->sub_task_delivery_date;
+
+        if(isset($sub_tasks)){
+            foreach($sub_tasks AS $k => $st){
+                if(!empty($st)){
+                    $sub_task = new SubTask();
+                    $sub_task->parent_task_id = $task_id;
+                    $sub_task->sub_task_name = $st;
+                    $sub_task->responsible_person = $responsible_persons[$k];
+                    $sub_task->assign_date = $assign_date;
+                    $sub_task->delivery_date = date('Y-m-d', strtotime($delivery_dates[$k]));
+                    $sub_task->status=2;
+                    $sub_task->save();
+                }
+            }
+        }
 
         $data = array(
             'task_id' => $task_id,

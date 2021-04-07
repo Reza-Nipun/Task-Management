@@ -88,7 +88,7 @@
                                         <td class="text-center">{{ $t->change_count }}</td>
                                         <td class="text-center">{{ ($t->status == 2 ? 'Pending' : ($t->status == 0 ? 'Terminated' : 'Completed')) }}</td>
                                         <td>
-                                            <span class="btn btn-sm btn-warning" href="{{ url('/edit_task/'.$t->id) }}" title="Edit Task" onclick="editAssignedTask({{ $t->id }})">
+                                            <span class="btn btn-sm btn-warning" title="Edit Task" onclick="editAssignedTask({{ $t->id }})">
                                                 <i class="fa fa-edit"></i>
                                             </span>
                                             <span class="btn btn-sm btn-primary" title="View" title="Task Detail" onclick="getAssignedTaskDetail({{ $t->id }})">
@@ -109,7 +109,7 @@
 </div>
 
 <div class="modal fade" id="editModalLong" tabindex="-1" role="dialog" aria-labelledby="editModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editModalLongTitle">Edit Task</h5>
@@ -155,6 +155,44 @@
                         <input type="text" class="form-control" id="edit_remarks" />
                     </div>
                 </div>
+                <div class="form-group row">
+                    <table class="table table-bordered text-center" id="MyTable">
+                        <thead>
+                        <tr>
+                            <th>Task <span style="color: red">*</span></th>
+                            <th>Responsible</th>
+                            <th>Delivery</th>
+                            <th title="ADD"><span class="btn btn-sm btn-primary" onclick="addSubTaskRow()"><i class="fa fa-plus"></i></span></th>
+                        </tr>
+                        </thead>
+                        <tbody id="sub_task_row">
+                        <tr>
+                            <td><input type="text" class="form-control" name="sub_task_name[]" required="required" /></td>
+                            <td><input type="text" class="form-control" name="responsible_person[]" /></td>
+                            <td><input type="date" class="form-control" name="delivery_date[]" /></td>
+                            <td title="DELETE"><span class="btn btn-sm btn-danger" id="DeleteButton"><i class="fa fa-archive"></i></span></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" class="form-control" name="sub_task_name[]" required="required" /></td>
+                            <td><input type="text" class="form-control" name="responsible_person[]" /></td>
+                            <td><input type="date" class="form-control" name="delivery_date[]" /></td>
+                            <td title="DELETE"><span class="btn btn-sm btn-danger" id="DeleteButton"><i class="fa fa-archive"></i></span></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" class="form-control" name="sub_task_name[]" required="required" /></td>
+                            <td><input type="text" class="form-control" name="responsible_person[]" /></td>
+                            <td><input type="date" class="form-control" name="delivery_date[]" /></td>
+                            <td title="DELETE"><span class="btn btn-sm btn-danger" id="DeleteButton"><i class="fa fa-archive"></i></span></td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" class="form-control" name="sub_task_name[]" required="required" /></td>
+                            <td><input type="text" class="form-control" name="responsible_person[]" /></td>
+                            <td><input type="date" class="form-control" name="delivery_date[]" /></td>
+                            <td title="DELETE"><span class="btn btn-sm btn-danger" id="DeleteButton"><i class="fa fa-archive"></i></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="modal-footer">
                 <div class="loader" style="display: none;"></div>
@@ -166,7 +204,7 @@
 </div>
 
 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Task Detail</h5>
@@ -229,6 +267,61 @@
                     <div class="col-sm-8">
                         <p class="col-form-label" id="status"></p>
                     </div>
+                </div>
+                <div class="form-group row">
+                    <table class="table table-bordered text-center" id="MyTable">
+                        <thead>
+                        <tr>
+                            <th>Sub Task <span style="color: red">*</span></th>
+                            <th>Responsible</th>
+                            <th>Delivery Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="sub_task_row_2">
+                        <tr>
+                            <td>Sub Task-1</td>
+                            <td>Person-1</td>
+                            <td>Date-1</td>
+                            <td>Complete</td>
+                            <td>
+                                <span class="btn btn-sm btn-success" id="sub_task_complete" title="COMPLETE"><i class="fa fa-check"></i></span>
+                                <span class="btn btn-sm btn-danger" id="sub_task_terminate" title="TERMINATE"><i class="fa fa-times"></i></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Sub Task-2</td>
+                            <td>Person-2</td>
+                            <td>Date-2</td>
+                            <td> Complete </td>
+                            <td>
+                                <span class="btn btn-sm btn-success" id="sub_task_complete" title="COMPLETE"><i class="fa fa-check"></i></span>
+                                <span class="btn btn-sm btn-danger" id="sub_task_terminate" title="TERMINATE"><i class="fa fa-times"></i></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Sub Task-3</td>
+                            <td>Person-3</td>
+                            <td>Date-3</td>
+                            <td>Pending</td>
+                            <td>
+                                <span class="btn btn-sm btn-success" id="sub_task_complete" title="COMPLETE"><i class="fa fa-check"></i></span>
+                                <span class="btn btn-sm btn-danger" id="sub_task_terminate" title="TERMINATE"><i class="fa fa-times"></i></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Sub Task-4</td>
+                            <td>Person-4</td>
+                            <td>Date-4</td>
+                            <td>Terminated</td>
+                            <td>
+                                <span class="btn btn-sm btn-success" id="sub_task_complete" title="COMPLETE"><i class="fa fa-check"></i></span>
+                                <span class="btn btn-sm btn-danger" id="sub_task_terminate" title="TERMINATE"><i class="fa fa-times"></i></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="modal-footer">
@@ -317,7 +410,47 @@
                 $("#remarks").text(data.remarks);
                 $("#status").text(data.status == 0 ? 'Terminated' : (data.status == 1 ? 'Completed' : 'Pending'));
 
+                subTaskDetail(task_id);
+
                 $('#exampleModalLong').modal('show');
+
+            }
+        });
+
+    }
+
+    function subTaskDetail(task_id) {
+        $("#sub_task_row_2").empty();
+
+        $.ajax({
+            url: "{{ route("get_sub_task_detail") }}",
+            type:'GET',
+            data: {_token:"{{csrf_token()}}", task_id: task_id},
+            dataType: "json",
+            success: function (data_1) {
+
+                for(i=0; i < data_1.length; i++){
+
+                    $("#sub_task_row_2").append('<tr><td>'+data_1[i].sub_task_name+'</td><td>'+data_1[i].responsible_person+'</td><td>'+data_1[i].delivery_date+'</td><td>'+(data_1[i].status==2 ? 'Pending' : (data_1[i].status==1 ? 'Complete' : 'Terminated'))+'</td><td><span class="btn btn-sm btn-success" id="sub_task_complete" onclick="changeSubTaskStatus('+task_id+', '+data_1[i].id+', 1)" title="COMPLETE"><i class="fa fa-check"></i></span><span class="btn btn-sm btn-danger" id="sub_task_terminate" title="TERMINATE" onclick="changeSubTaskStatus('+task_id+', '+data_1[i].id+', 0)"><i class="fa fa-times"></i></span></td></tr>');
+
+                }
+
+            }
+        });
+
+    }
+    
+    function changeSubTaskStatus(task_id, sub_task_id, status) {
+        $.ajax({
+            url: "{{ route("sub_task_status_change") }}",
+            type:'POST',
+            data: {_token:"{{csrf_token()}}", sub_task_id: sub_task_id, status: status},
+            dataType: "html",
+            success: function (data) {
+
+                if(data == 'done'){
+                    subTaskDetail(task_id);
+                }
 
             }
         });
@@ -347,12 +480,35 @@
                 $("#edit_reschedule_delivery_date").val(data.reschedule_delivery_date);
                 $("#edit_remarks").val(data.remarks);
 
+                subTaskDetailtoUpdate(task_id);
+
                 $('#editModalLong').modal('show');
 
             }
         });
     }
-    
+
+    function subTaskDetailtoUpdate(task_id) {
+        $("#sub_task_row").empty();
+
+        $.ajax({
+            url: "{{ route("get_sub_task_detail") }}",
+            type:'GET',
+            data: {_token:"{{csrf_token()}}", task_id: task_id},
+            dataType: "json",
+            success: function (data_1) {
+
+                for(i=0; i < data_1.length; i++){
+
+                    $("#sub_task_row").append('<tr><td><input type="text" class="form-control" name="sub_task_name_old[]" value="'+data_1[i].sub_task_name+'" /><input type="hidden" class="form-control" name="sub_task_id[]" value="'+data_1[i].id+'" /></td><td><input type="text" class="form-control" name="responsible_person_old[]" value="'+data_1[i].responsible_person+'" /></td><td><input type="date" class="form-control" name="sub_task_delivery_date_old[]" value="'+data_1[i].delivery_date+'" /></td><td></td></tr>');
+
+                }
+
+            }
+        });
+
+    }
+
     function updateAssignedTask() {
         var task_id = $("#edit_task_id").val();
         var task_name = $("#edit_task_name").val();
@@ -362,11 +518,50 @@
         var reschedule_delivery_date = $("#edit_reschedule_delivery_date").val();
         var remarks = $("#edit_remarks").val();
 
+//        OLD SUB TASK DATA START
+        var sub_task_ids = [];
+        $("input[name='sub_task_id[]']").each(function() {
+            sub_task_ids.push($(this).val());
+        });
+
+        var sub_task_name_olds = [];
+        $("input[name='sub_task_name_old[]']").each(function() {
+            sub_task_name_olds.push($(this).val());
+        });
+
+        var responsible_person_olds = [];
+        $("input[name='responsible_person_old[]']").each(function() {
+            responsible_person_olds.push($(this).val());
+        });
+
+        var sub_task_delivery_date_olds = [];
+        $("input[name='sub_task_delivery_date_old[]']").each(function() {
+            sub_task_delivery_date_olds.push($(this).val());
+        });
+//        OLD SUB TASK DATA END
+
+//        NEW SUB TASK DATA START
+        var sub_task_names = [];
+        $("input[name='sub_task_name[]']").each(function() {
+            sub_task_names.push($(this).val());
+        });
+
+        var responsible_persons = [];
+        $("input[name='responsible_person[]']").each(function() {
+            responsible_persons.push($(this).val());
+        });
+
+        var sub_task_delivery_dates = [];
+        $("input[name='sub_task_delivery_date[]']").each(function() {
+            sub_task_delivery_dates.push($(this).val());
+        });
+//        NEW SUB TASK DATA END
+
         if(task_id != '' && task_name != '' && assigned_to != '' && delivery_date != '' && reschedule_delivery_date != ''){
             $.ajax({
                 url: "{{ route("update_task_info") }}",
                 type:'POST',
-                data: {_token:"{{csrf_token()}}", task_id: task_id, task_name: task_name, task_description: task_description, assign_to: assigned_to, delivery_date: delivery_date, reschedule_delivery_date: reschedule_delivery_date, remarks: remarks},
+                data: {_token:"{{csrf_token()}}", task_id: task_id, task_name: task_name, task_description: task_description, assign_to: assigned_to, delivery_date: delivery_date, reschedule_delivery_date: reschedule_delivery_date, remarks: remarks, sub_task_ids: sub_task_ids, sub_task_name_olds: sub_task_name_olds, responsible_person_olds: responsible_person_olds, sub_task_delivery_date_olds: sub_task_delivery_date_olds, sub_task_names: sub_task_names, responsible_persons: responsible_persons, sub_task_delivery_dates: sub_task_delivery_dates},
                 dataType: "html",
                 success: function (data) {
 
@@ -527,6 +722,14 @@
         });
 
     }
+
+    function addSubTaskRow(){
+        $("#sub_task_row").append('<tr><td><input type="text" class="form-control" name="sub_task_name[]" required="required" /></td><td><input type="text" class="form-control" name="responsible_person[]" /></td><td><input type="date" class="form-control" name="sub_task_delivery_date[]" /></td><td title="DELETE"><span class="btn btn-sm btn-danger" id="DeleteButton"><i class="fa fa-archive"></i></span></td></tr>');
+    }
+
+    $("#MyTable").on("click", "#DeleteButton", function() {
+        $(this).closest("tr").remove();
+    });
 
 </script>
 
