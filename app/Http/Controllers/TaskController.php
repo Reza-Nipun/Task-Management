@@ -647,12 +647,14 @@ class TaskController extends Controller
         $task_info = Task::find($task_id);
         $assigned_by = $task_info->assigned_by;
 
+        $sub_tasks = SubTask::where('parent_task_id', $task_id)->get();
+
         $take_action_on_task = 0;
         if($email == $assigned_by){
             $take_action_on_task = 1;
         }
 
-        return view('task_confirmation')->with(['task_info' => $task_info, 'take_action_on_task' => $take_action_on_task]);
+        return view('task_confirmation')->with(['task_info' => $task_info, 'take_action_on_task' => $take_action_on_task, 'sub_tasks' => $sub_tasks]);
     }
 
     public function myTasksReport(){

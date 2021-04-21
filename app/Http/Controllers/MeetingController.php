@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\SubTask;
 use App\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -47,6 +48,8 @@ class MeetingController extends Controller
 
         if($meeting_info[0]->status == 1){
 
+            $sub_tasks=SubTask::where('parent_task_id', $meeting_info[0]->task_id)->get();
+
             $email = Auth::user()->email;
             $assigned_by = $meeting_info[0]->assigned_by;
 
@@ -55,7 +58,7 @@ class MeetingController extends Controller
                 $take_action_on_task = 1;
             }
 
-            return view('edit_meeting')->with(['meeting_info' => $meeting_info , 'take_action_on_task' => $take_action_on_task]);
+            return view('edit_meeting')->with(['meeting_info' => $meeting_info , 'take_action_on_task' => $take_action_on_task , 'sub_tasks' => $sub_tasks]);
 
         }else{
             return redirect('meetings');

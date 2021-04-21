@@ -121,6 +121,36 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered text-center" id="MyTable">
+                                    <thead>
+                                    <tr>
+                                        <th>Sub Task <span style="color: red">*</span></th>
+                                        <th>Responsible</th>
+                                        <th>Delivery Date</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="sub_task_row_2">
+                                    @foreach($sub_tasks as $sub_task)
+                                        <tr>
+                                            <td>{{ $sub_task->sub_task_name }}</td>
+                                            <td>{{ $sub_task->responsible_person }}</td>
+                                            <td>{{ $sub_task->delivery_date }}</td>
+                                            <td>{{ ($sub_task->status==2 ? 'Pending' : ($sub_task->status==1 ? 'Complete' : 'Terminated')) }}</td>
+                                            <td>
+                                                <span class="btn btn-sm btn-success" id="sub_task_complete" title="COMPLETE" onclick="changeSubTaskStatus('{{ $sub_task->parent_task_id }}', '{{ $sub_task->id }}', 1)"><i class="fa fa-check"></i></span>
+                                                <span class="btn btn-sm btn-danger" id="sub_task_terminate" title="TERMINATE" onclick="changeSubTaskStatus('{{ $sub_task->parent_task_id }}', '{{ $sub_task->id }}', 0)"><i class="fa fa-times"></i></span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                     </div>
                     </form>
                 </div>
@@ -271,6 +301,44 @@
                     }
                 });
             }
+        }
+
+        function changeSubTaskStatus(task_id, sub_task_id, status) {
+            $.ajax({
+                url: "{{ route("sub_task_status_change") }}",
+                type:'POST',
+                data: {_token:"{{csrf_token()}}", sub_task_id: sub_task_id, status: status},
+                dataType: "html",
+                success: function (data) {
+
+                    if(data == 'done'){
+                        subTaskDetail(task_id);
+                    }
+
+                }
+            });
+
+        }
+
+        function subTaskDetail(task_id) {
+            $("#sub_task_row_2").empty();
+
+            $.ajax({
+                url: "{{ route("get_sub_task_detail") }}",
+                type:'GET',
+                data: {_token:"{{csrf_token()}}", task_id: task_id},
+                dataType: "json",
+                success: function (data_1) {
+
+                    for(i=0; i < data_1.length; i++){
+
+                        $("#sub_task_row_2").append('<tr><td>'+data_1[i].sub_task_name+'</td><td>'+data_1[i].responsible_person+'</td><td>'+data_1[i].delivery_date+'</td><td>'+(data_1[i].status==2 ? 'Pending' : (data_1[i].status==1 ? 'Complete' : 'Terminated'))+'</td><td><span class="btn btn-sm btn-success" id="sub_task_complete" onclick="changeSubTaskStatus('+task_id+', '+data_1[i].id+', 1)" title="COMPLETE"><i class="fa fa-check"></i></span><span class="btn btn-sm btn-danger" id="sub_task_terminate" title="TERMINATE" onclick="changeSubTaskStatus('+task_id+', '+data_1[i].id+', 0)"><i class="fa fa-times"></i></span></td></tr>');
+
+                    }
+
+                }
+            });
+
         }
 
     </script>
