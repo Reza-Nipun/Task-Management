@@ -148,4 +148,15 @@ return [
 
     'attributes' => [],
 
+    'values' => [
+        'recurring_type' => [
+            0 => 'MONTHLY',
+            1 => 'WEEKLY',
+        ],
+        'last_date_of_month' => [
+            0 => 'NO',
+            1 => 'YES',
+        ],
+    ],
+
 ];

@@ -23,7 +23,13 @@
 
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label for="assigned_to" class="form-label">Task</label>
+                                <input type="text" class="form-control" name="task_name_search" id="task_name_search" placeholder="Search Task..." />
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
                             <div class="mb-3">
                                 <label for="assigned_to" class="form-label">Assigned To</label>
                                 <select class="form-control" id="task_assigned_to" name="task_assigned_to">
@@ -500,7 +506,7 @@
 
                 for(i=0; i < data_1.length; i++){
 
-                    $("#sub_task_row").append('<tr><td><input type="text" class="form-control" name="sub_task_name_old[]" value="'+data_1[i].sub_task_name+'" /><input type="hidden" class="form-control" name="sub_task_id[]" value="'+data_1[i].id+'" /></td><td><input type="text" class="form-control" name="responsible_person_old[]" value="'+data_1[i].responsible_person+'" /></td><td><input type="date" class="form-control" name="sub_task_delivery_date_old[]" value="'+data_1[i].delivery_date+'" /></td><td></td></tr>');
+                    $("#sub_task_row").append('<tr><td><textarea class="form-control" name="sub_task_name_old[]">'+data_1[i].sub_task_name+'</textarea><input type="hidden" class="form-control" name="sub_task_id[]" value="'+data_1[i].id+'" /></td><td><input type="text" class="form-control" name="responsible_person_old[]" value="'+data_1[i].responsible_person+'" /></td><td><input type="date" class="form-control" name="sub_task_delivery_date_old[]" value="'+data_1[i].delivery_date+'" /></td><td></td></tr>');
 
                 }
 
@@ -525,7 +531,7 @@
         });
 
         var sub_task_name_olds = [];
-        $("input[name='sub_task_name_old[]']").each(function() {
+        $("textarea[name='sub_task_name_old[]']").each(function() {
             sub_task_name_olds.push($(this).val());
         });
 
@@ -542,7 +548,7 @@
 
 //        NEW SUB TASK DATA START
         var sub_task_names = [];
-        $("input[name='sub_task_name[]']").each(function() {
+        $("textarea[name='sub_task_name[]']").each(function() {
             sub_task_names.push($(this).val());
         });
 
@@ -700,6 +706,7 @@
     }
 
     function getAssignedPendingTaskReport() {
+        var task_name_search = $("#task_name_search").val();
         var assigned_to = $("#task_assigned_to").val();
         var delivery_date_from = $("#delivery_date_from").val();
         var delivery_date_to = $("#delivery_date_to").val();
@@ -711,7 +718,7 @@
         $.ajax({
             url: "{{ route("get_assigned_pending_task_filter") }}",
             type:'POST',
-            data: {_token:"{{csrf_token()}}", assigned_to: assigned_to, delivery_date_from: delivery_date_from, delivery_date_to: delivery_date_to, status: status},
+            data: {_token:"{{csrf_token()}}", task_name: task_name_search, assigned_to: assigned_to, delivery_date_from: delivery_date_from, delivery_date_to: delivery_date_to, status: status},
             dataType: "html",
             success: function (data) {
 
@@ -724,7 +731,7 @@
     }
 
     function addSubTaskRow(){
-        $("#sub_task_row").append('<tr><td><input type="text" class="form-control" name="sub_task_name[]" required="required" /></td><td><input type="text" class="form-control" name="responsible_person[]" /></td><td><input type="date" class="form-control" name="sub_task_delivery_date[]" /></td><td title="DELETE"><span class="btn btn-sm btn-danger" id="DeleteButton"><i class="fa fa-archive"></i></span></td></tr>');
+        $("#sub_task_row").append('<tr><td><textarea class="form-control" name="sub_task_name[]" required="required"></textarea></td><td><input type="text" class="form-control" name="responsible_person[]" /></td><td><input type="date" class="form-control" name="sub_task_delivery_date[]" /></td><td title="DELETE"><span class="btn btn-sm btn-danger" id="DeleteButton"><i class="fa fa-archive"></i></span></td></tr>');
     }
 
     $("#MyTable").on("click", "#DeleteButton", function() {

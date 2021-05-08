@@ -75,10 +75,24 @@ Route::post('/meeting_complete', 'MeetingController@meetingComplete')->name('mee
 Route::get('/schedule_task_completion_meeting/{task_id}', 'MeetingController@scheduleTaskCompletionMeeting')->name('schedule_task_completion_meeting');
 Route::post('/fix_schedule_task_completion_meeting', 'MeetingController@fixScheduleTaskCompletionMeeting')->name('fix_schedule_task_completion_meeting');
 
+Route::get('/add_recurring_task', 'RecurringTaskController@addRecurringTask')->name('add_recurring_task');
+Route::post('/save_recurring_task', 'RecurringTaskController@saveRecurringTask')->name('save_recurring_task');
+Route::get('/get_my_recurring_tasks', 'RecurringTaskController@getMyRecurringTasks')->name('get_my_recurring_tasks');
+Route::post('/get_my_pending_recurring_tasks_report', 'RecurringTaskController@getMyPendingRecurringTasksReport')->name('get_my_pending_recurring_tasks_report');
+Route::get('/get_assigned_recurring_tasks', 'RecurringTaskController@getAssignedRecurringTasks')->name('get_assigned_recurring_tasks');
+Route::post('/get_assigned_recurring_tasks_filter', 'RecurringTaskController@getAssignedRecurringTasksFilter')->name('get_assigned_recurring_tasks_filter');
+Route::get('/edit_recurring_task/{id}', 'RecurringTaskController@editRecurringTask')->name('edit_recurring_task');
+Route::post('/update_recurring_task/{id}', 'RecurringTaskController@updateRecurringTask')->name('update_recurring_task');
+Route::post('/complete_recurring_task', 'RecurringTaskController@completeRecurringTask')->name('complete_recurring_task');
+
 Route::get('/reschedule_task_from_email/{task_id}', 'AccessFromEmail@rescheduleTaskFromEmail')->name('reschedule_task_from_email');
 Route::post('/rescheduling_task/{task_id}', 'AccessFromEmail@rescheduleTaskDeliveryDate')->name('rescheduling_task');
 Route::get('/rescheduling_meeting_from_email/{meeting_id}', 'AccessFromEmail@reschedulingMeetingFromEmail')->name('rescheduling_meeting_from_email');
 Route::post('/rescheduling_meeting/{meeting_id}', 'AccessFromEmail@reschedulingMeeting')->name('rescheduling_meeting');
+
+// Auto-Recurring Tasks
+Route::get('/auto_recurring_monthly_task', 'AccessFromEmail@autoRecurringMonthlyTask')->name('auto_recurring_monthly_task');
+Route::get('/auto_recurring_weekly_task', 'AccessFromEmail@autoRecurringWeeklyTask')->name('auto_recurring_weekly_task');
 
 // Auto-Mail Notifications
 Route::get('/auto_mail_delivery_date_tasks_notification', 'AccessFromEmail@autoMailDeliveryDateTasksNotification')->name('auto_mail_delivery_date_tasks_notification');

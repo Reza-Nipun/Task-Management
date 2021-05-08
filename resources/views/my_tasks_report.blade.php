@@ -11,7 +11,13 @@
 
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label for="assigned_to" class="form-label">Task</label>
+                                <input type="text" class="form-control" name="task_name_search" id="task_name_search" placeholder="Search Task..." />
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
                             <div class="mb-3">
                                 <label for="assigned_by" class="form-label">Assigned By</label>
                                 <select class="form-control" id="assigned_by" name="assigned_by">
@@ -212,6 +218,7 @@
     }
 
     function getMyTaskReport() {
+        var task_name_search = $("#task_name_search").val();
         var assigned_by = $("#assigned_by").val();
         var assigned_date_from = $("#assigned_date_from").val();
         var assigned_date_to = $("#assigned_date_to").val();
@@ -223,7 +230,7 @@
         $.ajax({
             url: "{{ route("get_my_task_report") }}",
             type:'POST',
-            data: {_token:"{{csrf_token()}}", assigned_by: assigned_by, assigned_date_from: assigned_date_from, assigned_date_to: assigned_date_to, status: status},
+            data: {_token:"{{csrf_token()}}", task_name: task_name_search, assigned_by: assigned_by, assigned_date_from: assigned_date_from, assigned_date_to: assigned_date_to, status: status},
             dataType: "html",
             success: function (data) {
 

@@ -109,7 +109,7 @@
     <script type="text/javascript">
 
         function addSubTaskRow(){
-            $("#sub_task_row").append('<tr><td><input type="text" class="form-control" name="sub_task_name[]" required="required" /></td><td><input type="text" class="form-control" name="responsible_person[]" /></td><td><input type="date" class="form-control" name="sub_task_delivery_date[]" /></td><td title="DELETE"><span class="btn btn-sm btn-danger" id="DeleteButton"><i class="fa fa-archive"></i></span></td></tr>');
+            $("#sub_task_row").append('<tr><td><textarea class="form-control" name="sub_task_name[]" required="required"></textarea></td><td><input type="text" class="form-control" name="responsible_person[]" /></td><td><input type="date" class="form-control" name="sub_task_delivery_date[]" /></td><td title="DELETE"><span class="btn btn-sm btn-danger" id="DeleteButton"><i class="fa fa-archive"></i></span></td></tr>');
         }
 
         $("#MyTable").on("click", "#DeleteButton", function() {

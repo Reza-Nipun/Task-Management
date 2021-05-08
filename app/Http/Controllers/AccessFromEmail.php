@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\RecurringTask;
+use App\RecurringTaskDetail;
 use Illuminate\Http\Request;
 use App\Task;
 use App\Meeting;
@@ -286,6 +288,117 @@ class AccessFromEmail extends Controller
 
         return redirect()->back();
 
+    }
+
+    public function autoRecurringMonthlyTask(){
+        $current_date = date('Y-m-d');
+
+        $monthly_recurring_tasks = RecurringTask::where('recurring_type', 0)->where('status', 1)->get();
+
+        foreach ($monthly_recurring_tasks as $monthly_recurring_task){
+            $monthly_recurring_task_id = $monthly_recurring_task->id;
+
+            $monthly_recurring_task_detail = RecurringTaskDetail::where('recurring_task_id', $monthly_recurring_task_id)
+                                                ->selectRaw("MAX(recurring_date) as max_recurring_date")
+                                                ->get();
+
+            $max_recurring_date = $monthly_recurring_task_detail[0]->max_recurring_date;
+
+            if($max_recurring_date != ''){
+
+                if($current_date>$max_recurring_date){
+
+                    if($monthly_recurring_task->last_date_of_month == 0){
+                        $dt_formating = date("Y-m", strtotime($max_recurring_date));;
+                        $dt = $dt_formating.'-'.$monthly_recurring_task->monthly_recurring_date;
+                        $date = date('Y-m-d', strtotime('+1 month', strtotime($dt)));
+
+                        $new_monthly_recurring_task = new RecurringTaskDetail();
+                        $new_monthly_recurring_task->recurring_task_id = $monthly_recurring_task_id;
+                        $new_monthly_recurring_task->recurring_date = $date;
+                        $new_monthly_recurring_task->status = 2;
+                        $new_monthly_recurring_task->save();
+                    }
+
+                    if($monthly_recurring_task->last_date_of_month == 1){
+                        $date = date("Y-m-t");
+
+                        $new_monthly_recurring_task = new RecurringTaskDetail();
+                        $new_monthly_recurring_task->recurring_task_id = $monthly_recurring_task_id;
+                        $new_monthly_recurring_task->recurring_date = $date;
+                        $new_monthly_recurring_task->status = 2;
+                        $new_monthly_recurring_task->save();
+                    }
+                }
+
+            }else{
+                if($monthly_recurring_task->last_date_of_month == 0){
+                    $date = date('Y-m').'-'.$monthly_recurring_task->monthly_recurring_date;
+
+                    $new_monthly_recurring_task = new RecurringTaskDetail();
+                    $new_monthly_recurring_task->recurring_task_id = $monthly_recurring_task_id;
+                    $new_monthly_recurring_task->recurring_date = $date;
+                    $new_monthly_recurring_task->status = 2;
+                    $new_monthly_recurring_task->save();
+                }
+
+                if($monthly_recurring_task->last_date_of_month == 1){
+                    $date = date("Y-m-t");
+
+                    $new_monthly_recurring_task = new RecurringTaskDetail();
+                    $new_monthly_recurring_task->recurring_task_id = $monthly_recurring_task_id;
+                    $new_monthly_recurring_task->recurring_date = $date;
+                    $new_monthly_recurring_task->status = 2;
+                    $new_monthly_recurring_task->save();
+                }
+            }
+        }
+
+        return response()->json('success', 200);
+    }
+
+    public function autoRecurringWeeklyTask(){
+        $current_date = date('Y-m-d');
+
+        $weekly_recurring_tasks = RecurringTask::where('recurring_type', 1)->where('status', 1)->get();
+
+        foreach ($weekly_recurring_tasks as $weekly_recurring_task){
+            $weekly_recurring_task_id = $weekly_recurring_task->id;
+            $weekly_recurring_day = $weekly_recurring_task->weekly_recurring_day;
+
+            $is_exist = RecurringTaskDetail::where('recurring_task_id', $weekly_recurring_task_id)->get();
+
+            if(sizeof($is_exist)==0){
+
+                $date = date('Y-m-d', strtotime("next $weekly_recurring_day"));
+
+                $weekly_recurring_task = new RecurringTaskDetail();
+                $weekly_recurring_task->recurring_task_id = $weekly_recurring_task_id;
+                $weekly_recurring_task->recurring_date = $date;
+                $weekly_recurring_task->status = 2;
+                $weekly_recurring_task->save();
+
+            }else{
+                if($current_date >= $is_exist[0]->recurring_date){
+                    $date = date('Y-m-d', strtotime("next $weekly_recurring_day"));
+
+                    $is_already_exist_task = RecurringTaskDetail::where('recurring_task_id', $weekly_recurring_task_id)->where('recurring_date', $date)->get();
+
+                    if(sizeof($is_already_exist_task) == 0){
+                        $weekly_recurring_task = new RecurringTaskDetail();
+                        $weekly_recurring_task->recurring_task_id = $weekly_recurring_task_id;
+                        $weekly_recurring_task->recurring_date = $date;
+                        $weekly_recurring_task->status = 2;
+                        $weekly_recurring_task->save();
+                    }
+
+                }
+
+            }
+
+        }
+
+        return response()->json('success', 200);
     }
 
     public function testMail(){

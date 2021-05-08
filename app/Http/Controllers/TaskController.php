@@ -497,12 +497,17 @@ class TaskController extends Controller
     public function getAssignedTaskReport(Request $request){
         $assigned_by = Auth::user()->email;
 
+        $task_name = $request->task_name;
         $assigned_to = $request->assigned_to;
         $assigned_date_from = $request->assigned_date_from;
         $assigned_date_to = $request->assigned_date_to;
         $status = $request->status;
 
         $where = "";
+
+        if($task_name != ''){
+            $where .= " AND task_name LIKE '%$task_name%'";
+        }
 
         if($assigned_by != ''){
             $where .= " AND assigned_by='$assigned_by'";
@@ -569,12 +574,17 @@ class TaskController extends Controller
     public function getAssignedPendingTaskFilter(Request $request){
         $assigned_by = Auth::user()->email;
 
+        $task_name = $request->task_name;
         $assigned_to = $request->assigned_to;
         $delivery_date_from = $request->delivery_date_from;
         $delivery_date_to = $request->delivery_date_to;
         $status = $request->status;
 
         $where = "";
+
+        if($task_name != ''){
+            $where .= " AND task_name LIKE '%$task_name%'";
+        }
 
         if($assigned_by != ''){
             $where .= " AND assigned_by='$assigned_by'";
@@ -668,12 +678,17 @@ class TaskController extends Controller
     public function getMyTaskReport(Request $request){
         $assigned_to = Auth::user()->email;
 
+        $task_name = $request->task_name;
         $assigned_by = $request->assigned_by;
         $assigned_date_from = $request->assigned_date_from;
         $assigned_date_to = $request->assigned_date_to;
         $status = $request->status;
 
         $where = "";
+
+        if($task_name != ''){
+            $where .= " AND task_name LIKE '%$task_name%'";
+        }
 
         if($assigned_by != ''){
             $where .= " AND assigned_by='$assigned_by'";
@@ -740,12 +755,17 @@ class TaskController extends Controller
     public function getPendingTaskFilter(Request $request){
         $assigned_to = Auth::user()->email;
 
+        $task_name = $request->task_name;
         $assigned_by = $request->assigned_by;
         $delivery_date_from = $request->delivery_date_from;
         $delivery_date_to = $request->delivery_date_to;
         $status = $request->status;
 
         $where = "";
+
+        if($task_name != ''){
+            $where .= " AND task_name LIKE '%$task_name%'";
+        }
 
         if($assigned_by != ''){
             $where .= " AND assigned_by='$assigned_by'";
