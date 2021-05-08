@@ -54,19 +54,41 @@ class RecurringTaskController extends Controller
             $file->move($destinationPath,$file_name_with_extension);
         }
 
+        $assigned_to = $request->assign_to;
+
         $recuring_task = new RecurringTask;
 
         $recuring_task->task_name = $request->task_name;
         $recuring_task->task_description = $request->task_description;
         $recuring_task->attachment = $file_name_with_extension;
         $recuring_task->assigned_by = Auth::user()->email;
-        $recuring_task->assigned_to = $request->assign_to;
+        $recuring_task->assigned_to = $assigned_to;
         $recuring_task->recurring_type = $request->recurring_type;
         $recuring_task->last_date_of_month = $request->last_date_of_month;
         $recuring_task->monthly_recurring_date = $request->monthly_recurring_date;
         $recuring_task->weekly_recurring_day = $request->weekly_recurring_day;
         $recuring_task->status = 1;
         $recuring_task->save();
+
+        $recuring_task_id = $recuring_task->id;
+
+        $data = array(
+            'task_id' => $recuring_task_id,
+            'task_name' => $request->task_name,
+            'task_description' => $request->task_description,
+            'assigned_by' => Auth::user()->email,
+            'recurring_type' => $request->recurring_type,
+            'last_date_of_month' => $request->last_date_of_month,
+            'month_date' => $request->monthly_recurring_date,
+            'weekly_recurring_day' => $request->weekly_recurring_day,
+        );
+
+        Mail::send('emails.recurring_task_assignment_notification', $data, function($message) use($assigned_to)
+        {
+            $message
+                ->to($assigned_to)
+                ->subject('New Recurring Task Assignment');
+        });
 
         \Session::flash('message', 'Recurring Task Creation Successful!');
 
