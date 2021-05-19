@@ -90,6 +90,10 @@ Route::post('/rescheduling_task/{task_id}', 'AccessFromEmail@rescheduleTaskDeliv
 Route::get('/rescheduling_meeting_from_email/{meeting_id}', 'AccessFromEmail@reschedulingMeetingFromEmail')->name('rescheduling_meeting_from_email');
 Route::post('/rescheduling_meeting/{meeting_id}', 'AccessFromEmail@reschedulingMeeting')->name('rescheduling_meeting');
 
+
+Route::get('/document', 'DocumentController@index')->name('document');
+Route::post('/document_filter', 'DocumentController@documentFilter')->name('document_filter');
+
 // Auto-Recurring Tasks
 Route::get('/auto_recurring_monthly_task', 'AccessFromEmail@autoRecurringMonthlyTask')->name('auto_recurring_monthly_task');
 Route::get('/auto_recurring_weekly_task', 'AccessFromEmail@autoRecurringWeeklyTask')->name('auto_recurring_weekly_task');
