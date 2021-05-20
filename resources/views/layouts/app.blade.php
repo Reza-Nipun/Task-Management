@@ -46,8 +46,9 @@
     <link href="{{ asset('public/select2/select2.min.css') }}" rel="stylesheet"/>
     <!--Select2 End-->
 
-    <!--Loader Start-->
     <style>
+        /*Loader Start*/
+
         .loader {
             border: 20px solid #f3f3f3;
             border-radius: 50%;
@@ -67,8 +68,23 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /*Loader End*/
+
+        /*Table Head th fixed Start*/
+
+        .tableFixHead          { overflow: auto; height: 500px; }
+        .tableFixHead thead th { position: sticky; top: 0; z-index: 1; }
+
+        /* Just common table stuff. Really. */
+        table  { border-collapse: collapse; width: 100%; }
+        th, td { padding: 8px 16px; }
+        th     { background:#ffffff; }
+
+        /*Table Head th fixed End*/
+
     </style>
-    <!--Loader End-->
+
 </head>
 <body>
     <div id="app">
@@ -115,9 +131,6 @@
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="{{ url('/users') }}">Users</a>
                                                 </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="{{ url('/document') }}" title="Knowledge Bank">KBANK</a>
-                                                </li>
                                             @endif
                                             <li class="nav-item dropdown">
                                                 <a id="navbarDropdown1" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -146,6 +159,11 @@
                                                     <a class="nav-link" href="{{ url('/my_tasks_report') }}">My Tasks</a>
                                                     <a class="nav-link" href="{{ url('/performance_report') }}">Performance</a>
                                                 </div>
+                                            </li>
+                                            <li class="nav-item border border-info">
+                                                <a class="nav-link" href="{{ url('/document') }}" title="Knowledge Bank">
+                                                    <h4><i class="fas fa-book-reader"></i></h4>
+                                                </a>
                                             </li>
                                             <li class="nav-item dropdown">
                                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

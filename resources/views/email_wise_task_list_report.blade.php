@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="table-responsive tableFixHead">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>

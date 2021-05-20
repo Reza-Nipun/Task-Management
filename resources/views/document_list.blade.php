@@ -79,7 +79,7 @@
                             </div>
                         </div>
 
-                        <div class="table-responsive mt-3">
+                        <div class="table-responsive mt-3 tableFixHead">
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>

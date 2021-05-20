@@ -67,7 +67,7 @@
                         </div>
                     </div>
 
-                    <div class="table-responsive">
+                    <div class="table-responsive tableFixHead">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
