@@ -374,7 +374,7 @@ class TaskController extends Controller
                     $sub_task->sub_task_name = $st;
                     $sub_task->responsible_person = $responsible_persons[$k];
                     $sub_task->assign_date = $assign_date;
-                    $sub_task->delivery_date = date('Y-m-d', strtotime($delivery_dates[$k]));
+                    $sub_task->delivery_date = ($delivery_dates[$k] == '' ? '0000-00-00' : date('Y-m-d', strtotime($delivery_dates[$k])));
                     $sub_task->status=2;
                     $sub_task->save();
                 }

@@ -132,6 +132,50 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="mb-3">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-sm-12">
+                                <div class="mb-3">
+                                    <label for="task_assign_to" class="form-label">Sub-Tasks</label>
+                                    <table class="table table-bordered text-center" id="MyTable">
+                                        <thead>
+                                        <tr>
+                                            <th>Task <span style="color: red">*</span></th>
+                                            <th>Responsible Person</th>
+                                            <th>Delivery</th>
+                                            <th title="ADD"><span class="btn btn-sm btn-success" onclick="addSubTaskRow()"><i class="fa fa-plus"></i></span></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="sub_task_row">
+                                            @foreach($recurring_sub_tasks as $recurring_sub_task)
+                                                <tr>
+                                                    <td>
+                                                        <textarea class="form-control" name="sub_task_name_olds[]" required="required">{{ $recurring_sub_task->sub_task_name }}</textarea>
+                                                        <input type="hidden" class="form-control" name="sub_task_ids[]" value="{{ $recurring_sub_task->id }}" />
+                                                    </td>
+                                                    <td><input type="text" class="form-control" name="responsible_person_olds[]" value="{{ $recurring_sub_task->responsible_person }}" /></td>
+                                                    <td><input type="date" class="form-control" name="sub_task_delivery_date_olds[]" value="{{ $recurring_sub_task->delivery_date }}" /></td>
+                                                    <td>
+                                                        <select class="form-control" name="status_olds[]" required="required">
+                                                            <option value="">Select Status</option>
+                                                            <option value="0" @if($recurring_sub_task->status == 0) selected="selected" @endif>Inactive</option>
+                                                            <option value="1" @if($recurring_sub_task->status == 1) selected="selected" @endif>Active</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="mb-3">
                                     <button type="submit" class="btn btn-success mt-4">UPDATE</button>
                                 </div>
                             </div>
@@ -152,6 +196,14 @@
                 isLastDateofMonth();
             }
 
+        });
+
+        function addSubTaskRow(){
+            $("#sub_task_row").append('<tr><td><textarea class="form-control" name="sub_task_name[]" required="required"></textarea></td><td><input type="text" class="form-control" name="responsible_person[]" /></td><td><input type="date" class="form-control" name="sub_task_delivery_date[]" /></td><td title="DELETE"><span class="btn btn-sm btn-danger" id="DeleteButton"><i class="fa fa-archive"></i></span></td></tr>');
+        }
+
+        $("#MyTable").on("click", "#DeleteButton", function() {
+            $(this).closest("tr").remove();
         });
 
         function checkRecurringType(){

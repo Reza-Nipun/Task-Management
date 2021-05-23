@@ -119,7 +119,7 @@
                                             </a>
                                             @if($t->attachment != '')
                                                 <a href="{{ asset('storage/app/public/uploads/'.$t->attachment) }}" target="_blank" class="btn btn-sm btn-primary" title="VIEW DOCUMENT">
-                                                    <i class="fa fa-eye"></i>
+                                                    <i class="fa fa-paperclip"></i>
                                                 </a>
                                             @endif
                                         </td>

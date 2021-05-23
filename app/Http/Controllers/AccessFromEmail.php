@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\RecurringSubTask;
+use App\RecurringSubTaskDetail;
 use App\RecurringTask;
 use App\RecurringTaskDetail;
 use Illuminate\Http\Request;
@@ -309,47 +311,67 @@ class AccessFromEmail extends Controller
                 if($current_date>$max_recurring_date){
 
                     if($monthly_recurring_task->last_date_of_month == 0){
-                        $dt_formating = date("Y-m", strtotime($max_recurring_date));;
+                        $dt_formating = date("Y-m", strtotime($max_recurring_date));
                         $dt = $dt_formating.'-'.$monthly_recurring_task->monthly_recurring_date;
                         $date = date('Y-m-d', strtotime('+1 month', strtotime($dt)));
-
-                        $new_monthly_recurring_task = new RecurringTaskDetail();
-                        $new_monthly_recurring_task->recurring_task_id = $monthly_recurring_task_id;
-                        $new_monthly_recurring_task->recurring_date = $date;
-                        $new_monthly_recurring_task->status = 2;
-                        $new_monthly_recurring_task->save();
                     }
 
                     if($monthly_recurring_task->last_date_of_month == 1){
                         $date = date("Y-m-t");
+                    }
 
-                        $new_monthly_recurring_task = new RecurringTaskDetail();
-                        $new_monthly_recurring_task->recurring_task_id = $monthly_recurring_task_id;
-                        $new_monthly_recurring_task->recurring_date = $date;
-                        $new_monthly_recurring_task->status = 2;
-                        $new_monthly_recurring_task->save();
+                    $new_monthly_recurring_task = new RecurringTaskDetail();
+                    $new_monthly_recurring_task->recurring_task_id = $monthly_recurring_task_id;
+                    $new_monthly_recurring_task->recurring_date = $date;
+                    $new_monthly_recurring_task->status = 2;
+                    $new_monthly_recurring_task->save();
+
+                    $recurring_task_id = $new_monthly_recurring_task->id;
+
+                    $recurring_sub_tasks = RecurringSubTask::where('parent_recurring_task_id', $monthly_recurring_task_id)
+                        ->where('status', 1)
+                        ->get();
+
+                    foreach ($recurring_sub_tasks as $recurring_sub_task){
+                        $recurring_sub_task_detail = new RecurringSubTaskDetail();
+                        $recurring_sub_task_detail->parent_recurring_task_id = $recurring_task_id;
+                        $recurring_sub_task_detail->recurring_sub_task_id = $recurring_sub_task->id;
+                        $recurring_sub_task_detail->change_count = 0;
+                        $recurring_sub_task_detail->status = 2;
+                        $recurring_sub_task_detail->remarks = $recurring_sub_task->remarks;
+                        $recurring_sub_task_detail->save();
                     }
                 }
 
             }else{
                 if($monthly_recurring_task->last_date_of_month == 0){
                     $date = date('Y-m').'-'.$monthly_recurring_task->monthly_recurring_date;
-
-                    $new_monthly_recurring_task = new RecurringTaskDetail();
-                    $new_monthly_recurring_task->recurring_task_id = $monthly_recurring_task_id;
-                    $new_monthly_recurring_task->recurring_date = $date;
-                    $new_monthly_recurring_task->status = 2;
-                    $new_monthly_recurring_task->save();
                 }
 
                 if($monthly_recurring_task->last_date_of_month == 1){
                     $date = date("Y-m-t");
+                }
 
-                    $new_monthly_recurring_task = new RecurringTaskDetail();
-                    $new_monthly_recurring_task->recurring_task_id = $monthly_recurring_task_id;
-                    $new_monthly_recurring_task->recurring_date = $date;
-                    $new_monthly_recurring_task->status = 2;
-                    $new_monthly_recurring_task->save();
+                $new_monthly_recurring_task = new RecurringTaskDetail();
+                $new_monthly_recurring_task->recurring_task_id = $monthly_recurring_task_id;
+                $new_monthly_recurring_task->recurring_date = $date;
+                $new_monthly_recurring_task->status = 2;
+                $new_monthly_recurring_task->save();
+
+                $recurring_task_id = $new_monthly_recurring_task->id;
+
+                $recurring_sub_tasks = RecurringSubTask::where('parent_recurring_task_id', $monthly_recurring_task_id)
+                                        ->where('status', 1)
+                                        ->get();
+
+                foreach ($recurring_sub_tasks as $recurring_sub_task){
+                    $recurring_sub_task_detail = new RecurringSubTaskDetail();
+                    $recurring_sub_task_detail->parent_recurring_task_id = $recurring_task_id;
+                    $recurring_sub_task_detail->recurring_sub_task_id = $recurring_sub_task->id;
+                    $recurring_sub_task_detail->change_count = 0;
+                    $recurring_sub_task_detail->status = 2;
+                    $recurring_sub_task_detail->remarks = $recurring_sub_task->remarks;
+                    $recurring_sub_task_detail->save();
                 }
             }
         }
@@ -378,6 +400,23 @@ class AccessFromEmail extends Controller
                 $weekly_recurring_task->status = 2;
                 $weekly_recurring_task->save();
 
+
+                $recurring_task_id = $weekly_recurring_task->id;
+
+                $recurring_sub_tasks = RecurringSubTask::where('parent_recurring_task_id', $weekly_recurring_task_id)
+                                    ->where('status', 1)
+                                    ->get();
+
+                foreach ($recurring_sub_tasks as $recurring_sub_task){
+                    $recurring_sub_task_detail = new RecurringSubTaskDetail();
+                    $recurring_sub_task_detail->parent_recurring_task_id = $recurring_task_id;
+                    $recurring_sub_task_detail->recurring_sub_task_id = $recurring_sub_task->id;
+                    $recurring_sub_task_detail->change_count = 0;
+                    $recurring_sub_task_detail->status = 2;
+                    $recurring_sub_task_detail->remarks = $recurring_sub_task->remarks;
+                    $recurring_sub_task_detail->save();
+                }
+
             }else{
                 if($current_date >= $is_exist[0]->recurring_date){
                     $date = date('Y-m-d', strtotime("next $weekly_recurring_day"));
@@ -390,6 +429,23 @@ class AccessFromEmail extends Controller
                         $weekly_recurring_task->recurring_date = $date;
                         $weekly_recurring_task->status = 2;
                         $weekly_recurring_task->save();
+
+
+                        $recurring_task_id = $weekly_recurring_task->id;
+
+                        $recurring_sub_tasks = RecurringSubTask::where('parent_recurring_task_id', $weekly_recurring_task_id)
+                                                ->where('status', 1)
+                                                ->get();
+
+                        foreach ($recurring_sub_tasks as $recurring_sub_task){
+                            $recurring_sub_task_detail = new RecurringSubTaskDetail();
+                            $recurring_sub_task_detail->parent_recurring_task_id = $recurring_task_id;
+                            $recurring_sub_task_detail->recurring_sub_task_id = $recurring_sub_task->id;
+                            $recurring_sub_task_detail->change_count = 0;
+                            $recurring_sub_task_detail->status = 2;
+                            $recurring_sub_task_detail->remarks = $recurring_sub_task->remarks;
+                            $recurring_sub_task_detail->save();
+                        }
                     }
 
                 }

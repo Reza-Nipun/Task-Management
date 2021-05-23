@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\RecurringSubTask;
 use App\RecurringTaskDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,10 +71,29 @@ class RecurringTaskController extends Controller
         $recuring_task->status = 1;
         $recuring_task->save();
 
-        $recuring_task_id = $recuring_task->id;
+        $recurring_task_id = $recuring_task->id;
+
+
+        $sub_tasks = $request->sub_task_name;
+        $responsible_persons = $request->responsible_person;
+        $delivery_dates = $request->sub_task_delivery_date;
+
+        if(isset($sub_tasks)){
+            foreach($sub_tasks AS $k => $st){
+                if(!empty($st)){
+                    $sub_task = new RecurringSubTask();
+                    $sub_task->parent_recurring_task_id = $recurring_task_id;
+                    $sub_task->sub_task_name = $st;
+                    $sub_task->responsible_person = $responsible_persons[$k];
+                    $sub_task->delivery_date = ($delivery_dates[$k] == '' ? '0000-00-00' : date('Y-m-d', strtotime($delivery_dates[$k])));
+                    $sub_task->status=1;
+                    $sub_task->save();
+                }
+            }
+        }
 
         $data = array(
-            'task_id' => $recuring_task_id,
+            'task_id' => $recurring_task_id,
             'task_name' => $request->task_name,
             'task_description' => $request->task_description,
             'assigned_by' => Auth::user()->email,
@@ -101,7 +121,7 @@ class RecurringTaskController extends Controller
         $assigned_by_email_list = RecurringTask::where('assigned_to', $my_email)->groupBy('assigned_by')->select('assigned_by')->get();
 
         $my_recurring_pending_tasks = DB::select(
-                "SELECT t1.*, t2.recurring_date, t2.status AS task_detail_status 
+                "SELECT t1.*, t2.id AS recurring_task_detail_id, t2.recurring_date, t2.status AS task_detail_status 
                 FROM (SELECT * FROM `recurring_tasks` WHERE assigned_to='$my_email' AND status=1) AS t1
     
                 INNER JOIN
@@ -136,7 +156,7 @@ class RecurringTaskController extends Controller
         }
 
         $my_recurring_pending_tasks = DB::select(
-            "SELECT t1.*, t2.recurring_date, t2.status AS task_detail_status 
+            "SELECT t1.*, t2.id AS recurring_task_detail_id, t2.recurring_date, t2.status AS task_detail_status 
                 FROM (SELECT * FROM `recurring_tasks` WHERE assigned_to='$my_email' AND status=1 $where) AS t1
     
                 INNER JOIN
@@ -153,17 +173,19 @@ class RecurringTaskController extends Controller
         foreach ($my_recurring_pending_tasks as $k => $t){
 
             if($t->attachment != ''){
-                $view_doc_btn .= '<a href="'.asset('storage/app/public/uploads/'.$t->attachment).'" target="_blank" class="btn btn-sm btn-primary ml-1" title="VIEW DOCUMENT"><i class="fa fa-eye"></i></a>';
+                $view_doc_btn = '<a href="'.asset('storage/app/public/uploads/'.$t->attachment).'" target="_blank" class="btn btn-sm btn-primary ml-1" title="Attachment"><i class="fa fa-paperclip"></i></a>';
+            }else{
+                $view_doc_btn = '';
             }
 
             $new_row .= '<tr>';
             $new_row .= '<td class="text-center">'.($k+1).'</td>';
-            $new_row .= '<td>'.$t->task_name.'</td>';
+            $new_row .= '<td>'.$t->task_name.' '.$t->attachment.'</td>';
             $new_row .= '<td class="text-center">'.$t->assigned_by.'</td>';
             $new_row .= '<td class="text-center">'.($t->recurring_type == 0 ? 'MONTHLY' : ($t->recurring_type == 1 ? 'WEEKLY' : '')).'</td>';
             $new_row .= '<td class="text-center">'.$t->recurring_date.'</td>';
             $new_row .= '<td class="text-center">'.($t->task_detail_status == 2 ? 'Pending' : ($t->task_detail_status == 0 ? 'Terminated' : 'Completed')).'</td>';
-            $new_row .= '<td class="text-center"><span class="btn btn-sm btn-success" title="COMPLETE" onclick="completeRecurringTask('.$t->id.');"><i class="fa fa-check"></i></span>'.$view_doc_btn.'</td>';
+            $new_row .= '<td class="text-center"><span class="btn btn-sm btn-success" title="COMPLETE" onclick="completeRecurringTask('.$t->recurring_task_detail_id.');"><i class="fa fa-check"></i></span>'.$view_doc_btn.'</td>';
             $new_row .= '</tr>';
 
         }
@@ -174,10 +196,15 @@ class RecurringTaskController extends Controller
     public function completeRecurringTask(Request $request){
         $id = $request->id;
 
-        $recurring_task_info = RecurringTaskDetail::find($id);
-        $recurring_task_info->status = 1;
-        $recurring_task_info->actual_complete_date = date('Y-m-d');
-        $recurring_task_info->save();
+        DB::table('recurring_task_details')
+            ->where('id', $id)
+            ->where('status', 2)
+            ->update(['status' => 1, 'actual_complete_date' => date('Y-m-d')]);
+
+        DB::table('recurring_sub_task_details')
+            ->where('parent_recurring_task_id', $id)
+            ->where('status', 2)
+            ->update(['status' => 1, 'actual_complete_date' => date('Y-m-d')]);
 
         echo 'done';
     }
@@ -227,7 +254,9 @@ class RecurringTaskController extends Controller
         foreach ($assigned_recurring_tasks as $k => $t){
 
             if($t->attachment != ''){
-                $view_doc_btn .= '<a href="'.asset('storage/app/public/uploads/'.$t->attachment).'" target="_blank" class="btn btn-sm btn-primary ml-1" title="VIEW DOCUMENT"><i class="fa fa-eye"></i></a>';
+                $view_doc_btn = '<a href="'.asset('storage/app/public/uploads/'.$t->attachment).'" target="_blank" class="btn btn-sm btn-primary ml-1" title="Attachment"><i class="fa fa-paperclip"></i></a>';
+            }else{
+                $view_doc_btn = '';
             }
 
             $new_row .= '<tr>';
@@ -250,8 +279,9 @@ class RecurringTaskController extends Controller
     public function editRecurringTask($id){
 
         $recurring_task = RecurringTask::find($id);
+        $recurring_sub_tasks = RecurringSubTask::where('parent_recurring_task_id', $id)->get();
 
-        return view('edit_recurring_task')->with(['recurring_task'=>$recurring_task]);
+        return view('edit_recurring_task')->with(['recurring_task'=>$recurring_task, 'recurring_sub_tasks'=>$recurring_sub_tasks]);
     }
 
     public function updateRecurringTask(Request $request, $id){
@@ -299,6 +329,48 @@ class RecurringTaskController extends Controller
         $recuring_task->weekly_recurring_day = $request->weekly_recurring_day;
         $recuring_task->status = 1;
         $recuring_task->save();
+
+
+//        OLD SUB TASK DATA START
+        $sub_task_ids = $request->sub_task_ids;
+        $sub_task_name_olds = $request->sub_task_name_olds;
+        $responsible_person_olds = $request->responsible_person_olds;
+        $sub_task_delivery_date_olds = $request->sub_task_delivery_date_olds;
+        $status_olds = $request->status_olds;
+        if(isset($sub_task_ids)) {
+            foreach ($sub_task_ids as $k => $sub_task_id) {
+                $sub_task = RecurringSubTask::find($sub_task_id);
+
+                $sub_task->sub_task_name = $sub_task_name_olds[$k];
+                $sub_task->responsible_person = $responsible_person_olds[$k];
+                $sub_task->delivery_date = $sub_task_delivery_date_olds[$k];
+                $sub_task->status = $status_olds[$k];
+                $sub_task->save();
+            }
+        }
+//        OLD SUB TASK DATA END
+
+
+//        NEW SUB TASK DATA START
+        $sub_task_names = $request->sub_task_name;
+        $responsible_persons = $request->responsible_person;
+        $sub_task_delivery_dates = $request->sub_task_delivery_date;
+
+        if(isset($sub_task_names)){
+            foreach($sub_task_names as $k => $new_sub_task){
+                if(!empty($new_sub_task)){
+                    $sub_task_new = new RecurringSubTask();
+
+                    $sub_task_new->parent_recurring_task_id = $id;
+                    $sub_task_new->sub_task_name = $new_sub_task;
+                    $sub_task_new->responsible_person = $responsible_persons[$k];
+                    $sub_task_new->delivery_date = $sub_task_delivery_dates[$k];
+                    $sub_task_new->status = 1;
+                    $sub_task_new->save();
+                }
+            }
+        }
+//        NEW SUB TASK DATA END
 
         \Session::flash('message', 'Recurring Task Creation Successful!');
 

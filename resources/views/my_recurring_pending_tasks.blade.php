@@ -76,12 +76,12 @@
                                         <td class="text-center">{{ $t->recurring_date }}</td>
                                         <td class="text-center">{{ ($t->task_detail_status == 2 ? 'Pending' : ($t->task_detail_status == 0 ? 'Terminated' : 'Completed')) }}</td>
                                         <td class="text-center">
-                                            <span class="btn btn-sm btn-success" title="COMPLETE" onclick="completeRecurringTask({{ $t->id }});">
+                                            <span class="btn btn-sm btn-success" title="COMPLETE" onclick="completeRecurringTask({{ $t->recurring_task_detail_id }});">
                                                 <i class="fa fa-check"></i>
                                             </span>
                                             @if($t->attachment != '')
-                                                <a href="{{ asset('storage/app/public/uploads/'.$t->attachment) }}" target="_blank" class="btn btn-sm btn-primary" title="VIEW DOCUMENT">
-                                                    <i class="fa fa-eye"></i>
+                                                <a href="{{ asset('storage/app/public/uploads/'.$t->attachment) }}" target="_blank" class="btn btn-sm btn-primary" title="Attachment">
+                                                    <i class="fa fa-paperclip"></i>
                                                 </a>
                                             @endif
                                         </td>
@@ -134,8 +134,6 @@
                 data: {_token:"{{csrf_token()}}", id: id},
                 dataType: "html",
                 success: function (data) {
-
-                    console.log(data);
 
                     if(data == 'done'){
                         $("#search_btn").click();

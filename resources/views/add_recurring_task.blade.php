@@ -103,7 +103,26 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row mt-4">
+                            <div class="col-sm-12">
+                                <div class="mb-3">
+                                    <label for="task_assign_to" class="form-label">Sub-Tasks</label>
+                                    <table class="table table-bordered text-center" id="MyTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Task <span style="color: red">*</span></th>
+                                                <th>Responsible Person</th>
+                                                <th>Delivery</th>
+                                                <th title="ADD"><span class="btn btn-sm btn-success" onclick="addSubTaskRow()"><i class="fa fa-plus"></i></span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="sub_task_row">
 
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="mb-3">
@@ -119,6 +138,14 @@
     </div>
 
     <script type="text/javascript">
+
+        function addSubTaskRow(){
+            $("#sub_task_row").append('<tr><td><textarea class="form-control" name="sub_task_name[]" required="required"></textarea></td><td><input type="text" class="form-control" name="responsible_person[]" /></td><td><input type="date" class="form-control" name="sub_task_delivery_date[]" /></td><td title="DELETE"><span class="btn btn-sm btn-danger" id="DeleteButton"><i class="fa fa-archive"></i></span></td></tr>');
+        }
+
+        $("#MyTable").on("click", "#DeleteButton", function() {
+            $(this).closest("tr").remove();
+        });
 
         function checkRecurringType(){
             var recurring_type = $('#recurring_type').val();

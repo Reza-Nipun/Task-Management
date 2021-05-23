@@ -79,7 +79,10 @@
                 <td>{{ strtoupper($weekly_recurring_day) }}</td>
             </tr>
         @endif
-
+        <tr>
+            <td><a href="{{ url('/get_my_recurring_tasks/') }}" class="button">Recurring Task List</a></td>
+            <td></td>
+        </tr>
     </thead>
 </table>
 <br />
