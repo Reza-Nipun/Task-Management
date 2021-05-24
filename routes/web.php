@@ -84,6 +84,10 @@ Route::post('/get_assigned_recurring_tasks_filter', 'RecurringTaskController@get
 Route::get('/edit_recurring_task/{id}', 'RecurringTaskController@editRecurringTask')->name('edit_recurring_task');
 Route::post('/update_recurring_task/{id}', 'RecurringTaskController@updateRecurringTask')->name('update_recurring_task');
 Route::post('/complete_recurring_task', 'RecurringTaskController@completeRecurringTask')->name('complete_recurring_task');
+Route::post('/terminate_recurring_task', 'RecurringTaskController@terminateRecurringTask')->name('terminate_recurring_task');
+Route::get('/get_recurring_task_detail', 'RecurringTaskController@getRecurringTaskDetail')->name('get_recurring_task_detail');
+Route::get('/get_recurring_sub_task_detail', 'RecurringTaskController@getRecurringSubTaskDetail')->name('get_recurring_sub_task_detail');
+Route::post('/recurring_sub_task_status_change', 'RecurringTaskController@recurringSubTaskStatusChange')->name('recurring_sub_task_status_change');
 
 Route::get('/reschedule_task_from_email/{task_id}', 'AccessFromEmail@rescheduleTaskFromEmail')->name('reschedule_task_from_email');
 Route::post('/rescheduling_task/{task_id}', 'AccessFromEmail@rescheduleTaskDeliveryDate')->name('rescheduling_task');
@@ -102,4 +106,5 @@ Route::get('/auto_recurring_weekly_task', 'AccessFromEmail@autoRecurringWeeklyTa
 Route::get('/auto_mail_delivery_date_tasks_notification', 'AccessFromEmail@autoMailDeliveryDateTasksNotification')->name('auto_mail_delivery_date_tasks_notification');
 Route::get('/auto_mail_halfway_delivery_date_tasks_notification', 'AccessFromEmail@autoMailHalfwayDeliveryDateTasksNotification')->name('auto_mail_halfway_delivery_date_tasks_notification');
 Route::get('/auto_mail_meeting_notification', 'AccessFromEmail@autoMailMeetingNotification')->name('auto_mail_meeting_notification');
+Route::get('/auto_mail_delivery_date_recurring_tasks_notification', 'AccessFromEmail@autoMailDeliveryDateRecurringTasksNotification')->name('auto_mail_delivery_date_recurring_tasks_notification');
 Route::get('/test_mail', 'AccessFromEmail@testMail')->name('test_mail');

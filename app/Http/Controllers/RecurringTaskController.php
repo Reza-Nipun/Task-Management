@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\RecurringSubTask;
+use App\RecurringSubTaskDetail;
 use App\RecurringTaskDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -173,24 +174,75 @@ class RecurringTaskController extends Controller
         foreach ($my_recurring_pending_tasks as $k => $t){
 
             if($t->attachment != ''){
-                $view_doc_btn = '<a href="'.asset('storage/app/public/uploads/'.$t->attachment).'" target="_blank" class="btn btn-sm btn-primary ml-1" title="Attachment"><i class="fa fa-paperclip"></i></a>';
+                $view_doc_btn = '<a href="'.asset('storage/app/public/uploads/'.$t->attachment).'" target="_blank" class="btn btn-sm btn-warning ml-1" title="Attachment"><i class="fa fa-paperclip"></i></a>';
             }else{
                 $view_doc_btn = '';
             }
 
             $new_row .= '<tr>';
             $new_row .= '<td class="text-center">'.($k+1).'</td>';
-            $new_row .= '<td>'.$t->task_name.' '.$t->attachment.'</td>';
+            $new_row .= '<td>'.$t->task_name.'</td>';
             $new_row .= '<td class="text-center">'.$t->assigned_by.'</td>';
             $new_row .= '<td class="text-center">'.($t->recurring_type == 0 ? 'MONTHLY' : ($t->recurring_type == 1 ? 'WEEKLY' : '')).'</td>';
             $new_row .= '<td class="text-center">'.$t->recurring_date.'</td>';
             $new_row .= '<td class="text-center">'.($t->task_detail_status == 2 ? 'Pending' : ($t->task_detail_status == 0 ? 'Terminated' : 'Completed')).'</td>';
-            $new_row .= '<td class="text-center"><span class="btn btn-sm btn-success" title="COMPLETE" onclick="completeRecurringTask('.$t->recurring_task_detail_id.');"><i class="fa fa-check"></i></span>'.$view_doc_btn.'</td>';
+            $new_row .= '<td class="text-center"><span class="btn btn-sm btn-success" title="COMPLETE" onclick="completeRecurringTask('.$t->recurring_task_detail_id.');"><i class="fa fa-check"></i></span><span class="btn btn-sm btn-primary ml-1" title="View" onclick="getRecurringTaskDetail('.$t->recurring_task_detail_id.')"><i class="fa fa-eye"></i></span>'.$view_doc_btn.'</td>';
             $new_row .= '</tr>';
 
         }
 
         return $new_row;
+    }
+
+    public function getRecurringTaskDetail(Request $request){
+        $recurring_task_id = $request->recurring_task_id;
+
+        $recurring_tasks = DB::select("SELECT t1.*, t2.task_name, t2.task_description, t2.assigned_by, t2.assigned_to, t2.recurring_type, 
+                                    t2.last_date_of_month, t2.monthly_recurring_date, t2.weekly_recurring_day, t2.remarks 
+                                    FROM 
+                                    (SELECT * FROM `recurring_task_details` WHERE id=$recurring_task_id) AS t1
+                                    
+                                    INNER JOIN
+                                    `recurring_tasks` AS t2
+                                    ON t1.recurring_task_id=t2.id");
+
+        return response()->json($recurring_tasks, 200);
+    }
+
+    public function getRecurringSubTaskDetail(Request $request){
+        $id = $request->task_id;
+
+        $recurring_tasks = DB::select("SELECT t1.*, t2.sub_task_name, t2.sub_task_description, t2.responsible_person, t2.delivery_date 
+                            FROM
+                            (SELECT * FROM `recurring_sub_task_details` WHERE parent_recurring_task_id=$id) AS t1
+                            
+                            INNER JOIN
+                            recurring_sub_tasks AS t2
+                            ON t1.recurring_sub_task_id=t2.id");
+
+        return response()->json($recurring_tasks, 200);
+    }
+
+    public function recurringSubTaskStatusChange(Request $request){
+        $date = date('Y-m-d');
+
+        $id = $request->id;
+        $status = $request->status;
+
+        $sub_task = RecurringSubTaskDetail::find($id);
+        $sub_task->status = $status;
+
+        if($status == 1){
+            $sub_task->actual_complete_date = $date;
+        }
+
+        if($status == 0){
+            $sub_task->termination_date = $date;
+        }
+
+        $sub_task->save();
+
+        echo 'done';
     }
 
     public function completeRecurringTask(Request $request){
@@ -205,6 +257,22 @@ class RecurringTaskController extends Controller
             ->where('parent_recurring_task_id', $id)
             ->where('status', 2)
             ->update(['status' => 1, 'actual_complete_date' => date('Y-m-d')]);
+
+        echo 'done';
+    }
+
+    public function terminateRecurringTask(Request $request){
+        $id = $request->id;
+
+        DB::table('recurring_task_details')
+            ->where('id', $id)
+            ->where('status', 2)
+            ->update(['status' => 0, 'actual_complete_date' => date('Y-m-d')]);
+
+        DB::table('recurring_sub_task_details')
+            ->where('parent_recurring_task_id', $id)
+            ->where('status', 2)
+            ->update(['status' => 0, 'actual_complete_date' => date('Y-m-d')]);
 
         echo 'done';
     }

@@ -111,6 +111,49 @@ class AccessFromEmail extends Controller
 
     }
 
+    public function autoMailDeliveryDateRecurringTasksNotification(){
+        $date = date('Y-m-d');
+
+        $recurring_tasks = DB::select("SELECT t1.*, t2.task_name, t2.task_description, t2.assigned_by, t2.assigned_to, t2.recurring_type, 
+                                    t2.last_date_of_month, t2.monthly_recurring_date, t2.weekly_recurring_day, t2.remarks 
+                                    FROM 
+                                    (SELECT * FROM `recurring_task_details` WHERE recurring_date <= '$date' AND status=2) AS t1
+                                    
+                                    INNER JOIN
+                                    (SELECT * FROM `recurring_tasks` WHERE status=1) AS t2
+                                    ON t1.recurring_task_id=t2.id");
+
+        foreach ($recurring_tasks AS $t){
+
+            $assigned_to = $t->assigned_to;
+            $assigned_by = $t->assigned_by;
+
+            $data = array(
+                'recurring_task_id' => $t->id,
+                'task_name' => $t->task_name,
+                'task_description' => $t->task_description,
+                'assigned_by' => $assigned_by,
+                'recurring_type' => $t->recurring_type,
+                'weekly_recurring_day' => strtoupper(date('l', strtotime($t->recurring_date))),
+                'recurring_task_delivery_date' => $t->recurring_date,
+            );
+
+            $emails = array($assigned_to);
+
+            if($t->change_count > 3){
+                array_push($emails, $assigned_by);
+            }
+
+            Mail::send('emails.recurring_task_reminder_notification', $data, function($message) use($emails)
+            {
+                $message
+                    ->to($emails)
+                    ->subject('Reminder to Complete Recurring Task');
+            });
+
+        }
+    }
+
     public function autoMailHalfwayDeliveryDateTasksNotification(){
         $date = date('Y-m-d');
 
